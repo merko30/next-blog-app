@@ -1,0 +1,302 @@
+:root {
+--primary: #FF4E50;
+--lighter-primary: #FECEAB;
+--darker-primary: #C06C84;
+--t-black: rgba(0,0,0,0.54);
+--gray: #696969;
+--dark-gray: #838383;
+}
+
+html, body {
+    height: 100%;
+    
+}
+
+h1,h2,h3,h4,h5 {
+  margin: 0!important;
+  padding: 0!important;
+}
+
+main {
+  margin: 50px 0;
+}
+
+
+* {
+  font-family: Lato;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+#searchInput {
+  width: 80%;
+  margin: 10px auto;
+  display: block;
+  font-size: 30px;
+  border: 0;
+  padding: 30px;
+  outline: none!important;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-5 {
+  margin-top: 5px;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.center-text {
+  text-align: center!important;
+  margin: 20px 0!important;
+}
+
+.center-items {
+  justify-content: center!important;
+}
+
+.ui.menu {
+  border: none!important;
+  border-radius: 0!important;
+  box-shadow: none!important;
+}
+
+.ui.menu .item:before {
+  height: 0!important;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.link:hover {
+  color: #ededed;
+}
+
+
+.landing {
+  margin: 60px auto;
+}
+
+
+.form {
+  width: 55%;
+  margin: 0 auto;
+}
+
+input.form-control {
+  border: none;
+  border-bottom: 1px solid var(--t-black);
+  border-radius: 0;
+}
+
+
+input.form-control:focus {
+  outline: none;
+}
+
+
+.pagination {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+  margin: 40px;
+}
+
+.pagination-item {
+  padding: 10px;
+  font-size: 25px;
+  border: 1px solid #ededed;
+  cursor: pointer;
+}
+
+.pagination-item:hover {
+  background-color: #ededed;
+}
+
+.grid {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(3, minmax(150px, 1fr));
+  grid-gap: 5px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .grid {
+    grid-template-columns: minmax(150px, 1fr);
+  }
+}
+
+.ui.card {
+  margin: 5px!important;
+  width: 90%!important;
+}
+
+.ui.card > a {
+  color: rgba(0,0,0,0.84)!important;
+}
+
+.ui.card > a > .ui.image {
+  height: 220px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.ui.card > a > .header {
+  padding: 5px 10px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0,0,0,0.09);
+}
+
+.ui.card > a >.content > .description {
+  line-height:1.6em;
+  height:3.2em;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  padding: 0 10px;
+}
+
+
+.detail {
+  width: 70%;
+  margin: 0 auto;
+  
+}
+
+  .post-title {
+    margin: 15px!important;
+  }
+
+  h1,h5 {
+    margin: 5px!important;
+  }
+
+    .ui.reply.form {
+      margin-top: 50px;
+      width: 65%!important;
+  } 
+
+.detail-image {
+  height: 450px!important;
+  object-fit: cover;
+  margin: 20px 0;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border-radius: 12px;
+  min-width: 50%;
+
+}
+  .author-info {
+    margin-left: 5px;
+  }
+
+   .author-info > .description {
+      color: var(--gray);
+      font-weight: 200;
+    }
+
+  .author > .author-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    padding: 3px;
+    border: 1px solid rgba(0,0,0,0.09);
+  }
+
+
+
+.footer {
+  text-align: center;
+}
+
+
+
+.message {
+  width: 65%;
+}
+
+
+.comment-container {
+  display: flex;
+  margin-top: 30px;
+  padding: 20px;
+  align-items: center;
+}
+
+.comment-content {
+  margin-left: 10px;
+}
+
+.comment {
+  padding: 10px;
+  font-weight: 600;
+}
+
+.comment-author-x {
+  display: flex;
+}
+
+.comment-author,
+.comment-metadata {
+  font-size: 0.8em;
+  color: var(--dark-gray);
+}
+
+#x-icon {
+  cursor: pointer;
+  margin-left: auto!important;
+  margin-bottom: auto!important;
+}
+
+.comment-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  padding: 2px;
+  border: 1px solid #ededed;
+}

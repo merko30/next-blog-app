@@ -1,0 +1,28 @@
+{
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "react-backend",
+    "main": "server.js",
+    "scripts": {
+        "server": "node --experimental-modules server.mjs",
+        "client": "npm start --prefix client",
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^2.0.1",
+        "body-parser": "^1.18.3",
+        "concurrently": "^3.6.1",
+        "cors": "^2.8.4",
+        "dotenv": "^5.0.1",
+        "express": "^4.16.3",
+        "jsonwebtoken": "^8.3.0",
+        "mongoose": "^5.1.5",
+        "morgan": "^1.9.0",
+        "nodemon": "^1.17.5",
+        "passport": "^0.4.0",
+        "passport-jwt": "^4.0.0"
+    }
+}
