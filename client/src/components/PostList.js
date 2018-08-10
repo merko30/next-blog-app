@@ -67,7 +67,8 @@ class PostList extends React.Component {
                     value={this.state.searchTerm}
                 />
                 <div className="grid">
-                    {currentPosts && (filtered == null || filtered.length == 0)
+                    {currentPosts &&
+                    (filtered === null || filtered.length === 0)
                         ? currentPosts.map(p => {
                               return <PostItem key={p._id} post={p} />;
                           })
@@ -75,7 +76,7 @@ class PostList extends React.Component {
                               return <PostItem key={f._id} post={f} />;
                           })}
                 </div>
-                {((filtered && filtered.length) == 0 || filtered == null) && (
+                {((filtered && filtered.length === 0) || filtered === null) && (
                     <ul className="pagination">
                         {pages.map(n => {
                             return (

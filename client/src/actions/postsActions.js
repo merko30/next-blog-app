@@ -152,10 +152,9 @@ export const getAllPosts = state => state.posts.posts;
 export const getPostsByKeyword = createSelector(
     [getKeyword, getAllPosts],
     (keyword, posts) => {
-        return (
-            keyword &&
-            posts &&
-            posts.filter(p => p.title.toLowerCase().includes(keyword))
-        );
+        return keyword !== ""
+            ? posts &&
+                  posts.filter(p => p.title.toLowerCase().includes(keyword))
+            : [];
     }
 );
