@@ -199,40 +199,43 @@ router.post("/register", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
+    console.log(req.body);
     User.findOne({ username: req.body.username }, (err, user) => {
         if (err)
             res.status(400).send({ success: false, message: "Error: " + err });
         if (!user)
             res.status(400).send({ success: false, message: "User not found" });
-        bcrypt.compare(req.body.password, user.password, (err, match) => {
-            if (err) {
-                res.status(400).send({
-                    success: false,
-                    message: "Error: " + err
-                });
-            }
-            if (!match) {
-                res.status(401).send({
-                    success: false,
-                    message: "Wrong password"
-                });
-            } else {
-                const token = jwt.sign(
-                    { _id: user._id },
-                    process.env.JWT_SECRET
-                );
-                res.json({
-                    success: true,
-                    token: "Bearer " + token,
-                    user: {
-                        username: user.username,
-                        name: user.name,
-                        email: user.email
-                    },
-                    message: "You have successfully logged in."
-                });
-            }
-        });
+        if (user) {
+            bcrypt.compare(req.body.password, user.password, (err, match) => {
+                if (err) {
+                    res.status(400).send({
+                        success: false,
+                        message: "Error: " + err
+                    });
+                }
+                if (!match) {
+                    res.status(401).send({
+                        success: false,
+                        message: "Wrong password"
+                    });
+                } else {
+                    const token = jwt.sign(
+                        { _id: user._id },
+                        process.env.JWT_SECRET
+                    );
+                    res.json({
+                        success: true,
+                        token: "Bearer " + token,
+                        user: {
+                            username: user.username,
+                            name: user.name,
+                            email: user.email
+                        },
+                        message: "You have successfully logged in."
+                    });
+                }
+            });
+        }
     });
 });
 
