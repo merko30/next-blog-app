@@ -12,77 +12,82 @@ import { getComments, getCommentsByPostID } from "../actions/commentsActions";
 import { Loader, Image } from "semantic-ui-react";
 
 class PostDetail extends React.Component {
-  componentDidMount() {
-    const {
-      match: { params }
-    } = this.props;
-    this.props.getPost(params.id);
-    this.props.getComments();
-  }
+    componentDidMount() {
+        const {
+            match: { params }
+        } = this.props;
+        this.props.getPost(params.id);
+        this.props.getComments();
+    }
 
-  render() {
-    const { post, comments } = this.props;
-    console.log(typeof comments);
-    return (
-      <div>
-        {post ? (
-          <div className="detail">
-            <h1 className="post-title">{post.title}</h1>
-            <div className="author">
-              <img
-                className="author-image"
-                alt={post.author.name}
-                src={post.author.avatar}
-              />
-              <div className="author-info">
-                <h5>{post.author.name}</h5>
-                <h5 className="description">
-                  Full stack developer, working at Google
-                </h5>
-              </div>
+    render() {
+        const { post, comments } = this.props;
+        console.log(typeof comments);
+        return (
+            <div>
+                {post ? (
+                    <div className="detail">
+                        <h1 className="post-title">{post.title}</h1>
+                        <div className="author">
+                            <img
+                                className="author-image"
+                                alt={post.author.name}
+                                src={post.author.avatar}
+                            />
+                            <div className="author-info">
+                                <h5>{post.author.name}</h5>
+                                <h5 className="description">
+                                    Full stack developer, working at Google
+                                </h5>
+                            </div>
+                        </div>
+                        <Image
+                            className="detail-image"
+                            src={post.image}
+                            centered
+                            fluid
+                        />
+                        <p dangerouslySetInnerHTML={{ __html: post.body }} />
+                        {localStorage.getItem("user")
+                            ? JSON.parse(localStorage.getItem("user"))
+                                  .username === post.author.username && (
+                                  <Link to={`${post._id}/edit`}>Edit post</Link>
+                              )
+                            : null}
+                        {comments ? (
+                            comments.map((c, i) => {
+                                return <CommentItem comment={c} key={i} />;
+                            })
+                        ) : (
+                            <Loader active />
+                        )}
+                    </div>
+                ) : (
+                    <Loader active />
+                )}
+                <CommentForm />
             </div>
-            <Image className="detail-image" src={post.image} centered fluid />
-            <p dangerouslySetInnerHTML={{ __html: post.body }} />
-            {localStorage.getItem("user")
-              ? JSON.parse(localStorage.getItem("user"))._id ===
-                  post.author._id && (
-                  <Link to={`${post._id}/edit`}>Edit post</Link>
-                )
-              : null}
-            {comments ? (
-              comments.map((c, i) => {
-                return <CommentItem comment={c} key={i} />;
-              })
-            ) : (
-              <Loader active />
-            )}
-          </div>
-        ) : (
-          <Loader active />
-        )}
-        <CommentForm />
-      </div>
-    );
-  }
+        );
+    }
 }
 
 PostDetail.propTypes = {
-  post: PropTypes.object,
-  comments: PropTypes.array,
-  getPost: PropTypes.func,
-  getComments: PropTypes.func
+    post: PropTypes.object,
+    comments: PropTypes.array,
+    getPost: PropTypes.func,
+    getComments: PropTypes.func
 };
 
 const mapStateToProps = state => {
-  return {
-    post: state.posts.post,
-    comments: getCommentsByPostID(state)
-  };
+    return {
+        post: state.posts.post,
+        comments: getCommentsByPostID(state)
+    };
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    { getPost, getComments }
-  )(PostDetail)
+    connect(
+        mapStateToProps,
+        { getPost, getComments }
+    )(PostDetail)
 );

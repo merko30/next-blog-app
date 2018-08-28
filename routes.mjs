@@ -199,7 +199,6 @@ router.post("/register", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-    console.log(req.body);
     User.findOne({ username: req.body.username }, (err, user) => {
         if (err)
             res.status(400).send({ success: false, message: "Error: " + err });
