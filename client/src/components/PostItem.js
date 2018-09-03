@@ -3,21 +3,18 @@ import { Link } from "react-router-dom";
 
 import { Card, Image } from "semantic-ui-react";
 
-class PostItem extends React.Component {
-  render() {
-    const { post } = this.props;
-    return (
-      <Card>
+const PostItem = ({ post }) => (
+    <Card>
         <Link to={`/posts/${post._id}`}>
-          <Image src={post.image} />
-          <Card.Header>{post.title}</Card.Header>
-          <Card.Content>
-            <Card.Description>{post.body}</Card.Description>
-          </Card.Content>
+            <Image src={post.image} />
+            <Card.Header>{post.title}</Card.Header>
+            <Card.Content>
+                <Card.Description
+                    dangerouslySetInnerHTML={{ __html: post.body }}
+                />
+            </Card.Content>
         </Link>
-      </Card>
-    );
-  }
-}
+    </Card>
+);
 
 export default PostItem;

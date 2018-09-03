@@ -22,7 +22,6 @@ class PostDetail extends React.Component {
 
     render() {
         const { post, comments } = this.props;
-        console.log(typeof comments);
         return (
             <div>
                 {post ? (

@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import CKEditor from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 import { addPost, editPost } from "../../actions/postsActions";
 
 import { Form, Button, Message, Loader } from "semantic-ui-react";
@@ -60,8 +63,7 @@ class PostForm extends React.Component {
                 ...this.state.data,
                 title: post.title,
                 body: post.body,
-                image: post.image,
-                keywords: post.keywords.join(",")
+                image: post.image
             };
             this.setState({ data: newState });
         }
@@ -99,15 +101,20 @@ class PostForm extends React.Component {
                             onChange={this.handleChange}
                         />
                     </Form.Field>
-                    <Form.Field>
-                        <textarea
-                            placeholder="Post content"
-                            name="body"
-                            type="text"
-                            value={this.state.data.body}
-                            onChange={this.handleChange}
-                        />
-                    </Form.Field>
+                    <CKEditor
+                        editor={ClassicEditor}
+                        data={this.state.data.body}
+                        onInit={editor => {
+                            // You can store the "editor" and use when it's needed.
+                            console.log("Editor is ready to use!", editor);
+                        }}
+                        onChange={(event, editor) => {
+                            const data = editor.getData();
+                            this.setState({
+                                data: { ...this.state.data, body: data }
+                            });
+                        }}
+                    />
                     <Form.Field>
                         <input
                             placeholder="Image URL"
