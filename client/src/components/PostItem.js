@@ -1,5 +1,7 @@
 import React from "react";
+
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import { Card, Image } from "semantic-ui-react";
 
@@ -16,5 +18,9 @@ const PostItem = ({ post }) => (
         </Link>
     </Card>
 );
+
+PostItem.propTypes = {
+    post: PropTypes.object
+};
 
 export default PostItem;

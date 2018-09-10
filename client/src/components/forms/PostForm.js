@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { PropTypes } from "prop-types";
 
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -21,8 +22,6 @@ class PostForm extends React.Component {
             errors: {},
             loading: false
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange = e => {
@@ -134,6 +133,13 @@ class PostForm extends React.Component {
         );
     }
 }
+
+PostForm.propTypes = {
+    mode: PropTypes.string,
+    addPost: PropTypes.func,
+    editPost: PropTypes.func,
+    post: PropTypes.object
+};
 
 const mapStateToProps = state => {
     return {

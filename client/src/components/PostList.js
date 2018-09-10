@@ -19,9 +19,6 @@ class PostList extends React.Component {
             postsPerPage: 8,
             currentPage: 1
         };
-        this.filterPosts = this.filterPosts.bind(this);
-        this.onSearchChange = this.onSearchChange.bind(this);
-        this.setPage = this.setPage.bind(this);
     }
 
     componentDidMount() {
