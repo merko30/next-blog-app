@@ -7,10 +7,10 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import { addPost, editPost } from "../../actions/postsActions";
 
-import { Form, Button, Message, Loader } from "semantic-ui-react";
+import { Form, Button, Loader } from "semantic-ui-react";
 
 import Error from "../Utils/Error";
-import Message from "../Utils/Message";
+import Success from "../Utils/Success";
 
 class PostForm extends React.Component {
     constructor(props) {
@@ -35,23 +35,25 @@ class PostForm extends React.Component {
 
     validate = data => {
         const errors = {};
-
+        console.log(data);
         if (!data.title) {
             errors.title = "Title is required";
         }
         if (!data.image) {
             errors.image = "Image is required";
         }
-        if (data.title.length < 8) {
+        if (data.image.length > 0 && !data.image.match(/^\.|\.jpg$|.png/g)) {
+            errors.image = "Invalid image type";
+        }
+        if (data.title && data.title.length < 8) {
             errors.title = "Title should be longer than 8 characters";
         }
         if (!data.body) {
             errors.body = "Post content is required";
         }
-        if (data.body.length < 250) {
+        if (data.body.length > 0 && data.body.length < 250) {
             errors.body = "Post content should be longer than 250 characters";
         }
-
         return errors;
     };
 
