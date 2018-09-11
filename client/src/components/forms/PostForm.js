@@ -10,6 +10,7 @@ import { addPost, editPost } from "../../actions/postsActions";
 import { Form, Button, Message, Loader } from "semantic-ui-react";
 
 import Error from "../Utils/Error";
+import Message from "../Utils/Message";
 
 class PostForm extends React.Component {
     constructor(props) {
@@ -94,15 +95,7 @@ class PostForm extends React.Component {
         const { errors } = this.state;
         return (
             <div>
-                {message &&
-                    success && (
-                        <Message
-                            className="center aligned container"
-                            success
-                            header={message}
-                            content="You will be redirected"
-                        />
-                    )}
+                {message && success && <Success message={message} />}
                 {message && !success && <Error error={message} />}
                 {loading && <Loader active inline="centered" />}
                 <Form className="form " onSubmit={this.handleSubmit}>
