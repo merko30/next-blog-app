@@ -26,7 +26,7 @@ class PostDetail extends React.Component {
             <div>
                 {post ? (
                     <div className="detail">
-                        <h1 className="post-title">{post.title}</h1>
+                        <h1 className="detail-post-title">{post.title}</h1>
                         <div className="author">
                             <img
                                 className="author-image"
@@ -35,9 +35,6 @@ class PostDetail extends React.Component {
                             />
                             <div className="author-info">
                                 <h5>{post.author.name}</h5>
-                                <h5 className="description">
-                                    Full stack developer, working at Google
-                                </h5>
                             </div>
                         </div>
                         <Image

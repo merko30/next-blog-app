@@ -165,41 +165,38 @@ input.form-control:focus {
     }
 }
 
-.ui.card {
-    margin: 5px !important;
-    width: 90% !important;
+/* CARD */
+
+.card {
+    width: 320px;
+    height: 250px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
 }
 
-.ui.card > a {
-    color: rgba(0, 0, 0, 0.84) !important;
-}
-
-.ui.card > a > .ui.image {
-    height: 220px;
+.card-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    object-fit: cover;
+    background: rgba(0, 0, 0, 0.15);
+    padding: 1em !important;
 }
 
-.ui.card > a > .header {
-    padding: 5px 10px;
-    font-weight: 600;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+.card-text {
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    color: rgb(255, 255, 255);
 }
 
-.ui.card > a > .content > .description {
-    line-height: 1.6em;
-    height: 3.2em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: 0 10px;
-}
+/* DETAIL */
 
 .detail {
     width: 70%;
     margin: 0 auto;
 }
 
-.post-title {
+.detail-post-title {
     margin: 15px !important;
 }
 
@@ -243,13 +240,7 @@ h5 {
     border: 1px solid rgba(0, 0, 0, 0.09);
 }
 
-.footer {
-    text-align: center;
-}
-
-.message {
-    width: 65%;
-}
+/* COMMENT */
 
 .comment-container {
     display: flex;
@@ -295,4 +286,12 @@ h5 {
 .ck-content {
     height: 200px;
     margin-bottom: 1em;
+}
+
+.message {
+    width: 100% !important;
+}
+
+.footer {
+    text-align: center;
 }

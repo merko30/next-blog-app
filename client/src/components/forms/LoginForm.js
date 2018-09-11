@@ -5,7 +5,10 @@ import PropTypes from "prop-types";
 
 import { signIn } from "../../actions/authActions";
 
-import { Form, Button, Message, Loader } from "semantic-ui-react";
+import { Form, Button, Loader } from "semantic-ui-react";
+
+import Error from "../Utils/Error";
+import Success from "../Utils/Success";
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -56,24 +59,8 @@ class LoginForm extends React.Component {
         const { errors } = this.state;
         return (
             <div>
-                {message &&
-                    success && (
-                        <Message
-                            className="center aligned container"
-                            success
-                            header={message}
-                            content="You will be redirected"
-                        />
-                    )}
-                {message &&
-                    !success && (
-                        <Message
-                            className="center aligned container"
-                            error
-                            header={message}
-                            content="Try again"
-                        />
-                    )}
+                {message && success && <Success message={message} />}
+                {message && !success && <Error error={message} />}
                 {loading && <Loader active inline="centered" />}
                 <Form className="form " onSubmit={this.handleSubmit}>
                     <Form.Field>
@@ -86,7 +73,7 @@ class LoginForm extends React.Component {
                             onChange={this.handleChange}
                         />
                     </Form.Field>
-                    {errors.username && <Message header={errors.username} />}
+                    {errors.username && <Error error={errors.username} />}
                     <Form.Field>
                         <label>Password</label>
                         <input
@@ -97,7 +84,7 @@ class LoginForm extends React.Component {
                             onChange={this.handleChange}
                         />
                     </Form.Field>
-                    {errors.password && <Message header={errors.password} />}
+                    {errors.password && <Error error={errors.password} />}
                     <Button type="submit">Login</Button>
                     <Link to="/register" className="margin">
                         You don't have an account ? Sign Up

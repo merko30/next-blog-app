@@ -49,7 +49,7 @@ class CommentForm extends React.Component {
 
         if (!data.comment) errors.comment = "Comment is required";
         if (data.comment.length < 8)
-            errors.comment = "Comment must have at least eight characters";
+            errors.comment = "Comment must have at least 8 characters";
 
         return errors;
     };

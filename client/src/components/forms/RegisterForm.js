@@ -2,11 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { Form, Button, Message, Loader } from "semantic-ui-react";
+import { Form, Button, Loader } from "semantic-ui-react";
 
 import validator from "email-validator";
 
 import { signUp } from "../../actions/authActions";
+
+import Error from "../Utils/Error";
+import Success from "../Utils/Success";
 
 class RegisterForm extends React.Component {
     constructor(props) {
@@ -33,21 +36,31 @@ class RegisterForm extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         const errs = this.validate(this.state.data);
-        this.setState({
-            errors: errs
-        });
-        if (Object.keys(this.state.errors).length === 0) {
-            this.props.signUp(this.state.data);
-        }
+        this.setState(
+            {
+                errors: errs
+            },
+            () => {
+                if (Object.keys(this.state.errors).length === 0) {
+                    this.props.signUp(this.state.data);
+                }
+            }
+        );
     };
 
     validate = data => {
         const errors = {};
 
         if (!data.username) errors.username = "Username is required";
+        if (data.username && data.username.length < 4)
+            errors.username = "Username must be longer than 4 characters";
+
         if (!data.name) errors.name = "Name is required";
+        if (data.name && data.name.length < 8)
+            errors.name = "Name must be longer than 8 characters";
         if (!data.email) errors.email = "Email is required";
-        if (!validator.validate(data.email)) errors.email = "Invalid email";
+        if (data.email && !validator.validate(data.email))
+            errors.email = "Invalid email";
         if (!data.password) errors.password = "Password is required";
 
         return errors;
@@ -56,11 +69,10 @@ class RegisterForm extends React.Component {
     render() {
         const { errors, data } = this.state;
         const { message, loading, success } = this.props;
-        console.log();
         return (
             <div>
-                {message && success && <Message success header={message} />}
-                {message && !success && <Message error header={message} />}
+                {message && success && <Success message={message} />}
+                {message && !success && <Error error={message} />}
                 {loading && <Loader active inline="centered" />}
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Field>
@@ -72,9 +84,7 @@ class RegisterForm extends React.Component {
                             value={data.username}
                         />
                     </Form.Field>
-                    {errors.username && (
-                        <Message error header={errors.username} />
-                    )}
+                    {errors.username && <Error error={errors.username} />}
 
                     <Form.Field>
                         <input
@@ -85,7 +95,7 @@ class RegisterForm extends React.Component {
                             value={data.name}
                         />
                     </Form.Field>
-                    {errors.name && <Message error header={errors.name} />}
+                    {errors.name && <Error error={errors.name} />}
 
                     <Form.Field>
                         <input
@@ -106,7 +116,7 @@ class RegisterForm extends React.Component {
                             value={data.email}
                         />
                     </Form.Field>
-                    {errors.email && <Message error header={errors.email} />}
+                    {errors.email && <Error error={errors.email} />}
 
                     <Form.Field>
                         <input
@@ -117,9 +127,7 @@ class RegisterForm extends React.Component {
                             value={data.password}
                         />
                     </Form.Field>
-                    {errors.password && (
-                        <Message error header={errors.password} />
-                    )}
+                    {errors.password && <Error error={errors.password} />}
 
                     <Button type="submit">Register</Button>
                 </Form>

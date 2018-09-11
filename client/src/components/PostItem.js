@@ -1,22 +1,19 @@
 import React from "react";
-
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-
-import { Card, Image } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 const PostItem = ({ post }) => (
-    <Card>
-        <Link to={`/posts/${post._id}`}>
-            <Image src={post.image} />
-            <Card.Header>{post.title}</Card.Header>
-            <Card.Content>
-                <Card.Description
-                    dangerouslySetInnerHTML={{ __html: post.body }}
-                />
-            </Card.Content>
-        </Link>
-    </Card>
+    <Link to={`/posts/${post._id}`}>
+        <div
+            className="card"
+            style={{ backgroundImage: "url(" + post.image + ")" }}
+        >
+            <div className="card-title">
+                <h3 className="card-text">{post.title}</h3>
+                <p className="card-text">by {post.author.username}</p>
+            </div>
+        </div>
+    </Link>
 );
 
 PostItem.propTypes = {
