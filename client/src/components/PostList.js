@@ -73,23 +73,25 @@ class PostList extends React.Component {
                               return <PostItem key={f._id} post={f} />;
                           })}
                 </div>
-                {((filtered && filtered.length === 0) || filtered === null) && (
-                    <ul className="pagination">
-                        {pages.map(n => {
-                            return (
-                                <li
-                                    className="pagination-item"
-                                    id={n}
-                                    key={n}
-                                    onClick={this.setPage}
-                                >
-                                    {n}
-                                </li>
-                            );
-                        })}
-                    </ul>
-                )}
-                )}
+                {pages.length > 1 &&
+                    ((filtered && filtered.length === 0) ||
+                        filtered === null) && (
+                        <ul className="pagination">
+                            {pages.map(n => {
+                                return (
+                                    <li
+                                        className="pagination-item"
+                                        id={n}
+                                        key={n}
+                                        onClick={this.setPage}
+                                    >
+                                        {n}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    )}
+                )
             </div>
         );
     }

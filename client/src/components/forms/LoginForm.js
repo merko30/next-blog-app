@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 import { signIn } from "../../actions/authActions";
 
-import { Form, Button, Loader } from "semantic-ui-react";
+import { Form, Button, Loader, Container } from "semantic-ui-react";
 
 import Error from "../Utils/Error";
 import Success from "../Utils/Success";
@@ -58,7 +58,7 @@ class LoginForm extends React.Component {
         const { message, loading, success } = this.props;
         const { errors } = this.state;
         return (
-            <div>
+            <Container>
                 {message && success && <Success message={message} />}
                 {message && !success && <Error error={message} />}
                 {loading && <Loader active inline="centered" />}
@@ -90,7 +90,7 @@ class LoginForm extends React.Component {
                         You don't have an account ? Sign Up
                     </Link>
                 </Form>
-            </div>
+            </Container>
         );
     }
 }

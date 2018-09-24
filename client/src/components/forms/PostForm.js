@@ -42,7 +42,10 @@ class PostForm extends React.Component {
         if (!data.image) {
             errors.image = "Image is required";
         }
-        if (data.image.length > 0 && !data.image.match(/^\.|\.jpg$|.png/g)) {
+        if (
+            data.image.length > 0 &&
+            !data.image.match(/^\.|\.jpg$|.png$|.jpeg$/g)
+        ) {
             errors.image = "Invalid image type";
         }
         if (data.title && data.title.length < 8) {

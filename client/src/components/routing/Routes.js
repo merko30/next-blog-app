@@ -8,23 +8,32 @@ import PostList from "../PostList";
 import PostDetail from "../PostDetail";
 import AddEditPost from "../AddEditPost";
 import PrivateRoute from "./PrivateRoute";
+import GuestRoute from "./GuestRoute";
 
 class Routes extends React.Component {
-  render() {
-    return (
-      <main id="main">
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/posts" component={PostList} />
-          <PrivateRoute exact path="/posts/new" component={AddEditPost} />
-          <PrivateRoute exact path="/posts/:id/edit" component={AddEditPost} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/posts/:id" component={PostDetail} />
-        </Switch>
-      </main>
-    );
-  }
+    render() {
+        return (
+            <main id="main">
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/posts" component={PostList} />
+                    <PrivateRoute
+                        exact
+                        path="/posts/new"
+                        component={AddEditPost}
+                    />
+                    <PrivateRoute
+                        exact
+                        path="/posts/:id/edit"
+                        component={AddEditPost}
+                    />
+                    <GuestRoute exact path="/login" component={Login} />
+                    <GuestRoute exact path="/register" component={Register} />
+                    <Route exact path="/posts/:id" component={PostDetail} />
+                </Switch>
+            </main>
+        );
+    }
 }
 
 export default Routes;

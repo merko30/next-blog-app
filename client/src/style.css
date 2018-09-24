@@ -114,7 +114,7 @@ a:hover {
 
 .form {
     width: 55%;
-    margin: 0 auto;
+    margin: 1em auto;
 }
 
 input.form-control {
@@ -293,5 +293,10 @@ h5 {
 }
 
 .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: 4em 2em 2em;
     text-align: center;
 }
