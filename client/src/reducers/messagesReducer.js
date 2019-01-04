@@ -1,4 +1,4 @@
-import { SHOW_MESSAGE, CLEAR_MESSAGE } from "../actions/messagesActions";
+import { SHOW_MESSAGE, CLEAR_MESSAGE } from "../actions/messagesActions/types";
 
 const initialState = {
   message: null,

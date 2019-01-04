@@ -6,9 +6,9 @@ import { withRouter } from "react-router-dom";
 
 import { Button, Form } from "semantic-ui-react";
 
-import { addComment } from "../../actions/commentsActions";
+import { addComment } from "../../actions/commentsActions/commentsActions";
 
-class CommentForm extends React.Component {
+export class CommentForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -57,7 +57,9 @@ class CommentForm extends React.Component {
     render() {
         return (
             <Form reply onSubmit={this.handleSubmit}>
+
                 <Form.TextArea
+                    data-testid="comment"
                     name="comment"
                     value={this.state.data.comment}
                     onChange={this.handleChange}

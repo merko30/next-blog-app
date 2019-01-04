@@ -1,16 +1,17 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-var schema = mongoose.Schema;
+const schema = mongoose.Schema;
 
-var postSchema = new schema(
+const postSchema = new schema(
     {
         title: { type: String, required: true },
         author: { type: schema.Types.ObjectId, ref: "User" },
         body: { type: String, required: true },
         image: { type: String },
-        likes: { type: Number }
+        likes: { type: Number },
+        comments: [{ type: schema.Types.ObjectId, ref: "Comment" }]
     },
     { timestamps: { createdAt: "created_at" } }
 );
 
-export default mongoose.model("Post", postSchema);
+module.exports = mongoose.model("Post", postSchema);

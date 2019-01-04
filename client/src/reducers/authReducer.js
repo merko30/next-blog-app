@@ -6,13 +6,17 @@ import {
   SIGN_IN_SUCCESS,
   SIGN_IN_FAILED,
   LOGOUT,
-  LOGOUT_SUCCESS
-} from "../actions/authActions";
+  LOGOUT_SUCCESS,
+  GET_CURRENT_USER,
+  GET_CURRENT_USER_FAILED,
+  GET_CURRENT_USER_SUCCESS
+} from "../actions/authActions/types";
 
 const initialState = {
-  isLoggedIn: localStorage.getItem("token") ? true : false,
+  isLoggedIn: false,
   error: null,
-  loading: false
+  loading: false,
+  user: null
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -20,34 +24,42 @@ export const authReducer = (state = initialState, action) => {
     case SIGN_UP:
     case SIGN_IN:
     case LOGOUT:
+    case GET_CURRENT_USER:
       return {
         ...state,
         loading: true
       };
+    case GET_CURRENT_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        user: action.payload,
+        error: null,
+        isLoggedIn: true
+      };
+    case SIGN_IN_SUCCESS:
     case SIGN_UP_SUCCESS:
       return {
         ...state,
-        loading: false
-      };
-    case SIGN_IN_SUCCESS:
-      return {
-        ...state,
         loading: false,
-        isLoggedIn: true,
-        success: true
+        error: null,
       };
     case SIGN_UP_FAILED:
     case SIGN_IN_FAILED:
+    case GET_CURRENT_USER_FAILED:
       return {
         ...state,
         loading: false,
-        success: false
+        error: action.payload.message
+
       };
     case LOGOUT_SUCCESS:
       return {
         ...state,
         loading: false,
-        isLoggedIn: false
+        isLoggedIn: false,
+        error: null,
+        user: null
       };
     default:
       return state;

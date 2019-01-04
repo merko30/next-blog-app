@@ -1,25 +1,18 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import { Router } from "react-router-dom";
-import { createStore, applyMiddleware, compose } from "redux";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
-import logger from "redux-logger";
-import history from "./history";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import 'semantic-ui-css/semantic.min.css'
+import { Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-import "./style.css";
-import "semantic-ui-css/semantic.css";
+import App from './App';
 
-import reducer from "./reducers/index";
+import history from './history';
+import { store } from './store';
 
-const store = createStore(reducer, compose(applyMiddleware(thunk, logger)));
-
-ReactDOM.render(
-  <Provider store={store}>
+ReactDOM.render(<Provider store={store}>
     <Router history={history}>
-      <App />
+        <App />
     </Router>
-  </Provider>,
-  document.getElementById("root")
-);
+</Provider>, document.getElementById('root'));
+

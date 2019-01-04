@@ -2,60 +2,65 @@ import React from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 
-import CKEditor from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-import { addPost, editPost } from "../../actions/postsActions";
+import { addPost, editPost } from "../../actions/postsActions/postsActions";
 
 import { Form, Button, Loader } from "semantic-ui-react";
 
 import Error from "../Utils/Error";
 import Success from "../Utils/Success";
 
-class PostForm extends React.Component {
+export class PostForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             data: {
                 title: "",
                 body: "",
-                image: ""
+                image: {}
             },
             errors: {},
-            loading: false
+            loading: false,
+            wantToChangeCoverImage: false
         };
     }
 
     handleChange = e => {
-        this.setState({
-            ...this.state,
-            data: { ...this.state.data, [e.target.name]: e.target.value }
-        });
+        let { name, value } = e.target;
+        if (name === 'image') {
+            this.setState({
+                ...this.state,
+                data: { ...this.state.data, image: e.target.files[0] }
+            })
+        } else {
+            this.setState({
+                ...this.state,
+                data: { ...this.state.data, [name]: value }
+            });
+        }
     };
+
 
     validate = data => {
         const errors = {};
-        console.log(data);
         if (!data.title) {
             errors.title = "Title is required";
         }
-        if (!data.image) {
-            errors.image = "Image is required";
+        if (data.title && data.title.length < 12) {
+            errors.title = "Title should be longer than 12 characters";
         }
-        if (
-            data.image.length > 0 &&
-            !data.image.match(/^\.|\.jpg$|.png$|.jpeg$/g)
-        ) {
+        if (Object.keys(data.image).keys === 0) {
+            errors.image = "Cover image is required";
+        }
+        if (Object.keys(data.image).length > 0 &&
+            !(data.image.type === 'image/jpg' || data.image.type === 'image/jpeg' || data.image.type === 'image/png')) {
             errors.image = "Invalid image type";
-        }
-        if (data.title && data.title.length < 8) {
-            errors.title = "Title should be longer than 8 characters";
         }
         if (!data.body) {
             errors.body = "Post content is required";
         }
-        if (data.body.length > 0 && data.body.length < 250) {
-            errors.body = "Post content should be longer than 250 characters";
+        if (data.body.length < 150) {
+            errors.body = "Post content should be longer than 150 characters";
         }
         return errors;
     };
@@ -63,24 +68,27 @@ class PostForm extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         const errs = this.validate(this.state.data);
-        this.setState(
-            {
-                errors: errs
-            },
-            () => {
-                if (Object.keys(this.state.errors).length === 0) {
-                    if (this.props.mode === "add") {
-                        this.props.addPost(this.state.data);
-                    } else if (this.props.mode === "edit") {
-                        this.props.editPost(
-                            this.props.post._id,
-                            this.state.data
-                        );
-                    }
+        this.setState({ errors: errs }, () => {
+            if (Object.keys(this.state.errors).length === 0) {
+                if (this.props.mode === "add") {
+                    this.props.addPost(this.state.data);
+                } else if (this.props.mode === "edit") {
+                    this.props.editPost(
+                        this.state.data,
+                        this.props.post._id
+                    );
                 }
             }
+        }
         );
     };
+
+    toggleChangeImage = () => {
+        this.setState(({ wantToChangeCoverImage }) =>
+            ({ wantToChangeCoverImage: !wantToChangeCoverImage })
+        )
+    }
+
 
     componentDidMount() {
         const { post, mode } = this.props;
@@ -89,15 +97,21 @@ class PostForm extends React.Component {
                 ...this.state.data,
                 title: post.title,
                 body: post.body,
-                image: post.image
+                //image: post.image
             };
             this.setState({ data: newState });
         }
     }
 
+    componentWillUnmount() {
+        this.setState({
+            wantToChangeCoverImage: false
+        })
+    }
+
     render() {
-        const { message, loading, success } = this.props;
-        const { errors } = this.state;
+        const { message, loading, success, mode } = this.props;
+        const { errors, wantToChangeCoverImage } = this.state;
         return (
             <div>
                 {message && success && <Success message={message} />}
@@ -105,7 +119,9 @@ class PostForm extends React.Component {
                 {loading && <Loader active inline="centered" />}
                 <Form className="form " onSubmit={this.handleSubmit}>
                     <Form.Field>
+                        <label htmlFor="title">Title</label>
                         <input
+                            id="title"
                             placeholder="Post title"
                             name="title"
                             type="text"
@@ -114,26 +130,31 @@ class PostForm extends React.Component {
                         />
                         {errors.title && <Error error={errors.title} />}
                     </Form.Field>
-                    <CKEditor
-                        editor={ClassicEditor}
-                        data={this.state.data.body}
-                        onChange={(event, editor) => {
-                            const data = editor.getData();
-                            this.setState({
-                                data: { ...this.state.data, body: data }
-                            });
-                        }}
-                    />
-                    {errors.body && <Error error={errors.body} />}
                     <Form.Field>
-                        <input
-                            placeholder="Image URL"
-                            name="image"
+                        <label htmlFor="body">Post content</label>
+                        <textarea
+                            id="body"
+                            placeholder="Post body"
+                            name="body"
                             type="text"
-                            value={this.state.data.image}
+                            value={this.state.data.body}
                             onChange={this.handleChange}
                         />
                     </Form.Field>
+                    {errors.body && <Error error={errors.body} />}
+                    {(mode === 'add' || (mode === 'edit' && wantToChangeCoverImage)) && <Form.Field>
+                        <label htmlFor="image">Cover Image</label>
+                        <input
+                            id="image"
+                            placeholder="Cover image"
+                            name="image"
+                            type="file"
+                            onChange={this.handleChange}
+                        />
+                    </Form.Field>}
+                    {mode === 'edit' && <Button type="button" onClick={this.toggleChangeImage}>
+                        {wantToChangeCoverImage ? "Cancel" : "Change cover image"}
+                    </Button>}
                     {errors.image && <Error error={errors.image} />}
 
                     <Button type="submit">

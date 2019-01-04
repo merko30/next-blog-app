@@ -2,43 +2,47 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { removeComment } from "../actions/commentsActions";
+import { removeComment } from "../actions/commentsActions/commentsActions";
 
 import { Icon } from "semantic-ui-react";
 
-class CommentItem extends React.Component {
+export class CommentItem extends React.Component {
     render() {
-        const { comment } = this.props;
-        return (
-            <div className="comment-container">
-                <img
-                    className="comment-avatar"
-                    alt={comment.author.name}
-                    as="a"
-                    src={comment.author.avatar}
-                />
-                <div className="comment-content">
-                    <div className="comment-author">{comment.author.name}</div>
-                    <div>
-                        <div className="comment-metadata">
-                            {comment.created_at.split("T")[0]}
+        const { comment, postID, currentUser, loggedIn } = this.props;
+        if (comment) {
+
+            return (
+                <div className="comment-container">
+                    <img
+                        className="comment-avatar"
+                        alt={comment.author.name}
+                        as="a"
+                        src={`http://localhost:5000/uploads/${comment.author.avatar}`}
+                    />
+                    <div className="comment-content">
+                        <div className="comment-author">{comment.author.name}</div>
+                        <div>
+                            <div className="comment-metadata">
+                                {comment.created_at.split("T")[0]}
+                            </div>
                         </div>
+                        <div className="comment">{comment.comment}</div>
                     </div>
-                    <div className="comment">{comment.comment}</div>
+                    {loggedIn && currentUser &&
+                        comment.author._id ===
+                        currentUser._id && (
+                            <Icon
+                                data-testid="x-icon"
+                                name="close"
+                                id="x-icon"
+                                onClick={() =>
+                                    this.props.removeComment(comment._id, postID)
+                                }
+                            />
+                        )}
                 </div>
-                {localStorage.getItem("user") &&
-                    comment.author.username ===
-                        JSON.parse(localStorage.getItem("user")).username && (
-                        <Icon
-                            name="close"
-                            id="x-icon"
-                            onClick={() =>
-                                this.props.removeComment(comment._id)
-                            }
-                        />
-                    )}
-            </div>
-        );
+            );
+        }
     }
 }
 
@@ -47,9 +51,10 @@ CommentItem.propTypes = {
     comment: PropTypes.object
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ auth }) => {
     return {
-        loading: state.comments.loading
+        currentUser: auth.user,
+        loggedIn: auth.isLoggedIn
     };
 };
 

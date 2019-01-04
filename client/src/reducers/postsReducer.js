@@ -10,9 +10,9 @@ import {
   ADD_POST_FAILED,
   EDIT_POST,
   EDIT_POST_SUCCESS,
-  EDIT_POST_FAILED,
-  SET_KEYWORD
-} from "../actions/postsActions";
+  EDIT_POST_FAILED
+
+} from "../actions/postsActions/types";
 
 const initialState = {
   posts: [],
@@ -73,11 +73,7 @@ export const postsReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload.error
       };
-    case SET_KEYWORD:
-      return {
-        ...state,
-        keyword: action.payload
-      };
+
     default:
       return state;
   }

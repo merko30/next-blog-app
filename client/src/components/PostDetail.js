@@ -6,32 +6,32 @@ import { PropTypes } from "prop-types";
 import CommentForm from "./forms/CommentForm";
 import CommentItem from "./CommentItem";
 
-import { getPost } from "../actions/postsActions";
-import { getComments, getCommentsByPostID } from "../actions/commentsActions";
+import { getPost } from "../actions/postsActions/postsActions";
 
-import { Loader, Image } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 
-class PostDetail extends React.Component {
+export class PostDetail extends React.Component {
     componentDidMount() {
         const {
             match: { params }
         } = this.props;
         this.props.getPost(params.id);
-        this.props.getComments();
     }
 
+
+
     render() {
-        const { post, comments } = this.props;
+        const { post, currentUser, loggedIn } = this.props;
         return (
             <div>
-                {post ? (
+                {post && (
                     <div className="detail">
                         <h1 className="detail-post-title">{post.title}</h1>
                         <div className="author">
                             <img
                                 className="author-image"
                                 alt={post.author.name}
-                                src={post.author.avatar}
+                                src={'http://localhost:5000/uploads/' + post.author.avatar}
                             />
                             <div className="author-info">
                                 <h5>{post.author.name}</h5>
@@ -39,27 +39,20 @@ class PostDetail extends React.Component {
                         </div>
                         <Image
                             className="detail-image"
-                            src={post.image}
+                            src={'http://localhost:5000/uploads/' + post.image}
                             centered
                             fluid
                         />
                         <p dangerouslySetInnerHTML={{ __html: post.body }} />
-                        {localStorage.getItem("user")
-                            ? JSON.parse(localStorage.getItem("user"))
-                                  .username === post.author.username && (
-                                  <Link to={`${post._id}/edit`}>Edit post</Link>
-                              )
+                        {loggedIn && currentUser._id === post.author._id ? (
+                            <Link to={`${post._id}/edit`}>Edit post</Link>
+                        )
                             : null}
-                        {comments ? (
-                            comments.map((c, i) => {
-                                return <CommentItem comment={c} key={i} />;
-                            })
-                        ) : (
-                            <Loader active />
-                        )}
+                        {post.comments.map(comment => {
+                            return <CommentItem key={comment._id} postID={post._id} comment={comment} />
+                        })}
+
                     </div>
-                ) : (
-                    <Loader active />
                 )}
                 <CommentForm />
             </div>
@@ -68,22 +61,39 @@ class PostDetail extends React.Component {
 }
 
 PostDetail.propTypes = {
-    post: PropTypes.object,
-    comments: PropTypes.array,
-    getPost: PropTypes.func,
-    getComments: PropTypes.func
+    post: PropTypes.shape({
+        title: PropTypes.string,
+        body: PropTypes.string,
+        image: PropTypes.string,
+        author: PropTypes.shape({
+            name: PropTypes.string,
+            username: PropTypes.string,
+            email: PropTypes.string,
+            _id: PropTypes.string,
+        }).isRequired
+    }),
+    getPost: PropTypes.func.isRequired,
+    currentUser: PropTypes.shape({
+        name: PropTypes.string,
+        username: PropTypes.string,
+        email: PropTypes.string,
+        _id: PropTypes.string,
+    })
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ posts, auth }) => {
     return {
-        post: state.posts.post,
-        comments: getCommentsByPostID(state)
+        post: posts.post,
+        currentUser: auth.user,
+        loggedIn: auth.isLoggedIn
     };
 };
+
+
 
 export default withRouter(
     connect(
         mapStateToProps,
-        { getPost, getComments }
+        { getPost }
     )(PostDetail)
 );

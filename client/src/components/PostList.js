@@ -1,13 +1,8 @@
 import React from "react";
 import { PropTypes } from "prop-types";
-import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
-import {
-    getPosts,
-    setKeyword,
-    getPostsByKeyword
-} from "../actions/postsActions";
+import { getPosts } from "../actions/postsActions/postsActions";
 
 import PostItem from "./PostItem";
 
@@ -15,9 +10,7 @@ class PostList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchTerm: "",
-            postsPerPage: 8,
-            currentPage: 1
+            searchTerm: ""
         };
     }
 
@@ -25,73 +18,19 @@ class PostList extends React.Component {
         this.props.getPosts();
     }
 
-    setPage = e => {
-        this.setState({
-            currentPage: e.target.id
-        });
-    };
 
-    onSearchChange = e => {
-        this.setState({
-            searchTerm: e.target.value
-        });
-    };
-
-    filterPosts = () => {
-        this.props.setKeyword(this.state.searchTerm);
-    };
 
     render() {
-        const { postsPerPage, currentPage } = this.state;
-        const { posts, filtered } = this.props;
-
-        const lastPost = currentPage * postsPerPage;
-        const firstPost = lastPost - postsPerPage;
-        const currentPosts = posts.slice(firstPost, lastPost);
-
-        const pages = [];
-        for (var i = 1; i <= Math.ceil(posts.length / postsPerPage); i++) {
-            pages.push(i);
-        }
+        const { posts } = this.props;
         return (
             <div>
-                <input
-                    type="text"
-                    onChange={this.onSearchChange}
-                    placeholder="Search posts"
-                    id="searchInput"
-                    onKeyUp={this.filterPosts}
-                    value={this.state.searchTerm}
-                />
+
                 <div className="grid">
-                    {currentPosts &&
-                    (filtered === null || filtered.length === 0)
-                        ? currentPosts.map(p => {
-                              return <PostItem key={p._id} post={p} />;
-                          })
-                        : filtered.map(f => {
-                              return <PostItem key={f._id} post={f} />;
-                          })}
+                    {posts && posts.map(f => {
+                        return <PostItem key={f._id} post={f} />;
+                    })}
                 </div>
-                {pages.length > 1 &&
-                    ((filtered && filtered.length === 0) ||
-                        filtered === null) && (
-                        <ul className="pagination">
-                            {pages.map(n => {
-                                return (
-                                    <li
-                                        className="pagination-item"
-                                        id={n}
-                                        key={n}
-                                        onClick={this.setPage}
-                                    >
-                                        {n}
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    )}
-                )
+
             </div>
         );
     }
@@ -99,21 +38,20 @@ class PostList extends React.Component {
 
 PostList.propTypes = {
     getPosts: PropTypes.func,
-    setKeyword: PropTypes.func,
-    posts: PropTypes.array,
-    filtered: PropTypes.array
+    posts: PropTypes.array
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ posts }) => {
     return {
-        posts: state.posts.posts,
-        filtered: getPostsByKeyword(state)
+        posts: posts.posts
     };
 };
 
-export default withRouter(
+export { PostList }
+
+export default
     connect(
         mapStateToProps,
-        { getPosts, setKeyword }
+        { getPosts }
     )(PostList)
-);
+

@@ -1,27 +1,44 @@
 {
-    "name": "react-front",
-    "version": "0.1.0",
-    "private": true,
-    "dependencies": {
-        "email-validator": "^2.0.4",
-        "history": "^4.7.2",
-        "react": "^16.4.1",
-        "react-dom": "^16.4.1",
-        "react-loading": "^2.0.2",
-        "react-redux": "^5.0.7",
-        "react-router-dom": "^4.3.1",
-        "react-scripts": "1.1.4",
-        "redux": "^4.0.0",
-        "redux-logger": "^3.0.6",
-        "redux-thunk": "^2.3.0",
-        "reselect": "^3.0.1",
-        "semantic-ui-css": "^2.3.2",
-        "semantic-ui-react": "^0.81.1"
-    },
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test --env=jsdom",
-        "eject": "react-scripts eject"
-    }
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^11.2.0",
+    "@ckeditor/ckeditor5-react": "^1.1.0",
+    "email-validator": "^2.0.4",
+    "faker": "^4.1.0",
+    "history": "^4.7.2",
+    "jwt-decode": "^2.2.0",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-redux": "^6.0.0",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.2",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.84.0"
+  },
+  "proxy": "http://localhost:5000",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "fetch-mock": "^7.3.0",
+    "react-testing-library": "^5.4.2",
+    "redux-mock-store": "^1.5.3"
+  }
 }

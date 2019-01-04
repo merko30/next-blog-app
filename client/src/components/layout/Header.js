@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 
 import { Menu } from "semantic-ui-react";
 
-import { logout } from "../../actions/authActions";
+import { logout } from "../../actions/authActions/authActions";
 
 class Header extends React.Component {
   render() {
@@ -19,22 +19,22 @@ class Header extends React.Component {
         <Menu.Menu position="right">
           {this.props.loggedIn && (
             <Menu.Item>
-              <Link to="/posts/new">Add new post</Link>
+              <Link to="/post/new">Add new post</Link>
             </Menu.Item>
           )}
           {this.props.loggedIn ? (
             <Menu.Item>
-              <a className="link" onClick={this.props.logout}>
+              <button className="link" onClick={this.props.logout}>
                 Logout
-              </a>
+              </button>
             </Menu.Item>
           ) : (
-            <Menu.Item>
-              <Link to="/login" className="link">
-                Sign in
+              <Menu.Item>
+                <Link to="/login" className="link">
+                  Sign in
               </Link>
-            </Menu.Item>
-          )}
+              </Menu.Item>
+            )}
         </Menu.Menu>
       </Menu>
     );

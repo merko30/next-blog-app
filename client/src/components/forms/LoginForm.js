@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { signIn } from "../../actions/authActions";
+import { signIn } from "../../actions/authActions/authActions";
 
 import { Form, Button, Loader, Container } from "semantic-ui-react";
 
 import Error from "../Utils/Error";
 import Success from "../Utils/Success";
 
-class LoginForm extends React.Component {
+export class LoginForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -55,17 +55,18 @@ class LoginForm extends React.Component {
     };
 
     render() {
-        const { message, loading, success } = this.props;
+        const { message, loading, error } = this.props;
         const { errors } = this.state;
         return (
             <Container>
-                {message && success && <Success message={message} />}
-                {message && !success && <Error error={message} />}
+                {error && <Error error={error} />}
+                {message && <Success message={message} />}
                 {loading && <Loader active inline="centered" />}
                 <Form className="form " onSubmit={this.handleSubmit}>
                     <Form.Field>
-                        <label>Username</label>
+                        <label htmlFor="username">Username</label>
                         <input
+                            id="username"
                             placeholder="Username"
                             name="username"
                             type="text"
@@ -75,8 +76,9 @@ class LoginForm extends React.Component {
                     </Form.Field>
                     {errors.username && <Error error={errors.username} />}
                     <Form.Field>
-                        <label>Password</label>
+                        <label htmlFor="password">Password</label>
                         <input
+                            id="password"
                             placeholder="Password"
                             name="password"
                             type="password"
@@ -99,11 +101,11 @@ LoginForm.propTypes = {
     signIn: PropTypes.func
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ messages, auth }) => {
     return {
-        message: state.messages.message,
-        loading: state.auth.loading,
-        success: state.messages.success
+        message: messages.message,
+        loading: auth.loading,
+        error: auth.error
     };
 };
 
