@@ -6,15 +6,13 @@ import { Form, Button, Loader } from "semantic-ui-react";
 
 import validator from "email-validator";
 
-import { signUp } from "../../actions/authActions/authActions";
+import { signUp } from "../../actions";
 
-import Error from "../Utils/Error";
-import Success from "../Utils/Success";
+import { Input } from './components';
+import { Error, Success } from '../';
 
-export class RegisterForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
+class RegisterForm extends React.Component {
+        state = {
             data: {
                 username: "",
                 name: "",
@@ -24,7 +22,6 @@ export class RegisterForm extends React.Component {
             },
             errors: {}
         };
-    }
 
     handleChange = e => {
         let { name, value } = e.target;
@@ -82,7 +79,7 @@ export class RegisterForm extends React.Component {
     };
 
     render() {
-        const { errors, data } = this.state;
+        const { errors, data: { username, name, email, password } } = this.state;
         const { message, loading, error } = this.props;
         return (
             <div>
@@ -90,33 +87,25 @@ export class RegisterForm extends React.Component {
                 {error && <Error error={error} />}
                 {loading && <Loader active inline="centered" />}
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Field>
+                 <Input 
+                    id="username"
+                    name="username"
+                    type="text"
+                    label="Username"
+                    onChange={this.handleChange}
+                    value={username}
+                    error={errors.username && errors.username}
+                 />
 
-                        <label htmlFor="username">Username</label>
-                        <input
-                            id="username"
-                            placeholder="Username"
-                            name="username"
-                            type="text"
-                            onChange={this.handleChange}
-                            value={data.username}
-                        />
-                    </Form.Field>
-                    {errors.username && <Error error={errors.username} />}
-
-                    <Form.Field>
-
-                        <label htmlFor="name">Name</label>
-                        <input
-                            id="name"
-                            placeholder="Name"
-                            name="name"
-                            type="text"
-                            onChange={this.handleChange}
-                            value={data.name}
-                        />
-                    </Form.Field>
-                    {errors.name && <Error error={errors.name} />}
+                <Input 
+                    id="name"
+                    name="name"
+                    type="text"
+                    label="Name"
+                    onChange={this.handleChange}
+                    value={name}
+                    error={errors.name && errors.name}
+                 />
 
 
                     <Form.Field>
@@ -130,33 +119,24 @@ export class RegisterForm extends React.Component {
                         />
                     </Form.Field>
                     {errors.avatar && <Error error={errors.avatar} />}
-                    <Form.Field>
-
-                        <label htmlFor="email">Email</label>
-                        <input
-                            id="email"
-                            placeholder="Email"
-                            name="email"
-                            type="email"
-                            onChange={this.handleChange}
-                            value={data.email}
-                        />
-                    </Form.Field>
-                    {errors.email && <Error error={errors.email} />}
-
-                    <Form.Field>
-
-                        <label htmlFor="password">Password</label>
-                        <input
-                            id="password"
-                            placeholder="Password"
-                            name="password"
-                            type="password"
-                            onChange={this.handleChange}
-                            value={data.password}
-                        />
-                    </Form.Field>
-                    {errors.password && <Error error={errors.password} />}
+                    <Input 
+                    id="email"
+                    name="email"
+                    type="email"
+                    label="Email"
+                    onChange={this.handleChange}
+                    value={email}
+                    error={errors.email && errors.email}
+                 />
+                    <Input 
+                    id="password"
+                    name="password"
+                    type="password"
+                    label="Password"
+                    onChange={this.handleChange}
+                    value={password}
+                    error={errors.password && errors.password}
+                 />
 
                     <Button type="submit">Register</Button>
                 </Form>

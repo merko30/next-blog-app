@@ -94,7 +94,6 @@ router.put(
 
         Post.findOne({ _id: req.params.id }, (err, post) => {
             if (err) next(err)
-            console.log(post, req.body)
             if (post.author.equals(req.user._id)) {
                 post.title = req.body.title;
                 post.body = req.body.body;

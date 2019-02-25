@@ -59,13 +59,17 @@ export const postsReducer = (state = initialState, action) => {
         error: action.payload
       };
     case ADD_POST:
-    case ADD_POST_SUCCESS:
     case EDIT_POST:
+    return {
+      ...state,
+      loading: true
+    };
+    case ADD_POST_SUCCESS:
     case EDIT_POST_SUCCESS:
       return {
         ...state,
-        loading: true
-      };
+        loading: false,
+      }
     case ADD_POST_FAILED:
     case EDIT_POST_FAILED:
       return {

@@ -1,12 +1,12 @@
 import React from "react";
 
-import PostList from "../PostList";
+import { PostContainer } from "components";
 
 class Home extends React.Component {
   render() {
     return (
       <div>
-        <PostList />
+        <PostContainer />
       </div>
     );
   }

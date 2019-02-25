@@ -1,8 +1,8 @@
 import history from '../../history';
 import { CLEAR_MESSAGE } from '../messagesActions/types';
-import { showMessage } from '../messagesActions/messagesActions';
+import { showMessage } from 'actions';
 
-import { store } from '../../store';
+import { store } from 'store';
 
 // function which takes a message and location to redirect
 

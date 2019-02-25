@@ -1,13 +1,11 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
-import PostForm from "./forms/PostForm";
+import { PostForm } from "components";
 
 class AddEditPost extends React.Component {
     render() {
-        const {
-            match: { params }
-        } = this.props;
+        const { match: { params }} = this.props;
         return (
             <div>
                 {!params.id ? (

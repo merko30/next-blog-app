@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 
 import { Menu } from "semantic-ui-react";
 
-import { logout } from "../../actions/authActions/authActions";
+import { logout } from "../../actions";
 
 class Header extends React.Component {
   render() {

@@ -6,19 +6,17 @@ import { withRouter } from "react-router-dom";
 
 import { Button, Form } from "semantic-ui-react";
 
-import { addComment } from "../../actions/commentsActions/commentsActions";
+import { addComment } from "actions";
 
 export class CommentForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
+        
+    state = {
             data: {
                 comment: ""
             },
             errors: {},
             loading: false
         };
-    }
 
     handleChange = e => {
         this.setState({
@@ -28,19 +26,20 @@ export class CommentForm extends React.Component {
     };
 
     handleSubmit = e => {
-        const {
-            match: { params }
-        } = this.props;
         e.preventDefault();
-        const errs = this.validate(this.state.data);
-        this.setState({
-            errors: errs
-        });
-        if (Object.keys(this.state.errors).length === 0) {
-            this.props.addComment(params.id, this.state.data);
-        }
-        this.setState({
-            data: { ...this.state.data, comment: "" }
+
+        const { match: { params }, addComment } = this.props;
+        const { data } = this.state;
+
+        const errors = this.validate(data);
+        
+        this.setState({ errors }, () => {
+            if (Object.keys(this.state.errors).length === 0) {
+                addComment(params.id, this.state.data);
+                this.setState(prevState => ({
+                    data: { ...prevState.data, comment: "" }
+                }));
+            }
         });
     };
 

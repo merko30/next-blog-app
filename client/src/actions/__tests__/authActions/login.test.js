@@ -1,7 +1,7 @@
 import configureStore from 'redux-mock-store';
 
 import thunk from 'redux-thunk'
-import { signIn, getCurrentUser } from '../../authActions/authActions';
+import { signIn } from '../../authActions/authActions';
 import { SIGN_IN_SUCCESS, SIGN_IN_FAILED, SIGN_IN, GET_CURRENT_USER, GET_CURRENT_USER_SUCCESS } from '../../authActions/types';
 
 

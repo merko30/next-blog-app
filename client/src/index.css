@@ -165,9 +165,13 @@ input.form-control:focus {
   }
 }
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 670px) {
   .grid {
-      grid-template-columns: minmax(150px, 1fr);
+      grid-template-columns: minmax(150px, auto);
+  }
+
+  .card {
+    width: auto;
   }
 }
 
@@ -179,6 +183,7 @@ input.form-control:focus {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+  margin: 1em;
 }
 
 .card-title {
@@ -228,6 +233,7 @@ h5 {
   padding: 5px;
   border-radius: 12px;
   min-width: 50%;
+  object-fit: cover;
 }
 .author-info {
   margin-left: 5px;
@@ -243,6 +249,7 @@ h5 {
   height: 80px;
   border-radius: 50%;
   padding: 3px;
+  object-fit: cover;
   border: 1px solid rgba(0, 0, 0, 0.09);
 }
 
@@ -286,6 +293,7 @@ h5 {
   border-radius: 50%;
   padding: 2px;
   border: 1px solid #ededed;
+  object-fit: cover;
 }
 
 .ck,

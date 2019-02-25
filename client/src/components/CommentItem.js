@@ -1,12 +1,12 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { removeComment } from "../actions/commentsActions/commentsActions";
+import { removeComment } from "actions";
 
 import { Icon } from "semantic-ui-react";
 
-export class CommentItem extends React.Component {
+export class CommentItem extends PureComponent {
     render() {
         const { comment, postID, currentUser, loggedIn } = this.props;
         if (comment) {

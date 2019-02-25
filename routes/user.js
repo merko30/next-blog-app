@@ -14,10 +14,11 @@ router.post("/register", upload.single('avatar'), (req, res, next) => {
         .exec((err, docs) => {
             if (err) {
                 next(err);
+                return;
             } else if (docs > 0) {
                 res.status(400).json({ message: "User already exists" })
+                return;
             } else {
-
                 let newUser = new User({
                     name: req.body.name,
                     email: req.body.email,
@@ -29,11 +30,14 @@ router.post("/register", upload.single('avatar'), (req, res, next) => {
                     newUser.avatar = req.file.filename
                 }
 
-                newUser.save((err, user) => {
-                    if (err) next(err)
-                    res.json({
-                        message: "You have successfully registered"
-                    });
+                 newUser.save((err, user) => {
+                    if (err) {
+                        next(err)
+                    } else {
+                        return res.json({
+                            message: "You have successfully registered"
+                        });
+                    }
 
                 });
             }

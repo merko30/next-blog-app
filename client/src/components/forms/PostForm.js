@@ -3,18 +3,15 @@ import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 
 
-import { addPost, editPost } from "../../actions/postsActions/postsActions";
+import { addPost, editPost } from "actions";
 
 import { Form, Button, Loader } from "semantic-ui-react";
 
-import Error from "../Utils/Error";
-import Success from "../Utils/Success";
+import { Error, Success } from 'components';
 
-export class PostForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: {
+class PostForm extends React.Component {
+    state = {
+        data: {
                 title: "",
                 body: "",
                 image: {}
@@ -23,7 +20,7 @@ export class PostForm extends React.Component {
             loading: false,
             wantToChangeCoverImage: false
         };
-    }
+ 
 
     handleChange = e => {
         let { name, value } = e.target;

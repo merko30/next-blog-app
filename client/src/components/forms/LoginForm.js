@@ -3,17 +3,15 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { signIn } from "../../actions/authActions/authActions";
+import { signIn } from "../../actions";
 
 import { Form, Button, Loader, Container } from "semantic-ui-react";
 
-import Error from "../Utils/Error";
-import Success from "../Utils/Success";
+import { Error, Success } from '../';
+import { Input } from './components';
 
 export class LoginForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
+   state = {
             data: {
                 username: "",
                 password: ""
@@ -21,7 +19,7 @@ export class LoginForm extends React.Component {
             errors: {},
             loading: false
         };
-    }
+  
 
     handleChange = e => {
         this.setState({
@@ -56,37 +54,31 @@ export class LoginForm extends React.Component {
 
     render() {
         const { message, loading, error } = this.props;
-        const { errors } = this.state;
+        const { errors, data: { username, password } } = this.state;
         return (
             <Container>
                 {error && <Error error={error} />}
                 {message && <Success message={message} />}
                 {loading && <Loader active inline="centered" />}
                 <Form className="form " onSubmit={this.handleSubmit}>
-                    <Form.Field>
-                        <label htmlFor="username">Username</label>
-                        <input
-                            id="username"
-                            placeholder="Username"
-                            name="username"
-                            type="text"
-                            value={this.state.data.username}
-                            onChange={this.handleChange}
-                        />
-                    </Form.Field>
-                    {errors.username && <Error error={errors.username} />}
-                    <Form.Field>
-                        <label htmlFor="password">Password</label>
-                        <input
-                            id="password"
-                            placeholder="Password"
-                            name="password"
-                            type="password"
-                            value={this.state.data.password}
-                            onChange={this.handleChange}
-                        />
-                    </Form.Field>
-                    {errors.password && <Error error={errors.password} />}
+                <Input 
+                    id="username"
+                    name="username"
+                    type="text"
+                    label="Username"
+                    onChange={this.handleChange}
+                    value={username}
+                    error={errors.username && errors.username}
+                 />
+                    <Input 
+                    id="password"
+                    name="password"
+                    type="password"
+                    label="Password"
+                    onChange={this.handleChange}
+                    value={password}
+                    error={errors.password && errors.password}
+                 />
                     <Button type="submit">Login</Button>
                     <Link to="/register" className="margin">
                         You don't have an account ? Sign Up

@@ -3,10 +3,9 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
 
-import CommentForm from "./forms/CommentForm";
-import CommentItem from "./CommentItem";
+import { CommentForm, CommentItem } from 'components';
 
-import { getPost } from "../actions/postsActions/postsActions";
+import { getPost } from "actions";
 
 import { Image } from "semantic-ui-react";
 
@@ -17,9 +16,7 @@ export class PostDetail extends React.Component {
         } = this.props;
         this.props.getPost(params.id);
     }
-
-
-
+    
     render() {
         const { post, currentUser, loggedIn } = this.props;
         return (

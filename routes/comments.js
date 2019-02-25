@@ -34,14 +34,16 @@ router.post(
             if (err) {
                 next(err)
             } else {
-                res.json({ message: "Comment created", success: true });
-                Post.findById(postID, (err, post) => {
-                    if (err) {
-                        next(err)
-                    } else {
-                        post.comments.push(newComment._id)
-                        post.save();
-                    }
+               comment.populate('author', (err, com) => {
+                   res.json({ comment: com })
+                   Post.findById(postID, (err, post) => {
+                       if (err) {
+                           next(err)
+                        } else {
+                            post.comments.push(newComment._id)
+                            post.save();
+                        }
+                    })
                 })
             }
         })
