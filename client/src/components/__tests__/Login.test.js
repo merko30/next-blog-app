@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, fireEvent } from 'react-testing-library';
+import { cleanup, fireEvent } from 'react-testing-library';
 import { renderWithRouter } from '../../test/utils';
 import faker from 'faker';
 
@@ -61,7 +61,6 @@ test(`should show validation error if username or password is blank`, () => {
     let usernameInput = getByLabelText(/username/i);
     let passwordInput = getByLabelText(/password/i);
 
-    let username = faker.internet.userName()
     let password = faker.internet.password();
 
     fireEvent.change(usernameInput, { target: { name: "username", value: "" } })

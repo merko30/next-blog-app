@@ -11,7 +11,7 @@ import { signUp } from "../../actions";
 import { Input } from './components';
 import { Error, Success } from '../';
 
-class RegisterForm extends React.Component {
+export class RegisterForm extends React.Component {
         state = {
             data: {
                 username: "",

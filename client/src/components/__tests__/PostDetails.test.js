@@ -1,10 +1,10 @@
 import React from 'react';
-import { render, cleanup } from 'react-testing-library';
+import { cleanup } from 'react-testing-library';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { renderWithRouter, fakePost } from '../../test/utils';
+import { renderWithRouter } from '../../test/utils';
 
-import { PostDetail } from '../PostDetail';
+import { PostDetail } from '../../pages/PostDetail';
 
 
 describe('PostDetail component', () => {
@@ -32,7 +32,7 @@ describe('PostDetail component', () => {
     test('should call componentDidMount and getPost', () => {
         let cMd = jest.spyOn(PostDetail.prototype, 'componentDidMount');
 
-        let { container } = renderWithRouter(<Provider store={store}><PostDetail store={store}{...props} getPost={mockGetPost} /></Provider>)
+        renderWithRouter(<Provider store={store}><PostDetail store={store}{...props} getPost={mockGetPost} /></Provider>)
 
         expect(cMd).toHaveBeenCalledTimes(1);
         expect(mockGetPost).toHaveBeenCalledTimes(1);

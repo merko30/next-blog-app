@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, fireEvent } from 'react-testing-library';
+import { cleanup, fireEvent } from 'react-testing-library';
 import { renderWithRouter } from '../../test/utils';
 import faker from 'faker';
 

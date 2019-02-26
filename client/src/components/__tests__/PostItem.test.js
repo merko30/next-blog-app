@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, cleanup, fireEvent } from 'react-testing-library';
-import configureStore from 'redux-mock-store';
+import { fireEvent } from 'react-testing-library';
 import { renderWithRouter } from '../../test/utils';
 
 import PostItem from '../PostItem';

@@ -11,7 +11,6 @@ import {
   EDIT_POST,
   EDIT_POST_SUCCESS,
   EDIT_POST_FAILED
-
 } from "../actions/postsActions/types";
 
 const initialState = {
@@ -19,7 +18,8 @@ const initialState = {
   post: null,
   loading: false,
   error: null,
-  keyword: null
+  current: 1,
+  numberOfPages: null
 };
 
 export const postsReducer = (state = initialState, action) => {
@@ -33,7 +33,9 @@ export const postsReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        posts: action.payload
+        posts: action.payload.posts,
+        numberOfPages: action.payload.numberOfPages,
+        current: action.payload.current
       };
     case GET_POSTS_FAILED:
       return {
@@ -60,16 +62,16 @@ export const postsReducer = (state = initialState, action) => {
       };
     case ADD_POST:
     case EDIT_POST:
-    return {
-      ...state,
-      loading: true
-    };
+      return {
+        ...state,
+        loading: true
+      };
     case ADD_POST_SUCCESS:
     case EDIT_POST_SUCCESS:
       return {
         ...state,
-        loading: false,
-      }
+        loading: false
+      };
     case ADD_POST_FAILED:
     case EDIT_POST_FAILED:
       return {

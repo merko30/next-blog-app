@@ -1,8 +1,9 @@
 import configureStore from 'redux-mock-store';
 
 import thunk from 'redux-thunk'
-import { signIn } from '../../authActions/authActions';
+import { signIn } from 'actions';
 import { SIGN_IN_SUCCESS, SIGN_IN_FAILED, SIGN_IN, GET_CURRENT_USER, GET_CURRENT_USER_SUCCESS } from '../../authActions/types';
+import { wait } from 'react-testing-library';
 
 
 
@@ -11,8 +12,6 @@ const mockStore = configureStore(middlewares)
 const store = mockStore({ user: null, error: null, loading: false })
 
 afterEach(() => {
-    jest.resetAllMocks();
-
     store.clearActions();
 })
 
@@ -25,10 +24,11 @@ test('login dispatches login, login success and get current user if everything i
         GET_CURRENT_USER_SUCCESS
     ]
 
-    window.fetch = jest.fn().mockImplementationOnce(() =>
-        Promise.resolve({ status: 200, ok: true, json: () => Promise.resolve({ user: { user: { _id: "123" }, token: "faketoken", message: "Logged in" } }) }))
+    fetch.mockResponse(JSON.stringify({ token: 'token', user: {_id: 'id' }, message: "Logged in" }))
+    
+    return store.dispatch(signIn({ username: "fakeone", password: "anotherfake" })).then(async () => {
 
-    return store.dispatch(signIn({ username: "fakeone", password: "anotherfake" })).then(() => {
+        await wait();
 
         const actualActions = store.getActions().map(actions => actions.type)
 
@@ -45,8 +45,7 @@ test('dispatches fail action', () => {
         SIGN_IN_FAILED
     ]
 
-    window.fetch = jest.fn().mockImplementationOnce(() =>
-        Promise.reject({ status: 400, ok: false, json: () => Promise.reject({ message: "Error happened" }) }))
+    fetch.mockResponse(new Error('Error occurred'))
 
     return store.dispatch(signIn({ username: "fakeone", password: "anotherfake" })).then(() => {
 

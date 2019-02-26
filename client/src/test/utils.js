@@ -1,4 +1,4 @@
-import { render } from 'react-testing-library';
+import { render, wait } from 'react-testing-library';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { Router } from 'react-router-dom';
 import React from 'react';

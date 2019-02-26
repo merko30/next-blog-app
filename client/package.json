@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^11.2.0",
-    "@ckeditor/ckeditor5-react": "^1.1.0",
     "email-validator": "^2.0.4",
     "faker": "^4.1.0",
     "history": "^4.7.2",
@@ -18,7 +16,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.84.0"
+    "semantic-ui-react": "^0.84.0",
+    "source-map-explorer": "^1.7.0"
   },
   "proxy": "http://localhost:5000",
   "scripts": {
