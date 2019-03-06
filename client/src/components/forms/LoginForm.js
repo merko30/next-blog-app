@@ -29,15 +29,17 @@ export class LoginForm extends React.Component {
     };
 
     handleSubmit = e => {
+        const { data } = this.state;
+        const { signIn } = this.props;
         e.preventDefault();
-        const errs = this.validate(this.state.data);
+        const errors = this.validate(data);
         this.setState(
             {
-                errors: errs
+                errors
             },
             () => {
                 if (Object.keys(this.state.errors).length === 0) {
-                    this.props.signIn(this.state.data);
+                    signIn(data);
                 }
             }
         );

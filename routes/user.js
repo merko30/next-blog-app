@@ -54,8 +54,7 @@ router.post("/login", (req, res, next) => {
             }
             else if (!user) {
                 res.status(400).send({ success: false, message: "User not found" });
-            }
-            else {
+            } else {
                 bcrypt.compare(req.body.password, user.password, (err, match) => {
                     if (err) {
                         next(err)

@@ -23,7 +23,7 @@ class PostContainer extends Component {
     return (
       <Container textAlign="center">
         {loading && <p>loading...</p>}
-        {posts && <PostList posts={posts} />}
+        {posts && !loading && <PostList posts={posts} />}
         <Divider />
         {numberOfPages && (
           <Pagination
