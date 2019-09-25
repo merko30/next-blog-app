@@ -1,7 +1,14 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
+mongoose.set("useCreateIndex", true);
 
-module.exports = mongoose.connect(process.env.DB, { useNewUrlParser: true }).then(() => {
-    console.log('Connected')
-}).catch(error => {
-    console.log('Error')
-})
+module.exports = () => {
+  try {
+    mongoose.connect(process.env.DB, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log("Connected to database");
+  } catch (error) {
+    console.log(error);
+  }
+};

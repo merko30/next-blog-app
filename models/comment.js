@@ -1,12 +1,11 @@
 const mongoose = require("mongoose");
-const schema = mongoose.Schema;
 
-const commentSchema = new schema(
+const schema = new mongoose.Schema(
   {
     comment: { type: String, required: true },
-    author: { type: schema.Types.ObjectId, ref: "User" }
+    author: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
   },
-  { timestamps: { createdAt: "created_at" } }
+  { timestamps: true }
 );
 
-module.exports = mongoose.model("Comment", commentSchema);
+module.exports = mongoose.model("Comment", schema);
