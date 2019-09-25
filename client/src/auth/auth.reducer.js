@@ -1,4 +1,4 @@
-import { loginAction, registerAction } from "./auth.actions";
+import { loginAction, registerAction, setStatusAction } from "./auth.actions";
 
 const initialState = {
   loggedIn: false,
@@ -33,7 +33,13 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: action.error
+        error: action.payload
+      };
+    case setStatusAction.start().type:
+      console.log(action);
+      return {
+        ...state,
+        loggedIn: action.payload
       };
     default:
       return state;

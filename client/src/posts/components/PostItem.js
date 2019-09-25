@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Card, Image, Icon } from "semantic-ui-react";
 
 class PostItem extends PureComponent {
   static propTypes = {
@@ -26,25 +25,13 @@ class PostItem extends PureComponent {
     } = this.props;
     return (
       <Link
-        to={`/post/${_id}`}
+        to={`/posts/${_id}`}
         data-testid="post-link"
         style={{ margin: "1em 0" }}
       >
-        <Card>
-          <Image src={`http://localhost:5000/uploads/${image}`} />
-          <Card.Content>
-            <Card.Header>{title}</Card.Header>
-            <Card.Meta>
-              <span className="date">{created_at.split("T")[0]}</span>
-            </Card.Meta>
-            <Card.Content extra>
-              <span style={{ color: "#333" }}>
-                <Icon name="user" />
-                {name}
-              </span>
-            </Card.Content>
-          </Card.Content>
-        </Card>
+        <div>
+          <h2 className="font-bold">{title}</h2>
+        </div>
       </Link>
     );
   }

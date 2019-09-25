@@ -1,57 +1,21 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { getPosts } from "actions";
+import PostList from "../components/PostList";
 
-import { PostList } from "components";
-import { Container, Pagination, Divider } from "semantic-ui-react";
+import { getPosts } from "../posts.actions";
 
-class PostContainer extends Component {
-  componentDidMount() {
-    const { getPosts } = this.props;
-    getPosts();
-  }
+export default () => {
+  const posts = useSelector(({ posts: { posts } }) => posts);
+  const dispatch = useDispatch();
 
-  onPageChange = (e, data) => {
-    const { getPosts } = this.props;
-    const { activePage } = data;
-    getPosts(activePage);
-  };
+  useEffect(() => {
+    dispatch(getPosts());
+  }, []);
 
-  render() {
-    const { posts, loading, numberOfPages } = this.props;
-    return (
-      <Container textAlign="center">
-        {loading && <p>loading...</p>}
-        {posts && !loading && <PostList posts={posts} />}
-        <Divider />
-        {numberOfPages && (
-          <Pagination
-            boundaryRange={1}
-            defaultActivePage={1}
-            ellipsisItem={null}
-            firstItem={null}
-            lastItem={null}
-            siblingRange={1}
-            totalPages={numberOfPages}
-            onPageChange={this.onPageChange}
-          />
-        )}
-      </Container>
-    );
-  }
-}
-
-const mapStateToProps = ({
-  posts: { posts, numberOfPages, current, loading }
-}) => ({
-  posts,
-  numberOfPages,
-  current,
-  loading
-});
-
-export default connect(
-  mapStateToProps,
-  { getPosts }
-)(PostContainer);
+  return (
+    <div>
+      <PostList posts={posts} />
+    </div>
+  );
+};

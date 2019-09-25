@@ -1,5 +1,3 @@
-const createToken = require("../utils/createToken");
-
 const User = require("../models/user");
 
 const register = async (req, res, next) => {
@@ -32,9 +30,8 @@ const login = async (req, res, next) => {
       ]
     });
     if (user) {
-      const validPassword = user.isValidPassword(req.body.password);
-      if (validPassword) {
-        const token = createToken(user);
+      if (user.validPassword(req.body.password)) {
+        const token = user.generateToken();
         res.json({ token });
       } else {
         throw new Error("Wrong password");

@@ -1,13 +1,13 @@
 import axios from "axios";
 
 import history from "../config/history";
-
 import createAction from "../utils/createAction";
 import populateFormData from "../utils/populateFormData";
 import storeToken from "../utils/storeToken";
 
 export const loginAction = createAction("LOGIN");
 export const registerAction = createAction("REGISTER");
+export const setStatusAction = createAction("SET_STATUS");
 
 export const register = data => async dispatch => {
   dispatch(registerAction.start());
@@ -34,3 +34,5 @@ export const login = data => async dispatch => {
     dispatch(loginAction.failure(error.response.data.message));
   }
 };
+
+export const setStatus = status => setStatusAction.start(status);

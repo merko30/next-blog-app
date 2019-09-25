@@ -4,7 +4,7 @@ const express = require("express");
 const router = require("./routes");
 const middlewares = require("./config/middlewares");
 const setDatabase = require("./config/database");
-const errorHandler = require("./utils/errorHandler");
+const errorHandler = require("./config/errorHandler");
 
 const app = express();
 
