@@ -23,4 +23,12 @@ schema.pre("save", function(next) {
   });
 });
 
+schema.methods.isValidPassword = async password => {
+  try {
+    return await bcrypt.compare(password, this.password);
+  } catch (error) {
+    return new Error("Something went wrong");
+  }
+};
+
 module.exports = mongoose.model("User", schema);

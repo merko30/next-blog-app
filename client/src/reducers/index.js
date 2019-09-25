@@ -1,13 +1,7 @@
 import { combineReducers } from "redux";
 
-import { authReducer } from "./authReducer";
-import { postsReducer } from "./postsReducer";
-import { commentsReducer } from "./commentsReducer";
-import { messagesReducer } from "./messagesReducer";
+import authReducer from "../auth/auth.reducer";
 
 export default combineReducers({
-  auth: authReducer,
-  posts: postsReducer,
-  comments: commentsReducer,
-  messages: messagesReducer
+  auth: authReducer
 });

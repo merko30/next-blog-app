@@ -1,11 +1,19 @@
 import React from "react";
-import { LoginForm } from "components";
+import { useDispatch, useSelector } from "react-redux";
 
-const Login = () => (
-    <div className="register">
-        <h1 className="center-text">Sign in</h1>
-        <LoginForm />
+import { login } from "../auth/auth.actions";
+
+import LoginForm from "../auth/components/LoginForm";
+
+const Login = () => {
+  const error = useSelector(state => state.auth.error);
+  const dispatch = useDispatch();
+
+  return (
+    <div className="pt-10 md:pt-20 flex items-center justify-center">
+      <LoginForm onSubmit={data => dispatch(login(data))} error={error} />
     </div>
-);
+  );
+};
 
 export default Login;

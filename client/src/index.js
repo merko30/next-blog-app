@@ -1,18 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import 'semantic-ui-css/semantic.min.css'
-import { Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./styles/tailwind.css";
+import { Router } from "react-router-dom";
+import "./styles/index.css";
+import { Provider } from "react-redux";
 
-import App from './App';
+import App from "./App";
 
-import history from './history';
-import { store } from './store';
+import history from "./config/history";
+import store from "./config/store";
 
-ReactDOM.render(<Provider store={store}>
+ReactDOM.render(
+  <Provider store={store}>
     <Router history={history}>
-        <App />
+      <App />
     </Router>
-</Provider>, document.getElementById('root'));
-
+  </Provider>,
+  document.getElementById("root")
+);
