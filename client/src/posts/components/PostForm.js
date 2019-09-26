@@ -34,7 +34,7 @@ export default ({ onSubmit, error, editMode, post, ...props }) => {
     if (!post && editMode) {
       dispatch(getPost(window.document.location.pathname.split("/")[2]));
     }
-    if (p) {
+    if (p && editMode) {
       const inv = { title: p.title, body: p.body, image: null };
       setInitialValues({ ...inv });
     }
@@ -45,10 +45,11 @@ export default ({ onSubmit, error, editMode, post, ...props }) => {
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(values, { setSubmitting, resetForm }) => {
           if (!editMode) {
             onSubmit(values);
             setSubmitting(false);
+            resetForm();
           } else {
             const id = post ? post._id : p._id;
             onSubmit(id, values);

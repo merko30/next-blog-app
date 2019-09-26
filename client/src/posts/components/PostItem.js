@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { distanceInWordsToNow } from "date-fns";
+import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 import Avatar from "../../shared/Avatar";
 
 const PostItem = ({
@@ -37,6 +37,7 @@ const PostItem = ({
           }
           className="image"
           alt={title}
+          style={{ height: "200px", width: "100%", objectFit: "cover" }}
         />
         <div className="px-1 mt-1">
           <h2 className="font-bold truncate text-gray-900">{title}</h2>

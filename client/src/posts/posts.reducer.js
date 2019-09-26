@@ -14,7 +14,10 @@ const initialState = {
   post: null,
   loading: false,
   error: null,
-  meta: null
+  meta: {
+    numberOfPages: 1,
+    currentPage: 1
+  }
 };
 
 export default (state = initialState, action) => {
@@ -28,10 +31,15 @@ export default (state = initialState, action) => {
         loading: true
       };
     case getPostsAction.success().type:
+      const { posts, numberOfPages, currentPage } = action.payload;
       return {
         ...state,
         loading: false,
-        posts: action.payload
+        posts,
+        meta: {
+          numberOfPages,
+          currentPage
+        }
       };
     case getPostAction.success().type:
       return {

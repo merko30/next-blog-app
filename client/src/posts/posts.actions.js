@@ -9,13 +9,12 @@ export const getPostAction = createAction("GET_POST");
 export const addPostAction = createAction("ADD_POST");
 export const updatePostAction = createAction("EDIT_POST");
 
-export const getPosts = () => async dispatch => {
+export const getPosts = (page = 1) => async dispatch => {
+  const URL = page ? `/api/posts?page=${page}` : "/api/posts";
   dispatch(getPostsAction.start());
   try {
-    const {
-      data: { posts }
-    } = await Axios.get("api/posts");
-    dispatch(getPostsAction.success(posts));
+    const { data } = await Axios.get(URL);
+    dispatch(getPostsAction.success(data));
   } catch (error) {
     dispatch(getPostsAction.failure(error.response.data.message));
   }

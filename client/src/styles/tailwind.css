@@ -10671,6 +10671,22 @@ body {
   box-shadow: 0px 5px 3px -5px rgba(0, 0, 0, 0.27);
 }
 
+.pagination-item {
+  border-top: 1px solid #edf2f7;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.pagination-item:first-child,
+.pagination-item:last-child {
+  border-left: 1px solid #edf2f7;
+  border-right: 1px solid #edf2f7;
+}
+
+.pagination-item:nth-child(odd) {
+  border-left: 1px solid #edf2f7;
+  border-right: 1px solid #edf2f7;
+}
+
 @media (min-width: 640px) {
   .sm\:sr-only {
     position: absolute;
