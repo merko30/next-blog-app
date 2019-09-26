@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const morgan = require("morgan");
+const path = require("path");
 
 module.exports = app => {
   app.use(cors());
@@ -13,7 +14,10 @@ module.exports = app => {
   app.use(morgan("dev"));
 
   // static
-  app.use("/uploads", express.static(__dirname + "../static/uploads"));
+  app.use(
+    "/uploads",
+    express.static(path.join(__dirname, "..", "static", "uploads"))
+  );
 
   if (process.env.NODE_ENV === "production") {
     //set stati folder

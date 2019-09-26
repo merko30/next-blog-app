@@ -39,7 +39,7 @@ const create = async (req, res, next) => {
   try {
     const post = new Post({ ...req.body, author: req.user._id });
     if (req.file) {
-      post.image = req.file;
+      post.image = req.file.filename;
     }
     await post.save();
     res.json({ post });

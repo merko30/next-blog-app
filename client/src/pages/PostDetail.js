@@ -23,9 +23,9 @@ export default ({
   return (
     <div>
       {post && (
-        <div className="p-2 py-4 md:px-32 lg:px-40 mx-auto lg:py-12">
+        <div className="p-2 md:px-32 lg:px-64 mx-auto ">
           <img
-            src="http://res.publicdomainfiles.com/pdf_view/185/14006695215558.jpg"
+            src={`http://localhost:5000/uploads/${post.image}`}
             alt={post.title}
           />
           <h1 className="text-2xl font-bold my-2">{post.title}</h1>

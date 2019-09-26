@@ -1,4 +1,9 @@
-import { getPostsAction, getPostAction } from "./posts.actions";
+import {
+  getPostsAction,
+  getPostAction,
+  addPostAction,
+  updatePostAction
+} from "./posts.actions";
 import {
   addCommentAction,
   updateCommentAction
@@ -16,6 +21,8 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case getPostsAction.start().type:
     case getPostAction.start().type:
+    case addPostAction.start().type:
+    case updatePostAction.start().type:
       return {
         ...state,
         loading: true
@@ -32,8 +39,16 @@ export default (state = initialState, action) => {
         loading: false,
         post: action.payload
       };
+    case addPostAction.success().type:
+    case updatePostAction.success().type:
+      return {
+        ...state,
+        loading: false
+      };
     case getPostsAction.failure().type:
     case getPostAction.failure().type:
+    case addPostAction.start().type:
+    case updatePostAction.start().type:
       return {
         ...state,
         loading: false,

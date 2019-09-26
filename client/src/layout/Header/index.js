@@ -6,8 +6,10 @@ import NavItem from "./NavItem";
 export default () => {
   const loggedIn = useSelector(state => state.auth.loggedIn);
   return (
-    <div className="py-6 px-5 md:px-20 flex justify-between">
-      <div>logo</div>
+    <div className="py-6 px-5 md:px-20 flex justify-between nav-shadow mb-16">
+      <div>
+        <NavItem to="/">logo</NavItem>
+      </div>
       <ul>
         {!loggedIn && <NavItem to="/register">Register</NavItem>}
         {!loggedIn && <NavItem to="/login">Login</NavItem>}
