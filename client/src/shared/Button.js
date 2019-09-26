@@ -5,10 +5,13 @@ export default ({
   type,
   color = "blue",
   textColor = "white",
+  block = true,
   ...props
 }) => (
   <button
-    className={`w-full block bg-${color}-500 hover:bg-${color}-600 text-${textColor} p-2 rounded`}
+    className={` ${
+      block ? "block w-full" : "inline px-3"
+    } bg-${color}-500 hover:bg-${color}-600 text-${textColor} p-2 rounded`}
     type={type}
     onClick={onClick}
     {...props}

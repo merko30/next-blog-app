@@ -1,4 +1,8 @@
 import { getPostsAction, getPostAction } from "./posts.actions";
+import {
+  addCommentAction,
+  updateCommentAction
+} from "../comments/comments.actions";
 
 const initialState = {
   posts: [],
@@ -34,6 +38,25 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload
+      };
+    case addCommentAction.success().type:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: [...state.post.comments, action.payload]
+        }
+      };
+    case updateCommentAction.success().type:
+      const updatedComments = state.post.comments.slice();
+      const index = updatedComments.findIndex(c => c._id == action.payload._id);
+      updatedComments[index] = action.payload;
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: updatedComments
+        }
       };
     default:
       return state;

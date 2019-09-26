@@ -2,9 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+import CommentList from "../comments/components/CommentList";
+import CommentForm from "../comments/components/CommentForm";
+
 import { getPost } from "../posts/posts.actions";
-import Container from "../layout/Container";
-import CommentList from "../comments/CommentList";
+import { addComment } from "../comments/comments.actions";
 
 export default ({
   match: {
@@ -36,6 +38,11 @@ export default ({
           </Link>
 
           <CommentList comments={post.comments} />
+          <CommentForm
+            editMode={false}
+            postID={post._id}
+            onSubmit={(id, comment) => dispatch(addComment(id, comment))}
+          />
         </div>
       )}
     </div>
