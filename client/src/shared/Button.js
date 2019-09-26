@@ -9,7 +9,7 @@ export default ({
   ...props
 }) => (
   <button
-    className={` ${
+    className={`my-2 ${
       block ? "block w-full" : "inline px-3"
     } bg-${color}-500 hover:bg-${color}-600 text-${textColor} p-2 rounded`}
     type={type}

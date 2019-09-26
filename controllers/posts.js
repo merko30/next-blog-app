@@ -54,7 +54,7 @@ const update = async (req, res, next) => {
       new: true
     });
     if (req.file) {
-      post.image = req.file;
+      post.image = req.file.filename;
     }
     await post.save();
     res.json({ post });

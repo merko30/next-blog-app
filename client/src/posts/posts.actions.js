@@ -28,7 +28,6 @@ export const getPost = id => async dispatch => {
       data: { post }
     } = await Axios.get(`/api/posts/${id}`);
     dispatch(getPostAction.success(post));
-    history.push(`/posts/${post._id}`);
   } catch (error) {
     dispatch(getPostAction.failure(error.response.data.message));
   }
@@ -51,9 +50,10 @@ export const addPost = p => async dispatch => {
 export const updatePost = (id, p) => async dispatch => {
   dispatch(updatePostAction.start());
   try {
+    const formData = populateFormData(p);
     const {
       data: { post }
-    } = await Axios.put(`/api/posts/${id}`, p);
+    } = await Axios.put(`/api/posts/${id}`, formData);
     dispatch(updatePostAction.success(post));
     history.push(`/posts/${post._id}`);
   } catch (error) {

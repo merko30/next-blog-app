@@ -47,8 +47,8 @@ export default (state = initialState, action) => {
       };
     case getPostsAction.failure().type:
     case getPostAction.failure().type:
-    case addPostAction.start().type:
-    case updatePostAction.start().type:
+    case addPostAction.failure().type:
+    case updatePostAction.failure().type:
       return {
         ...state,
         loading: false,
@@ -64,7 +64,9 @@ export default (state = initialState, action) => {
       };
     case updateCommentAction.success().type:
       const updatedComments = state.post.comments.slice();
-      const index = updatedComments.findIndex(c => c._id == action.payload._id);
+      const index = updatedComments.findIndex(
+        c => c._id === action.payload._id
+      );
       updatedComments[index] = action.payload;
       return {
         ...state,

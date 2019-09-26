@@ -1,16 +1,52 @@
 import React, { useState } from "react";
 
-export default ({ setFieldValue, name, allowedTypes = [], allowedSize }) => {
-  const handleChange = e => {
-    const file = e.target.files[0];
-    const validType = allowedTypes.includes(file.type);
-    const validSize = allowedSize > file.size;
+export default ({
+  setFieldValue,
+  name,
+  allowedTypes = [],
+  allowedSize,
+  label
+}) => {
+  const [errors, setErrors] = useState({});
 
-    if (validSize && validType) {
-      console.log(file);
-      setFieldValue(name, file);
+  const handleChange = async e => {
+    setErrors({});
+    const file = e.target.files[0];
+    if (file) {
+      const validType = allowedTypes.includes(file.type);
+      const validSize = allowedSize > file.size;
+
+      if (!validType) {
+        setErrors(prev => {
+          return { ...prev, type: "Wrong file type" };
+        });
+      }
+      if (!validSize) {
+        setErrors(prev => {
+          console.log(prev);
+          return { ...prev, size: "File is too large" };
+        });
+      }
+
+      if (validSize && validType) {
+        setFieldValue(name, file);
+      }
     }
   };
 
-  return <input type="file" name="file" onChange={handleChange} />;
+  return (
+    <div className="my-2">
+      {label && <label>{label}</label>}
+      <input type="file" name="file" onChange={handleChange} />
+      {Object.keys(errors).length > 0 &&
+        Object.keys(errors).map(key => {
+          console.log(errors);
+          return (
+            <p className="text-red-600" key={key}>
+              {errors[key]}
+            </p>
+          );
+        })}
+    </div>
+  );
 };

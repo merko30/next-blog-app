@@ -25,8 +25,9 @@ export default ({
       {post && (
         <div className="p-2 md:px-32 lg:px-64 mx-auto ">
           <img
-            src={`http://localhost:5000/uploads/${post.image}`}
+            src={`/uploads/${post.image}`}
             alt={post.title}
+            style={{ width: "100%", objectFit: "cover" }}
           />
           <h1 className="text-2xl font-bold my-2">{post.title}</h1>
           <p className="mt-3">{post.body}</p>
