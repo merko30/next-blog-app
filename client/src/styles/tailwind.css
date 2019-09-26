@@ -10661,6 +10661,12 @@ body {
           flex: 1 0 auto;
 }
 
+.posts-container {
+  display: grid;
+  grid-template: auto / repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 10px;
+}
+
 @media (min-width: 640px) {
   .sm\:sr-only {
     position: absolute;

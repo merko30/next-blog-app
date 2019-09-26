@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
@@ -17,11 +18,16 @@ const validationSchema = Yup.object().shape({
 });
 
 export default ({ onSubmit, error, ...props }) => {
-  console.log(props);
+  const post = useSelector(({ posts: { post } }) => post);
+
   return (
     <>
       <Formik
-        initialValues={{ title: "", body: "" }}
+        initialValues={
+          props.editMode
+            ? { title: post.title, body: post.body }
+            : { title: "", body: "" }
+        }
         onSubmit={(values, { setSubmitting }) => {
           onSubmit(values);
           setSubmitting(false);
@@ -29,7 +35,7 @@ export default ({ onSubmit, error, ...props }) => {
         validationSchema={validationSchema}
       >
         {({ isSubmitting }) => (
-          <Form className="p-4 mx-auto w-full md:w-1/3">
+          <Form className="p-4 mx-auto w-full md:w-3/4 lg:w-2/3">
             {error && <Error error={error} />}
             <Field name="title" component={Input} label="Title" />
             <Field name="body" component={Textarea} label="Content" rows={8} />

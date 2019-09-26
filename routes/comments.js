@@ -5,7 +5,7 @@ const { create, update, remove } = require("../controllers/comments");
 
 const middleware = passport.authenticate("jwt", { session: false });
 
-router.route("/postID").post(middleware, create);
+router.route("/:postID").post(middleware, create);
 
 router
   .route("/:postID/:commentID")

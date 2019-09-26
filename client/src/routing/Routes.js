@@ -25,12 +25,14 @@ export default () => {
           <PrivateRoute
             exact
             path="/posts/add"
-            render={props => <AddEditPost {...props} editMode={false} />}
+            component={AddEditPost}
+            propsForComponent={{ editMode: false }}
           />
           <Route exact path="/posts/:id" component={PostDetail} />
           <PrivateRoute
             path="/posts/:id/edit"
-            render={props => <AddEditPost {...props} editMode={true} />}
+            component={AddEditPost}
+            propsForComponent={{ editMode: true }}
           />
         </Switch>
       </div>

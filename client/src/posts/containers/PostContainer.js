@@ -5,7 +5,7 @@ import PostList from "../components/PostList";
 
 import { getPosts } from "../posts.actions";
 
-export default () => {
+export default props => {
   const posts = useSelector(({ posts: { posts } }) => posts);
   const dispatch = useDispatch();
 

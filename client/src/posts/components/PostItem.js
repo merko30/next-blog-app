@@ -17,6 +17,7 @@ class PostItem extends PureComponent {
     const {
       post: {
         _id,
+        body,
         image,
         created_at,
         title,
@@ -24,13 +25,17 @@ class PostItem extends PureComponent {
       }
     } = this.props;
     return (
-      <Link
-        to={`/posts/${_id}`}
-        data-testid="post-link"
-        style={{ margin: "1em 0" }}
-      >
-        <div>
-          <h2 className="font-bold">{title}</h2>
+      <Link to={`/posts/${_id}`} data-testid="post-link" className="shadow">
+        <div className="p-2">
+          <img
+            src="http://res.publicdomainfiles.com/pdf_view/185/14006695215558.jpg"
+            className="image"
+            alt={title}
+          />
+          <div className="px-1 mt-1">
+            <h2 className="font-bold truncate">{title}</h2>
+            <p className="text-gray-500 truncate text-sm">{body}</p>
+          </div>
         </div>
       </Link>
     );
