@@ -23,7 +23,7 @@ const validationSchema = Yup.object().shape({
     .min(8, "Password should be longer than 8 characters")
 });
 
-export default ({ onSubmit, error }) => {
+const RegisterForm = ({ onSubmit, error }) => {
   const [show, setShow] = useState(false);
   const [image, setImage] = useState("");
   const [src, setSrc] = useState("");
@@ -77,3 +77,5 @@ export default ({ onSubmit, error }) => {
     </>
   );
 };
+
+export default RegisterForm;

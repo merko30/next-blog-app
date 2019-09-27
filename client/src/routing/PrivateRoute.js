@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
-export default ({ component: Component, propsForComponent, ...rest }) => {
+const PrivateRoute = ({ component: Component, propsForComponent, ...rest }) => {
   const loggedIn = useSelector(state => state.auth.loggedIn);
   return (
     <Route
@@ -17,3 +17,5 @@ export default ({ component: Component, propsForComponent, ...rest }) => {
     />
   );
 };
+
+export default PrivateRoute;

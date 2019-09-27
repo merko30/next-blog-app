@@ -8,7 +8,7 @@ import CommentForm from "../comments/components/CommentForm";
 import { getPost } from "../posts/posts.actions";
 import { addComment } from "../comments/comments.actions";
 
-export default ({
+const PostDetail = ({
   match: {
     params: { id }
   }
@@ -59,3 +59,5 @@ export default ({
     </div>
   );
 };
+
+export default PostDetail;

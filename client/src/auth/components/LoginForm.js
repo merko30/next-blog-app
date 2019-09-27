@@ -11,7 +11,7 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required("Password is required field")
 });
 
-export default ({ onSubmit, error }) => {
+const Login = ({ onSubmit, error }) => {
   return (
     <>
       <Formik
@@ -45,3 +45,5 @@ export default ({ onSubmit, error }) => {
     </>
   );
 };
+
+export default Login;

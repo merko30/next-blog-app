@@ -3,7 +3,7 @@ import React from "react";
 import Container from "../../layout/Container";
 import PostItem from "./PostItem";
 
-export default ({ posts }) => (
+const PostList = ({ posts }) => (
   <Container>
     <div className="posts-container">
       {posts.map(post => (
@@ -12,3 +12,5 @@ export default ({ posts }) => (
     </div>
   </Container>
 );
+
+export default PostList;

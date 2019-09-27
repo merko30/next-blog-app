@@ -8,7 +8,7 @@ import CommentForm from "./CommentForm";
 
 import { updateComment } from "../comments.actions";
 
-export default ({ comment, postID, onEdit }) => {
+const CommentItem = ({ comment, postID, onEdit }) => {
   const [edit, setEdit] = useState(false);
   const { post, loggedIn, user } = useSelector(
     ({ auth: { user, loggedIn }, posts: { post } }) => ({
@@ -51,3 +51,5 @@ export default ({ comment, postID, onEdit }) => {
     </div>
   );
 };
+
+export default CommentItem;

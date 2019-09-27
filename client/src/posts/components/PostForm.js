@@ -20,7 +20,7 @@ const validationSchema = Yup.object().shape({
     .min(150, "Content should have at least 150 characters")
 });
 
-export default ({ onSubmit, error, editMode, post, ...props }) => {
+const PostForm = ({ onSubmit, error, editMode, post, ...props }) => {
   const [changeImage, setChangeImage] = useState(editMode ? false : true);
   const [initialValues, setInitialValues] = useState({
     title: "",
@@ -89,3 +89,5 @@ export default ({ onSubmit, error, editMode, post, ...props }) => {
     </>
   );
 };
+
+export default PostForm;

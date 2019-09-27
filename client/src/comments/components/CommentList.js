@@ -2,7 +2,7 @@ import React from "react";
 
 import CommentItem from "./CommentItem";
 
-export default ({ comments }) => {
+const CommentList = ({ comments }) => {
   return (
     <div className="mt-10">
       {comments &&
@@ -12,3 +12,5 @@ export default ({ comments }) => {
     </div>
   );
 };
+
+export default CommentList;

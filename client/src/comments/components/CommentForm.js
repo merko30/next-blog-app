@@ -11,7 +11,13 @@ const validationSchema = Yup.object().shape({
     .min(12, "Comment should have at least 12 characters")
 });
 
-export default ({ onSubmit, postID, editMode, comment, cancelEditMode }) => {
+const CommentForm = ({
+  onSubmit,
+  postID,
+  editMode,
+  comment,
+  cancelEditMode
+}) => {
   return (
     <>
       <Formik
@@ -62,3 +68,5 @@ export default ({ onSubmit, postID, editMode, comment, cancelEditMode }) => {
     </>
   );
 };
+
+export default CommentForm;

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({
+const Button = ({
   onClick,
   type,
   color = "blue",
@@ -20,3 +20,5 @@ export default ({
     {props.children}
   </button>
 );
+
+export default Button;

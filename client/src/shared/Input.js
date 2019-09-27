@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({
+const Input = ({
   field, // { name, value, onChange, onBlur }
   form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
@@ -20,3 +20,5 @@ export default ({
     )}
   </div>
 );
+
+export default Input;
