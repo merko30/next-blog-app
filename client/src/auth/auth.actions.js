@@ -12,6 +12,7 @@ export const setStatusAction = createAction("SET_STATUS");
 export const clearErrorAction = createAction("CLEAR_ERROR");
 export const logoutAction = createAction("LOGOUT");
 export const getCurrentUserAction = createAction("GET_CURRENT_USER");
+export const verifyEmailAction = createAction("VERIFY_EMAIL");
 
 export const register = data => async dispatch => {
   dispatch(registerAction.start());
@@ -50,6 +51,22 @@ export const getCurrentUser = () => async dispatch => {
     dispatch(getCurrentUserAction.success(user));
   } catch (error) {
     dispatch(getCurrentUserAction.failure(error.response.data.message));
+  }
+};
+
+export const verifyEmail = (email, token) => async dispatch => {
+  dispatch(verifyEmailAction.start());
+  try {
+    const {
+      data: { message }
+    } = await axios.post(
+      `/api/auth/verify_email?token=${token}&email=${email}`
+    );
+    console.log(message);
+    dispatch(verifyEmailAction.success(message));
+    history.push("/login");
+  } catch (error) {
+    dispatch(verifyEmailAction.failure(error.response.data.message));
   }
 };
 

@@ -12,6 +12,7 @@
     "formik": "^1.5.8",
     "history": "^4.7.2",
     "jwt-decode": "^2.2.0",
+    "query-string": "^6.8.3",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-easy-crop": "^1.16.1",

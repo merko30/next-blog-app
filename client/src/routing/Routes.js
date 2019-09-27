@@ -12,6 +12,8 @@ import PostDetail from "../pages/PostDetail";
 
 import PrivateRoute from "./PrivateRoute";
 import GuestRoute from "./GuestRoute";
+import Verification from "../pages/Verification";
+import ResetPassword from "../pages/ResetPassword";
 
 export default () => {
   return (
@@ -34,6 +36,8 @@ export default () => {
             component={AddEditPost}
             propsForComponent={{ editMode: true }}
           />
+          <Route path="/verification" component={Verification} />
+          <Route path="/reset_password" component={ResetPassword} />
         </Switch>
       </div>
       <Footer />

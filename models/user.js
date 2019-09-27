@@ -7,7 +7,11 @@ const schema = new mongoose.Schema({
   name: { type: String },
   email: { type: String, unique: true, required: true },
   avatar: { type: String },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  resetPasswordToken: { type: String },
+  passwordTokenExpires: { type: Date },
+  verified: { type: Boolean },
+  verificationToken: { type: String }
 });
 
 schema.pre("save", function(next) {

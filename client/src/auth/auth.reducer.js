@@ -4,14 +4,16 @@ import {
   setStatusAction,
   clearErrorAction,
   getCurrentUserAction,
-  logoutAction
+  logoutAction,
+  verifyEmailAction
 } from "./auth.actions";
 
 const initialState = {
   loggedIn: false,
   error: null,
   loading: false,
-  user: null
+  user: null,
+  message: null
 };
 
 const authReducer = (state = initialState, action) => {
@@ -19,6 +21,7 @@ const authReducer = (state = initialState, action) => {
     case registerAction.start().type:
     case loginAction.start().type:
     case getCurrentUserAction.start().type:
+    case verifyEmailAction.start().type:
       return {
         ...state,
         loading: true
@@ -40,6 +43,7 @@ const authReducer = (state = initialState, action) => {
     case registerAction.failure().type:
     case loginAction.failure().type:
     case getCurrentUserAction.failure().type:
+    case verifyEmailAction.failure().type:
       return {
         ...state,
         loading: false,
@@ -66,6 +70,11 @@ const authReducer = (state = initialState, action) => {
         ...state,
         user: null,
         loggedIn: false
+      };
+    case verifyEmailAction.success().type:
+      return {
+        ...state,
+        message: action.payload
       };
     default:
       return state;
