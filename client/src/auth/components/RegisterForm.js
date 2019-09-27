@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
@@ -32,10 +32,10 @@ export default ({ onSubmit, error }) => {
     <>
       <Formik
         initialValues={{
-          name: "Lebronjames",
-          username: "lebronjames",
-          email: "l@l.com",
-          password: "password",
+          name: "",
+          username: "",
+          email: "",
+          password: "",
           avatar: {}
         }}
         onSubmit={(values, { setSubmitting }) => {

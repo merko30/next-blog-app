@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -15,10 +15,18 @@ export default ({
 }) => {
   const dispatch = useDispatch();
   const post = useSelector(({ posts: { post } }) => post);
+  const [onceCalled, setOnceCalled] = useState(false);
+  const { user, loggedIn } = useSelector(({ auth: { user, loggedIn } }) => ({
+    user,
+    loggedIn
+  }));
 
   useEffect(() => {
-    dispatch(getPost(id));
-  }, []);
+    if (!onceCalled) {
+      dispatch(getPost(id));
+      setOnceCalled(true);
+    }
+  }, [user]);
 
   return (
     <div>
@@ -31,12 +39,14 @@ export default ({
           />
           <h1 className="text-2xl font-bold my-2">{post.title}</h1>
           <p className="mt-3">{post.body}</p>
-          <Link
-            to={`/posts/${post._id}/edit`}
-            className="text-blue-600 hover:text-blue:700"
-          >
-            Edit
-          </Link>
+          {loggedIn && user && post && user._id === post.author._id && (
+            <Link
+              to={`/posts/${post._id}/edit`}
+              className="text-blue-600 hover:text-blue:700 mt-4"
+            >
+              Edit
+            </Link>
+          )}
 
           <CommentList comments={post.comments} />
           <CommentForm

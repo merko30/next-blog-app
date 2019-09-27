@@ -45,6 +45,16 @@ export default ({ onSubmit, postID, editMode, comment, cancelEditMode }) => {
               >
                 Add comment
               </Button>
+              {editMode && (
+                <Button
+                  onClick={() => cancelEditMode()}
+                  block={false}
+                  classes="mx-2"
+                  color="red"
+                >
+                  Cancel edit
+                </Button>
+              )}
             </Form>
           );
         }}

@@ -1,7 +1,6 @@
 const User = require("../models/user");
 
 const register = async (req, res, next) => {
-  console.log(req.file);
   try {
     const user = await User.findOne({
       $or: [{ username: req.body.username }, { email: req.body.email }]
@@ -29,11 +28,11 @@ const login = async (req, res, next) => {
         { username: req.body.usernameOrEmail },
         { email: req.body.usernameOrEmail }
       ]
-    });
+    }).select("-password");
     if (user) {
       if (user.validPassword(req.body.password)) {
         const token = user.generateToken();
-        res.json({ token });
+        res.json({ token, user });
       } else {
         throw new Error("Wrong password");
       }

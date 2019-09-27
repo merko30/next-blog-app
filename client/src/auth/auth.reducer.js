@@ -1,4 +1,11 @@
-import { loginAction, registerAction, setStatusAction } from "./auth.actions";
+import {
+  loginAction,
+  registerAction,
+  setStatusAction,
+  clearErrorAction,
+  getCurrentUserAction,
+  logoutAction
+} from "./auth.actions";
 
 const initialState = {
   loggedIn: false,
@@ -11,6 +18,7 @@ const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case registerAction.start().type:
     case loginAction.start().type:
+    case getCurrentUserAction.start().type:
       return {
         ...state,
         loading: true
@@ -26,10 +34,12 @@ const authReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: null,
-        loggedIn: true
+        loggedIn: true,
+        user: action.payload
       };
     case registerAction.failure().type:
     case loginAction.failure().type:
+    case getCurrentUserAction.failure().type:
       return {
         ...state,
         loading: false,
@@ -39,6 +49,23 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loggedIn: action.payload
+      };
+    case clearErrorAction.start().type:
+      return {
+        ...state,
+        error: null
+      };
+    case getCurrentUserAction.success().type:
+      return {
+        ...state,
+        user: action.payload,
+        error: null
+      };
+    case logoutAction.start().type:
+      return {
+        ...state,
+        user: null,
+        loggedIn: false
       };
     default:
       return state;

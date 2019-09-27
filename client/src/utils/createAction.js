@@ -8,9 +8,9 @@ const createAction = actionName => {
       type: `${actionName}_SUCCESS`,
       payload
     }),
-    failure: (error = {}) => ({
+    failure: (payload = {}) => ({
       type: `${actionName}_FAILURE`,
-      error
+      payload
     })
   };
 };

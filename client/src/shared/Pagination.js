@@ -25,7 +25,7 @@ const Pagination = ({ numberOfPages, onClick }) => {
             key={n}
             onClick={() => click(n)}
             className={`${
-              active == n ? "bg-gray-200 " : "bg-white "
+              active === n ? "bg-gray-200 " : "bg-white "
             }cursor-pointer hover:bg-gray-200 pagination-item py-2 px-4`}
           >
             {n}

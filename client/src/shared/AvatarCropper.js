@@ -5,7 +5,7 @@ import blobURLToFile from "../utils/blobToFile";
 
 const AvatarCropper = ({ src, ...props }) => {
   // photo size
-  const [cropSize, setCropSize] = useState({ width: 200, height: 200 });
+  const [cropSize] = useState({ width: 200, height: 200 });
 
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });

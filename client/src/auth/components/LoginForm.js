@@ -17,7 +17,6 @@ export default ({ onSubmit, error }) => {
       <Formik
         initialValues={{ usernameOrEmail: "", password: "" }}
         onSubmit={(values, { setSubmitting }) => {
-          console.log("here");
           onSubmit(values);
           setSubmitting(false);
         }}

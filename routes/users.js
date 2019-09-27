@@ -10,6 +10,6 @@ router.post("/register", upload.single("avatar"), register);
 
 router.post("/login", login);
 
-router.get("/:id", passport.authenticate("jwt", { session: false }), getUser);
+router.get("/user", passport.authenticate("jwt", { session: false }), getUser);
 
 module.exports = router;
