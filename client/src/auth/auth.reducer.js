@@ -36,7 +36,6 @@ const authReducer = (state = initialState, action) => {
         error: action.payload
       };
     case setStatusAction.start().type:
-      console.log(action);
       return {
         ...state,
         loggedIn: action.payload

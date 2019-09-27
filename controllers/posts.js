@@ -7,7 +7,8 @@ const getAll = async (req, res, next) => {
     const posts = await Post.find({})
       .populate("author", "-password")
       .skip(perPage * page - perPage)
-      .limit(perPage);
+      .limit(perPage)
+      .sort({ createdAt: "desc" });
     const countAll = await Post.countDocuments({});
     res.json({
       posts,

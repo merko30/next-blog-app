@@ -10,18 +10,14 @@ const PostItem = ({
     title,
     body,
     image,
-    author: { name }
+    author: { name, avatar }
   }
 }) => {
   return (
     <Link to={`/posts/${_id}`} data-testid="post-link" className="shadow">
       <div className="p-2">
         <div className="pb-2 border-b-t  flex items-center">
-          <Avatar
-            src="http://res.publicdomainfiles.com/pdf_view/185/14006695215558.jpg"
-            size={12}
-            alt={title}
-          />
+          <Avatar src={avatar} size={12} alt={title} />
           <div>
             <h3>{name}</h3>
             <p className="text-gray-600 text-xs">

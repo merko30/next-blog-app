@@ -18,7 +18,7 @@ const Pagination = ({ numberOfPages, onClick }) => {
   };
 
   return (
-    <div class="flex justify-center">
+    <div className="flex justify-center">
       {numbers.length > 1 &&
         numbers.map(n => (
           <span

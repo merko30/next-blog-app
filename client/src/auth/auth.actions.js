@@ -4,6 +4,7 @@ import history from "../config/history";
 import createAction from "../utils/createAction";
 import populateFormData from "../utils/populateFormData";
 import storeToken from "../utils/storeToken";
+import setHeader from "../utils/setHeader";
 
 export const loginAction = createAction("LOGIN");
 export const registerAction = createAction("REGISTER");
@@ -12,7 +13,7 @@ export const setStatusAction = createAction("SET_STATUS");
 export const register = data => async dispatch => {
   dispatch(registerAction.start());
   try {
-    let formData = populateFormData(data);
+    const formData = populateFormData(data);
     await axios.post("api/auth/register", formData);
     dispatch(registerAction.success());
     history.push("/login");
@@ -29,6 +30,7 @@ export const login = data => async dispatch => {
     } = await axios.post("api/auth/login", data);
     dispatch(loginAction.success());
     storeToken(token);
+    setHeader();
     history.push("/");
   } catch (error) {
     dispatch(loginAction.failure(error.response.data.message));

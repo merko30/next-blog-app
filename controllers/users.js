@@ -1,6 +1,7 @@
 const User = require("../models/user");
 
 const register = async (req, res, next) => {
+  console.log(req.file);
   try {
     const user = await User.findOne({
       $or: [{ username: req.body.username }, { email: req.body.email }]
@@ -11,7 +12,7 @@ const register = async (req, res, next) => {
     const newUser = new User(req.body);
 
     if (req.file) {
-      newUser.avatar = req.file;
+      newUser.avatar = req.file.filename;
     }
 
     await newUser.save();

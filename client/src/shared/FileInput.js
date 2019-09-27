@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default ({
+const FileInput = ({
   setFieldValue,
   name,
   allowedTypes = [],
@@ -50,3 +50,5 @@ export default ({
     </div>
   );
 };
+
+export default FileInput;
