@@ -25,7 +25,7 @@ const register = async (req, res, next) => {
 
     await sendVerificationEmail(newUser, verificationToken);
 
-    res.json({ ok: true });
+    res.json({ ok: true, message: "Please verify your account!" });
   } catch (error) {
     next(error);
   }
@@ -38,11 +38,12 @@ const login = async (req, res, next) => {
         { username: req.body.usernameOrEmail },
         { email: req.body.usernameOrEmail }
       ]
-    }).select("-password");
+    });
     if (user) {
-      if (user.validPassword(req.body.password)) {
+      if (await user.validPassword(req.body.password)) {
         const token = user.generateToken();
-        res.json({ token, user });
+        let message = !user.verified ? "Please verify your account!" : null;
+        res.json({ token, user, message });
       } else {
         throw new Error("Wrong password");
       }
@@ -57,14 +58,14 @@ const login = async (req, res, next) => {
 const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id).select("-password");
-    res.json({ user });
+    let message = !user.verified ? "Please, verify your account!" : null;
+    res.json({ user, message });
   } catch (error) {
     next(error);
   }
 };
 
 const verifyEmail = async (req, res, next) => {
-  console.log(req.query);
   const { email, token } = req.query;
 
   try {
@@ -89,7 +90,7 @@ const forgotPassword = async (req, res, next) => {
   const { email } = req.body;
 
   try {
-    const token = crypto.randomBytes(20, (err, buff) => buff.toString("hex"));
+    const token = crypto.randomBytes(20).toString("hex");
 
     console.log(token);
 
@@ -113,10 +114,10 @@ const forgotPassword = async (req, res, next) => {
 
 const resetPassword = async (req, res, next) => {
   try {
-    const user = await User.findOne({ resetPasswordToken: req.params.token });
+    const user = await User.findOne({ resetPasswordToken: req.query.token });
 
     if (user) {
-      if (user.resetPasswordExpires - Date.now() < 3600000) {
+      if (user.resetPasswordExpires - Date.now() > 3600000) {
         throw new Error("Link has expired. Request a new reset link");
       } else {
         user.password = req.body.password;

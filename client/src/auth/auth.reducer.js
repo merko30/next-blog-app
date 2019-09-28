@@ -5,7 +5,10 @@ import {
   clearErrorAction,
   getCurrentUserAction,
   logoutAction,
-  verifyEmailAction
+  verifyEmailAction,
+  resetPasswordAction,
+  clearMessageAction,
+  forgotPasswordAction
 } from "./auth.actions";
 
 const initialState = {
@@ -22,28 +25,38 @@ const authReducer = (state = initialState, action) => {
     case loginAction.start().type:
     case getCurrentUserAction.start().type:
     case verifyEmailAction.start().type:
+    case resetPasswordAction.start().type:
+    case forgotPasswordAction.start().type:
       return {
         ...state,
         loading: true
       };
     case registerAction.success().type:
+    case forgotPasswordAction.success().type:
+    case verifyEmailAction.success().type:
+    case resetPasswordAction.success().type:
       return {
         ...state,
         loading: false,
-        error: null
+        error: null,
+        message: action.payload
       };
     case loginAction.success().type:
+      const { message, user } = action.payload;
       return {
         ...state,
         loading: false,
         error: null,
         loggedIn: true,
-        user: action.payload
+        user,
+        message: message ? message : null
       };
     case registerAction.failure().type:
     case loginAction.failure().type:
     case getCurrentUserAction.failure().type:
     case verifyEmailAction.failure().type:
+    case resetPasswordAction.failure().type:
+    case forgotPasswordAction.failure().type:
       return {
         ...state,
         loading: false,
@@ -62,8 +75,9 @@ const authReducer = (state = initialState, action) => {
     case getCurrentUserAction.success().type:
       return {
         ...state,
-        user: action.payload,
-        error: null
+        user: action.payload.user,
+        error: null,
+        message: action.payload.message ? action.payload.message : null
       };
     case logoutAction.start().type:
       return {
@@ -71,10 +85,10 @@ const authReducer = (state = initialState, action) => {
         user: null,
         loggedIn: false
       };
-    case verifyEmailAction.success().type:
+    case clearMessageAction.start().type:
       return {
         ...state,
-        message: action.payload
+        message: null
       };
     default:
       return state;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, Form, Field } from "formik";
+import { Formik, Field } from "formik";
 import * as Yup from "yup";
 
 import { getPost } from "../posts.actions";
@@ -10,6 +10,7 @@ import Button from "../../shared/Button";
 import Error from "../../shared/Error";
 import Textarea from "../../shared/Textarea";
 import FileInput from "../../shared/FileInput";
+import FormContainer from "../../layout/FormContainer";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
@@ -59,13 +60,14 @@ const PostForm = ({ onSubmit, error, editMode, post, ...props }) => {
         validationSchema={validationSchema}
       >
         {({ isSubmitting, setFieldValue }) => (
-          <Form className="p-4 mx-auto w-full md:w-3/4 lg:w-2/3">
+          <FormContainer>
             {error && <Error error={error} />}
             <Field name="title" component={Input} label="Title" />
             <Field name="body" component={Textarea} label="Content" rows={8} />
             {!changeImage && editMode && (
               <Button
                 color="yellow"
+                classes="my-2"
                 block={false}
                 onClick={() => setChangeImage(true)}
               >
@@ -83,7 +85,7 @@ const PostForm = ({ onSubmit, error, editMode, post, ...props }) => {
             <Button color="green" type="submit" disabled={isSubmitting}>
               Submit
             </Button>
-          </Form>
+          </FormContainer>
         )}
       </Formik>
     </>

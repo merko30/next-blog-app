@@ -1,17 +1,19 @@
 import React from "react";
-import { Formik, Form, Field } from "formik";
+import { Link } from "react-router-dom";
+import { Formik, Field } from "formik";
 import * as Yup from "yup";
 
 import Input from "../../shared/Input";
 import Button from "../../shared/Button";
 import Error from "../../shared/Error";
+import FormContainer from "../../layout/FormContainer";
 
 const validationSchema = Yup.object().shape({
   usernameOrEmail: Yup.string().required("This field is required"),
   password: Yup.string().required("Password is required field")
 });
 
-const Login = ({ onSubmit, error }) => {
+const Login = ({ onSubmit, error, onForgot }) => {
   return (
     <>
       <Formik
@@ -23,7 +25,7 @@ const Login = ({ onSubmit, error }) => {
         validationSchema={validationSchema}
       >
         {({ isSubmitting }) => (
-          <Form className="p-4 mx-auto w-full md:w-1/3">
+          <FormContainer>
             {error && <Error error={error} />}
             <Field
               name="usernameOrEmail"
@@ -39,7 +41,8 @@ const Login = ({ onSubmit, error }) => {
             <Button color="green" type="submit" disabled={isSubmitting}>
               Submit
             </Button>
-          </Form>
+            <Link to="/forgot_password">Forgot your password ?</Link>
+          </FormContainer>
         )}
       </Formik>
     </>

@@ -1,24 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Footer from "../layout/Footer";
 import Header from "../layout/Header/index";
+import Container from "../layout/Container";
+import Message from "../shared/Message";
 
-import Login from "../pages/Login";
+import GuestRoute from "./GuestRoute";
+import PrivateRoute from "./PrivateRoute";
+
 import Home from "../pages/Home";
 import Register from "../pages/Register";
-import AddEditPost from "../pages/AddEditPost";
+import Login from "../pages/Login";
 import PostDetail from "../pages/PostDetail";
-
-import PrivateRoute from "./PrivateRoute";
-import GuestRoute from "./GuestRoute";
+import AddEditPost from "../pages/AddEditPost";
 import Verification from "../pages/Verification";
 import ResetPassword from "../pages/ResetPassword";
+import ForgotPassword from "../pages/ForgotPassword";
 
 export default () => {
+  const message = useSelector(({ auth: { message } }) => message);
+
+  // call rerender if message arrives
+  useEffect(() => {}, [message]);
+
   return (
     <>
       <Header />
+      <Container>{message && <Message message={message} />}</Container>
       <div className="content">
         <Switch>
           <Route exact path="/" component={Home} />
@@ -36,6 +46,7 @@ export default () => {
             component={AddEditPost}
             propsForComponent={{ editMode: true }}
           />
+          <Route path="/forgot_password" component={ForgotPassword} />
           <Route path="/verification" component={Verification} />
           <Route path="/reset_password" component={ResetPassword} />
         </Switch>

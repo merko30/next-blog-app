@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Field } from "formik";
 import * as Yup from "yup";
 
 import Input from "../../shared/Input";
@@ -9,6 +9,7 @@ import AvatarCropper from "../../shared/AvatarCropper";
 import AvatarInput from "../../shared/AvatarInput";
 
 import Modal from "../../shared/Modal";
+import FormContainer from "../../layout/FormContainer";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string(),
@@ -45,7 +46,7 @@ const RegisterForm = ({ onSubmit, error }) => {
         validationSchema={validationSchema}
       >
         {({ isSubmitting, setFieldValue }) => (
-          <Form className="p-4 mx-auto w-full md:w-1/3">
+          <FormContainer>
             {error && <Error error={error} />}
             <AvatarInput
               image={image}
@@ -71,7 +72,7 @@ const RegisterForm = ({ onSubmit, error }) => {
             <Button color="green" type="submit" disabled={isSubmitting}>
               Submit
             </Button>
-          </Form>
+          </FormContainer>
         )}
       </Formik>
     </>

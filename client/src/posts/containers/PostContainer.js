@@ -5,10 +5,12 @@ import PostList from "../components/PostList";
 
 import { getPosts } from "../posts.actions";
 import Pagination from "../../shared/Pagination";
+import Error from "../../shared/Error";
+import Loading from "../../shared/Loading";
 
 export default props => {
   const [calledOnce, setCalledOnce] = useState(false);
-  const posts = useSelector(({ posts }) => posts);
+  const { error, posts, meta, loading } = useSelector(({ posts }) => posts);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,9 +22,11 @@ export default props => {
 
   return (
     <div>
-      <PostList posts={posts.posts} />
+      {error && <Error error={error} />}
+      {loading && <Loading />}
+      <PostList posts={posts} />
       <Pagination
-        numberOfPages={posts.meta.numberOfPages}
+        numberOfPages={meta.numberOfPages}
         onClick={n => dispatch(getPosts(n))}
       />
     </div>

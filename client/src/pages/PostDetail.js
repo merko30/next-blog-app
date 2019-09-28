@@ -7,6 +7,8 @@ import CommentForm from "../comments/components/CommentForm";
 
 import { getPost } from "../posts/posts.actions";
 import { addComment } from "../comments/comments.actions";
+import Error from "../shared/Error";
+import Loading from "../shared/Loading";
 
 const PostDetail = ({
   match: {
@@ -14,7 +16,7 @@ const PostDetail = ({
   }
 }) => {
   const dispatch = useDispatch();
-  const post = useSelector(({ posts: { post } }) => post);
+  const { error, post, loading } = useSelector(({ posts }) => posts);
   const [onceCalled, setOnceCalled] = useState(false);
   const { user, loggedIn } = useSelector(({ auth: { user, loggedIn } }) => ({
     user,
@@ -30,8 +32,10 @@ const PostDetail = ({
 
   return (
     <div>
+      {error && <Error error={error} />}
+      {loading && <Loading />}
       {post && (
-        <div className="p-2 md:px-32 lg:px-64 mx-auto ">
+        <div className="p-2 px-4 md:px-32 lg:px-64 mx-auto">
           <img
             src={`/uploads/${post.image}`}
             alt={post.title}

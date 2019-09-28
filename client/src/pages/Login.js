@@ -15,7 +15,6 @@ const Login = () => {
 
   return (
     <div className="pt-10 md:pt-20 flex items-center justify-center">
-      {auth.message && <p>{auth.message}</p>}
       <LoginForm onSubmit={data => dispatch(login(data))} error={auth.error} />
     </div>
   );

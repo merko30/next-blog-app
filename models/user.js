@@ -34,12 +34,8 @@ schema.methods.generateToken = function() {
   });
 };
 
-schema.methods.validPassword = async password => {
-  try {
-    return await bcrypt.compare(password, this.password);
-  } catch (error) {
-    return new Error("Something went wrong");
-  }
+schema.methods.validPassword = async function(password) {
+  return await bcrypt.compareSync(password, this.password);
 };
 
 module.exports = mongoose.model("User", schema);
