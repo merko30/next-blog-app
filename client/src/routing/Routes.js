@@ -18,6 +18,7 @@ import AddEditPost from "../pages/AddEditPost";
 import Verification from "../pages/Verification";
 import ResetPassword from "../pages/ResetPassword";
 import ForgotPassword from "../pages/ForgotPassword";
+import Profile from "../pages/Profile";
 
 export default () => {
   const message = useSelector(({ auth: { message } }) => message);
@@ -34,6 +35,7 @@ export default () => {
           <Route exact path="/" component={Home} />
           <GuestRoute path="/login" component={Login} />
           <GuestRoute path="/register" component={Register} />
+          <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute
             exact
             path="/posts/add"

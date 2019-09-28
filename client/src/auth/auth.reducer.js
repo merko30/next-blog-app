@@ -77,6 +77,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         user: action.payload.user,
         error: null,
+        loading: false,
         message: action.payload.message ? action.payload.message : null
       };
     case logoutAction.start().type:
