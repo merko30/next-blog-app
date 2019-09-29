@@ -10,14 +10,25 @@ const {
   getUser,
   forgotPassword,
   resetPassword,
-  verifyEmail
+  verifyEmail,
+  updateField
 } = require("../controllers/users");
+
+const userExists = require("../middlewares/userExists");
+
+const middlewares = [
+  userExists,
+  upload.single("avatar"),
+  passport.authenticate("jwt", { session: false })
+];
 
 router.post("/register", upload.single("avatar"), register);
 
 router.post("/login", login);
 
 router.get("/user", passport.authenticate("jwt", { session: false }), getUser);
+
+router.put("/update/:field", middlewares, updateField);
 
 router.post("/forgot_password", forgotPassword);
 

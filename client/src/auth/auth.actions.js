@@ -16,6 +16,9 @@ export const getCurrentUserAction = createAction("GET_CURRENT_USER");
 export const verifyEmailAction = createAction("VERIFY_EMAIL");
 export const forgotPasswordAction = createAction("FORGOT_PASSWORD");
 export const resetPasswordAction = createAction("RESET_PASSWORD");
+export const updateFieldAction = createAction("UPDATE_FIELD");
+
+const url = process.env.REACT_APP_API_URL;
 
 export const register = data => async dispatch => {
   dispatch(registerAction.start());
@@ -23,7 +26,7 @@ export const register = data => async dispatch => {
     const formData = populateFormData(data);
     const {
       data: { message }
-    } = await axios.post("api/auth/register", formData);
+    } = await axios.post(`${url}/auth/register`, formData);
     dispatch(registerAction.success(message));
     history.push("/login");
   } catch (error) {
@@ -34,7 +37,7 @@ export const register = data => async dispatch => {
 export const login = values => async dispatch => {
   dispatch(loginAction.start());
   try {
-    const { data } = await axios.post("api/auth/login", values);
+    const { data } = await axios.post(`${url}/auth/login`, values);
     dispatch(loginAction.success(data));
     storeToken(data.token);
     setHeader();
@@ -48,7 +51,7 @@ export const getCurrentUser = () => async dispatch => {
   dispatch(getCurrentUserAction.start());
 
   try {
-    const { data } = await axios.get("/api/auth/user");
+    const { data } = await axios.get(`${url}/auth/user`);
     dispatch(getCurrentUserAction.success(data));
   } catch (error) {
     dispatch(getCurrentUserAction.failure(error.response.data.message));
@@ -61,7 +64,7 @@ export const verifyEmail = (email, token) => async dispatch => {
     const {
       data: { message }
     } = await axios.post(
-      `/api/auth/verify_email?token=${token}&email=${email}`
+      `${url}/auth/verify_email?token=${token}&email=${email}`
     );
     dispatch(verifyEmailAction.success(message));
     history.push("/login");
@@ -76,7 +79,7 @@ export const forgotPassword = email => async dispatch => {
   try {
     const {
       data: { message }
-    } = await axios.post("/api/auth/forgot_password", email);
+    } = await axios.post(`${url}/auth/forgot_password`, email);
     dispatch(forgotPasswordAction.success(message));
     history.push("/");
   } catch (error) {
@@ -90,13 +93,25 @@ export const resetPassword = (password, token) => async dispatch => {
   try {
     const {
       data: { message }
-    } = await axios.post(`/api/auth/reset_password?token=${token}`, {
+    } = await axios.post(`${url}/auth/reset_password?token=${token}`, {
       password
     });
     dispatch(resetPasswordAction.success(message));
     history.push("/login");
   } catch (error) {
     dispatch(resetPasswordAction.failure(error.response.data.message));
+  }
+};
+
+export const updateField = (field, data) => async dispatch => {
+  dispatch(updateFieldAction.start());
+  try {
+    const {
+      data: { message }
+    } = await axios.put(`${url}/auth/update/${field}`, data);
+    dispatch(updateFieldAction.success(message));
+  } catch (error) {
+    dispatch(updateFieldAction.failure(error.response.data.message));
   }
 };
 

@@ -9,8 +9,10 @@ export const getPostAction = createAction("GET_POST");
 export const addPostAction = createAction("ADD_POST");
 export const updatePostAction = createAction("EDIT_POST");
 
+const url = process.env.REACT_APP_API_URL;
+
 export const getPosts = (page = 1) => async dispatch => {
-  const URL = page ? `/api/posts?page=${page}` : "/api/posts";
+  const URL = page ? `${url}/posts?page=${page}` : `${url}/posts`;
   dispatch(getPostsAction.start());
   try {
     const { data } = await Axios.get(URL);
@@ -25,7 +27,7 @@ export const getPost = id => async dispatch => {
   try {
     const {
       data: { post }
-    } = await Axios.get(`/api/posts/${id}`);
+    } = await Axios.get(`${url}/posts/${id}`);
     dispatch(getPostAction.success(post));
   } catch (error) {
     dispatch(getPostAction.failure(error.response.data.message));
@@ -38,7 +40,7 @@ export const addPost = p => async dispatch => {
     const formData = populateFormData(p);
     const {
       data: { post }
-    } = await Axios.post(`/api/posts`, formData);
+    } = await Axios.post(`${url}/posts`, formData);
     dispatch(addPostAction.success(post));
     history.push(`/posts/${post._id}`);
   } catch (error) {
@@ -52,7 +54,7 @@ export const updatePost = (id, p) => async dispatch => {
     const formData = populateFormData(p);
     const {
       data: { post }
-    } = await Axios.put(`/api/posts/${id}`, formData);
+    } = await Axios.put(`${url}/posts/${id}`, formData);
     dispatch(updatePostAction.success(post));
     history.push(`/posts/${post._id}`);
   } catch (error) {

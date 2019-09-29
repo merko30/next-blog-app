@@ -37,7 +37,7 @@ const PostDetail = ({
       {post && (
         <div className="p-2 px-4 md:px-32 lg:px-64 mx-auto">
           <img
-            src={`/uploads/${post.image}`}
+            src={`${process.env.REACT_APP_BASE_URL}/uploads/${post.image}`}
             alt={post.title}
             style={{ width: "100%", objectFit: "cover" }}
           />

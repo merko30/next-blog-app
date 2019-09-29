@@ -1,9 +1,9 @@
 import React from "react";
 
-const Message = ({ message }) => {
+const Message = ({ message, color }) => {
   return (
-    <div className=" border rounded border-orange-600 p-2">
-      <p className="text-orange-700 uppercase">{message}</p>
+    <div className={`border rounded border-${color}-600 p-2 my-2`}>
+      <p className={`text-${color}-700 uppercase`}>{message}</p>
     </div>
   );
 };

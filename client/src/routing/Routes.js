@@ -21,15 +21,17 @@ import ForgotPassword from "../pages/ForgotPassword";
 import Profile from "../pages/Profile";
 
 export default () => {
-  const message = useSelector(({ auth: { message } }) => message);
+  const warning = useSelector(({ auth: { warning } }) => warning);
 
-  // call rerender if message arrives
-  useEffect(() => {}, [message]);
+  // call rerender if warning arrives
+  useEffect(() => {}, [warning]);
 
   return (
     <>
       <Header />
-      <Container>{message && <Message message={message} />}</Container>
+      <Container>
+        {warning && <Message color="orange" message={warning} />}
+      </Container>
       <div className="content">
         <Switch>
           <Route exact path="/" component={Home} />

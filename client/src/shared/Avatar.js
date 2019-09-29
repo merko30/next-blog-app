@@ -3,7 +3,7 @@ import React from "react";
 const Avatar = ({ src, size, alt }) => (
   <img
     src={
-      `http://localhost:5000/uploads/${src}` ||
+      `${process.env.REACT_APP_BASE_URL}/uploads/${src}` ||
       process.env.PUBLIC_URL + "/img/image.jpeg"
     }
     alt={alt}

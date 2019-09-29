@@ -28,7 +28,7 @@ const PostItem = ({
         <img
           src={
             image
-              ? `uploads/${image}`
+              ? `${process.env.REACT_APP_BASE_URL}/uploads/${image}`
               : "http://res.publicdomainfiles.com/pdf_view/185/14006695215558.jpg"
           }
           className="image"

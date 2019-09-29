@@ -92,8 +92,6 @@ const forgotPassword = async (req, res, next) => {
   try {
     const token = crypto.randomBytes(20).toString("hex");
 
-    console.log(token);
-
     const user = await User.findOne({ email });
 
     if (user) {
@@ -135,11 +133,39 @@ const resetPassword = async (req, res, next) => {
   }
 };
 
+const updateField = async (req, res, next) => {
+  const { field } = req.params;
+  try {
+    const user = await User.findOne({ _id: req.user._id });
+
+    if (field === "avatar") {
+      if (req.file) {
+        user[field] = req.file.filename;
+      }
+    }
+
+    if (user) {
+      user[field] = req.body[field];
+      await user.save();
+
+      res.json({
+        message: `${field.substring(0, 1).toUpperCase() +
+          field.substring(1)} is successfully updated`
+      });
+    } else {
+      throw new Error("User not found");
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   register,
   login,
   getUser,
   forgotPassword,
   resetPassword,
-  verifyEmail
+  verifyEmail,
+  updateField
 };

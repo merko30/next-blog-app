@@ -8,7 +8,8 @@ import {
   verifyEmailAction,
   resetPasswordAction,
   clearMessageAction,
-  forgotPasswordAction
+  forgotPasswordAction,
+  updateFieldAction
 } from "./auth.actions";
 
 const initialState = {
@@ -16,7 +17,8 @@ const initialState = {
   error: null,
   loading: false,
   user: null,
-  message: null
+  message: null,
+  warning: null
 };
 
 const authReducer = (state = initialState, action) => {
@@ -27,14 +29,22 @@ const authReducer = (state = initialState, action) => {
     case verifyEmailAction.start().type:
     case resetPasswordAction.start().type:
     case forgotPasswordAction.start().type:
+    case updateFieldAction.start().type:
       return {
         ...state,
         loading: true
       };
     case registerAction.success().type:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        warning: action.payload
+      };
     case forgotPasswordAction.success().type:
     case verifyEmailAction.success().type:
     case resetPasswordAction.success().type:
+    case updateFieldAction.success().type:
       return {
         ...state,
         loading: false,
@@ -49,7 +59,7 @@ const authReducer = (state = initialState, action) => {
         error: null,
         loggedIn: true,
         user,
-        message: message ? message : null
+        warning: message ? message : null
       };
     case registerAction.failure().type:
     case loginAction.failure().type:
@@ -57,6 +67,7 @@ const authReducer = (state = initialState, action) => {
     case verifyEmailAction.failure().type:
     case resetPasswordAction.failure().type:
     case forgotPasswordAction.failure().type:
+    case updateFieldAction.failure().type:
       return {
         ...state,
         loading: false,
@@ -78,7 +89,7 @@ const authReducer = (state = initialState, action) => {
         user: action.payload.user,
         error: null,
         loading: false,
-        message: action.payload.message ? action.payload.message : null
+        warning: action.payload.message ? action.payload.message : null
       };
     case logoutAction.start().type:
       return {
