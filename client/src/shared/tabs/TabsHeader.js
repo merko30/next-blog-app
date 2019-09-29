@@ -11,12 +11,13 @@ const TabsHeader = ({ tabs, active, setActive }) => {
         const isActive = active === tab.props.title;
         const bg = isActive ? "bg-green-300" : "";
         const text = isActive ? "text-green-700" : " text-gray-500";
+        const shadow = isActive ? "shadow-inner" : "";
         return (
           name === "Tab" && (
             <li
               key={title}
               style={{ letterSpacing: "0.3em" }}
-              className={`${bg} ${text} list-none uppercase flex-1 text-center h-full flex justify-center items-center cursor-pointer`}
+              className={`${bg} ${text} ${shadow} list-none uppercase flex-1 text-center h-full flex justify-center items-center cursor-pointer`}
               onClick={() => setActive(title)}
             >
               {title}

@@ -1,13 +1,16 @@
 import React from "react";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import QueryString from "query-string";
+
+import FormContainer from "../layout/FormContainer";
 
 import Input from "../shared/Input";
 import Button from "../shared/Button";
+import Message from "../shared/Message";
+
 import { resetPassword } from "../auth/auth.actions";
-import FormContainer from "../layout/FormContainer";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -22,6 +25,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const ResetPassword = ({ location: { search } }) => {
+  const message = useSelector(state => state.auth.message);
   const dispatch = useDispatch();
   const { token } = QueryString.parse(search);
 
@@ -33,6 +37,7 @@ const ResetPassword = ({ location: { search } }) => {
     >
       <div>
         <FormContainer>
+          {message && <Message color="green" message={message} />}
           <Field component={Input} name="password" label="New password" />
           <Field
             component={Input}

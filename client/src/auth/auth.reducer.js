@@ -44,12 +44,18 @@ const authReducer = (state = initialState, action) => {
     case forgotPasswordAction.success().type:
     case verifyEmailAction.success().type:
     case resetPasswordAction.success().type:
-    case updateFieldAction.success().type:
       return {
         ...state,
         loading: false,
         error: null,
         message: action.payload
+      };
+    case updateFieldAction.success().type:
+      return {
+        ...state,
+        message: action.payload.message,
+        user: action.payload.user,
+        loading: false
       };
     case loginAction.success().type:
       const { message, user } = action.payload;
@@ -95,7 +101,8 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         user: null,
-        loggedIn: false
+        loggedIn: false,
+        warning: null
       };
     case clearMessageAction.start().type:
       return {

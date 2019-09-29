@@ -9,7 +9,7 @@ const sendPasswordResetMail = async (to, token) => {
             <h5>Hello, ${to.username},<br />
             If you requested password reset, keep reading, otherwise just ignore the mail.<br />
             <br />
-            Here is the link for password reset: ${process.env.APP_URL}/reset_password?token=${token}</h5>
+            Here is the link for password reset: <a>${process.env.APP_URL}/reset_password?token=${token}</a></h5>
             <br/>
             <h3>Regards, our team!</h3>
         `

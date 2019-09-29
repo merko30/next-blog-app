@@ -28,8 +28,9 @@ const EditField = ({
         validationSchema={schema}
         enableReinitialize={true}
         initialValues={{ [field]: "", ...confirmField }}
-        onSubmit={values => {
+        onSubmit={(values, { resetForm }) => {
           onSubmit(field, values);
+          resetForm();
         }}
       >
         <Form className="my-2">

@@ -52,7 +52,7 @@ export default () => {
           />
           <Route path="/forgot_password" component={ForgotPassword} />
           <Route path="/verification" component={Verification} />
-          <Route path="/reset_password" component={ResetPassword} />
+          <GuestRoute path="/reset_password" component={ResetPassword} />
         </Switch>
       </div>
       <Footer />

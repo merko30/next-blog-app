@@ -81,14 +81,12 @@ export const forgotPassword = email => async dispatch => {
       data: { message }
     } = await axios.post(`${url}/auth/forgot_password`, email);
     dispatch(forgotPasswordAction.success(message));
-    history.push("/");
   } catch (error) {
     dispatch(forgotPasswordAction.failure(error.response.data.message));
   }
 };
 
 export const resetPassword = (password, token) => async dispatch => {
-  dispatch(logout());
   dispatch(resetPasswordAction.start());
   try {
     const {
@@ -97,19 +95,16 @@ export const resetPassword = (password, token) => async dispatch => {
       password
     });
     dispatch(resetPasswordAction.success(message));
-    history.push("/login");
   } catch (error) {
     dispatch(resetPasswordAction.failure(error.response.data.message));
   }
 };
 
-export const updateField = (field, data) => async dispatch => {
+export const updateField = (field, d) => async dispatch => {
   dispatch(updateFieldAction.start());
   try {
-    const {
-      data: { message }
-    } = await axios.put(`${url}/auth/update/${field}`, data);
-    dispatch(updateFieldAction.success(message));
+    const { data } = await axios.put(`${url}/auth/update/${field}`, d);
+    dispatch(updateFieldAction.success(data));
   } catch (error) {
     dispatch(updateFieldAction.failure(error.response.data.message));
   }

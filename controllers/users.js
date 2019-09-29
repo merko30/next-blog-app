@@ -138,17 +138,17 @@ const updateField = async (req, res, next) => {
   try {
     const user = await User.findOne({ _id: req.user._id });
 
-    if (field === "avatar") {
-      if (req.file) {
-        user[field] = req.file.filename;
-      }
-    }
-
     if (user) {
-      user[field] = req.body[field];
-      await user.save();
+      if (field === "avatar") {
+        if (req.file) {
+          user[field] = req.file.filename;
+        }
+      }
 
+      user[field] = req.body[field];
+      const updated = await user.save();
       res.json({
+        user: updated,
         message: `${field.substring(0, 1).toUpperCase() +
           field.substring(1)} is successfully updated`
       });
