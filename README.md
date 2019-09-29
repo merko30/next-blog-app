@@ -16,4 +16,11 @@ Getting started
   NODEMAILER_PASSWORD = nodemailer_user_password
   APP_URL = client_app_url
 ```
+* In client folder, create env with these variables:
+```
+REACT_APP_API_URL=url/api 
+// api url
+REACT_APP_BASE_URL=url
+// base url for loading uploaded photos like http://localhost:5000/uploads/photo.jpg
+```
 * `npm run development/yarn development` to start server and client
