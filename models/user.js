@@ -3,11 +3,11 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const schema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true, minlength: 5 },
+  username: { type: String, required: true, unique: true, minlength: 6 },
   name: { type: String },
   email: { type: String, unique: true, required: true },
   avatar: { type: String },
-  password: { type: String, required: true },
+  password: { type: String, required: true, minlength: 8 },
   resetPasswordToken: { type: String },
   passwordTokenExpires: { type: Date },
   verified: { type: Boolean },
@@ -35,7 +35,7 @@ schema.methods.generateToken = function() {
 };
 
 schema.methods.validPassword = async function(password) {
-  return await bcrypt.compareSync(password, this.password);
+  return bcrypt.compareSync(password, this.password);
 };
 
 module.exports = mongoose.model("User", schema);

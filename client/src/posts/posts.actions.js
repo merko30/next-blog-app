@@ -8,6 +8,7 @@ export const getPostsAction = createAction("GET_POSTS");
 export const getPostAction = createAction("GET_POST");
 export const addPostAction = createAction("ADD_POST");
 export const updatePostAction = createAction("EDIT_POST");
+export const likePostAction = createAction("LIKE_POST");
 
 const url = process.env.REACT_APP_API_URL;
 
@@ -59,5 +60,17 @@ export const updatePost = (id, p) => async dispatch => {
     history.push(`/posts/${post._id}`);
   } catch (error) {
     dispatch(updatePostAction.failure(error.response.data.message));
+  }
+};
+
+export const likePost = id => async dispatch => {
+  dispatch(likePostAction.start());
+  try {
+    const {
+      data: { post }
+    } = await Axios.put(`${url}/posts/${id}/like`);
+    dispatch(likePostAction.success(post));
+  } catch (error) {
+    dispatch(likePostAction.failure(error.response.data.message));
   }
 };

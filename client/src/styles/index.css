@@ -142,3 +142,7 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.like {
+  transition: color 1s ease-in-out;
+}

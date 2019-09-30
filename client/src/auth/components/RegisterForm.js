@@ -15,7 +15,7 @@ const validationSchema = Yup.object().shape({
   name: Yup.string(),
   username: Yup.string()
     .required("Username is required field")
-    .min(8, "Name should be longer than 8 characters"),
+    .min(6, "Username should be longer than 6 characters"),
   email: Yup.string("Email is required field")
     .required("Email is required field")
     .email("Wrong email format"),

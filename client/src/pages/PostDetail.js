@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import CommentList from "../comments/components/CommentList";
 import CommentForm from "../comments/components/CommentForm";
 
-import { getPost } from "../posts/posts.actions";
+import { getPost, likePost } from "../posts/posts.actions";
 import { addComment } from "../comments/comments.actions";
 import Error from "../shared/Error";
 import Loading from "../shared/Loading";
+import Like from "../shared/Like";
 
 const PostDetail = ({
   match: {
@@ -28,14 +29,14 @@ const PostDetail = ({
       dispatch(getPost(id));
       setOnceCalled(true);
     }
-  }, [user]);
+  }, [user, post]);
 
   return (
     <div>
-      {error && <Error error={error} />}
       {loading && <Loading />}
       {post && (
         <div className="p-2 px-4 md:px-32 lg:px-64 mx-auto">
+          {error && <Error error={error} />}
           <img
             src={`${process.env.REACT_APP_BASE_URL}/uploads/${post.image}`}
             alt={post.title}
@@ -43,6 +44,11 @@ const PostDetail = ({
           />
           <h1 className="text-2xl font-bold my-2">{post.title}</h1>
           <p className="mt-3">{post.body}</p>
+          <Like
+            user={user}
+            onClick={id => dispatch(likePost(id))}
+            post={post}
+          />
           {loggedIn && user && post && user._id === post.author._id && (
             <Link
               to={`/posts/${post._id}/edit`}

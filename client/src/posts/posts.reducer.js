@@ -2,7 +2,8 @@ import {
   getPostsAction,
   getPostAction,
   addPostAction,
-  updatePostAction
+  updatePostAction,
+  likePostAction
 } from "./posts.actions";
 import {
   addCommentAction,
@@ -26,6 +27,7 @@ export default (state = initialState, action) => {
     case getPostAction.start().type:
     case addPostAction.start().type:
     case updatePostAction.start().type:
+    case likePostAction.start().type:
       return {
         ...state,
         loading: true
@@ -57,6 +59,7 @@ export default (state = initialState, action) => {
     case getPostAction.failure().type:
     case addPostAction.failure().type:
     case updatePostAction.failure().type:
+    case likePostAction.failure().type:
       return {
         ...state,
         loading: false,
@@ -82,6 +85,12 @@ export default (state = initialState, action) => {
           ...state.post,
           comments: updatedComments
         }
+      };
+    case likePostAction.success().type:
+      return {
+        ...state,
+        post: action.payload,
+        loading: false
       };
     default:
       return state;

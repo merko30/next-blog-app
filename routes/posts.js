@@ -9,7 +9,8 @@ const {
   create,
   getOne,
   update,
-  remove
+  remove,
+  likePost
 } = require("../controllers/posts");
 
 const middlewares = [
@@ -27,5 +28,9 @@ router
   .get(getOne)
   .put(middlewares, update)
   .delete(middlewares, remove);
+
+router
+  .route("/:id/like")
+  .put(passport.authenticate("jwt", { session: false }), likePost);
 
 module.exports = router;
