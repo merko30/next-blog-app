@@ -10,6 +10,7 @@ import UserInfo from "../shared/UserInfo";
 import EditField from "../shared/EditField";
 
 import { updateField } from "../auth/auth.actions";
+import EditAvatar from "../shared/EditAvatar";
 
 const Profile = () => {
   const { loading, user, message, error } = useSelector(({ auth }) => auth);
@@ -26,6 +27,7 @@ const Profile = () => {
           <Tabs classes="flex-1">
             <Tab title="Posts">posts</Tab>
             <Tab title="Settings">
+              <EditAvatar />
               <EditField
                 error={error}
                 message={message}

@@ -135,6 +135,7 @@ const resetPassword = async (req, res, next) => {
 
 const updateField = async (req, res, next) => {
   const { field } = req.params;
+  console.log(field, req.file);
   try {
     const user = await User.findOne({ _id: req.user._id });
 
@@ -143,9 +144,9 @@ const updateField = async (req, res, next) => {
         if (req.file) {
           user[field] = req.file.filename;
         }
+      } else {
+        user[field] = req.body[field];
       }
-
-      user[field] = req.body[field];
       const updated = await user.save();
       res.json({
         user: updated,

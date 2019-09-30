@@ -26,10 +26,9 @@ const PostItem = ({
           </div>
         </div>
         <img
-          src={
-            image
-              ? `${process.env.REACT_APP_BASE_URL}/uploads/${image}`
-              : "http://res.publicdomainfiles.com/pdf_view/185/14006695215558.jpg"
+          src={`${process.env.REACT_APP_BASE_URL}/uploads/${image}`}
+          onError={e =>
+            (e.target.src = `${process.env.PUBLIC_URL}/img/defaultImage.svg`)
           }
           className="image"
           alt={title}

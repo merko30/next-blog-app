@@ -15,7 +15,6 @@ const Like = ({ onClick, post, user }) => {
     : post.likes.length === 0
     ? `Still no likes`
     : `${post.likes.length} like this post`;
-  const pointer = !liked ? "cursor-pointer" : "";
 
   return (
     <div className={`p-2 flex items-center`}>

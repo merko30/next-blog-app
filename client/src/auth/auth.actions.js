@@ -103,7 +103,8 @@ export const resetPassword = (password, token) => async dispatch => {
 export const updateField = (field, d) => async dispatch => {
   dispatch(updateFieldAction.start());
   try {
-    const { data } = await axios.put(`${url}/auth/update/${field}`, d);
+    const formData = populateFormData(d);
+    const { data } = await axios.put(`${url}/auth/update/${field}`, formData);
     dispatch(updateFieldAction.success(data));
   } catch (error) {
     dispatch(updateFieldAction.failure(error.response.data.message));
