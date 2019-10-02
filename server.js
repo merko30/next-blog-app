@@ -8,6 +8,8 @@ const middlewares = require("./config/middlewares");
 const setDatabase = require("./config/database");
 const errorHandler = require("./config/errorHandler");
 
+console.log(process.env);
+
 const app = express();
 
 middlewares(app);
