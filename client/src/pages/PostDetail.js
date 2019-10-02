@@ -11,6 +11,9 @@ import Error from "../shared/Error";
 import Loading from "../shared/Loading";
 import Like from "../shared/Like";
 import Image from "../shared/Image";
+import Author from "../shared/Author";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const PostDetail = ({
   match: {
@@ -38,17 +41,20 @@ const PostDetail = ({
       {post && (
         <div className="p-2 px-4 md:px-32 lg:px-64 mx-auto relative">
           {error && <Error error={error} />}
+          <Author author={post.author} createdAt={post.createdAt} />
           <Image src={post.image} height="100%" alt={post.title} />
-          <h1 className="text-2xl font-bold my-2">{post.title}</h1>
-          <p className="mt-3">{post.body}</p>
-          {loggedIn && user && post && user._id === post.author._id && (
-            <Link
-              to={`/posts/${post._id}/edit`}
-              className="text-blue-600 hover:text-blue:700 mt-4"
-            >
-              Edit
-            </Link>
-          )}
+          <div className="relative">
+            <h1 className="text-2xl font-bold my-2">{post.title}</h1>
+            <p className="mt-3">{post.body}</p>
+            {loggedIn && user && post && user._id === post.author._id && (
+              <Link
+                to={`/posts/${post._id}/edit`}
+                className="block absolute top-0 right-0 m-2"
+              >
+                <FontAwesomeIcon icon={faPencilAlt} />
+              </Link>
+            )}
+          </div>
           <Like
             user={user}
             onClick={id => dispatch(likePost(id))}

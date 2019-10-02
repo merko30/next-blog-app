@@ -28,14 +28,13 @@ const Like = ({ onClick, post, user }) => {
     }
   };
   return (
-    <div className={`p-2 flex items-center`}>
+    <div className={`py-2 flex items-center`}>
       <span
         className={`cursor-pointer border border-${color}-600 flex items-center justify-center p-3 mr-2 rounded-full`}
       >
         <FontAwesomeIcon
           title={liked ? "Dislike" : "Like"}
           icon={faThumbsUp}
-          size={"lg"}
           onClick={e => {
             if (user) {
               onClick(post._id);
@@ -46,7 +45,7 @@ const Like = ({ onClick, post, user }) => {
           color={color}
         />
       </span>
-      <p className="text-sm ml-2">{text()}</p>
+      <p className="text-sm ml-2 pb-1">{text()}</p>
     </div>
   );
 };
