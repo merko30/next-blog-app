@@ -3,7 +3,6 @@ import ProfilePostItem from "./ProfilePostItem";
 import Pagination from "../../shared/Pagination";
 
 const UsersPosts = ({ posts, numberOfPages, onClick }) => {
-  console.log(posts, numberOfPages);
   return (
     <div>
       {posts.length > 0 ? (

@@ -135,7 +135,6 @@ const resetPassword = async (req, res, next) => {
 
 const updateField = async (req, res, next) => {
   const { field } = req.params;
-  console.log(field, req.file);
   try {
     const user = await User.findOne({ _id: req.user._id });
 

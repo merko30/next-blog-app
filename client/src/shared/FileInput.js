@@ -23,7 +23,6 @@ const FileInput = ({
       }
       if (!validSize) {
         setErrors(prev => {
-          console.log(prev);
           return { ...prev, size: "File is too large" };
         });
       }
@@ -40,7 +39,6 @@ const FileInput = ({
       <input type="file" name="file" onChange={handleChange} />
       {Object.keys(errors).length > 0 &&
         Object.keys(errors).map(key => {
-          console.log(errors);
           return (
             <p className="text-red-600" key={key}>
               {errors[key]}

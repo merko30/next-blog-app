@@ -11,7 +11,6 @@ const Modal = ({ children, ...props }) => {
     ? ReactDOM.createPortal(
         <div className="bg-white modal p-3" style={{ zIndex: 20 }}>
           {React.Children.map(children, child => {
-            console.log(props, child);
             return React.cloneElement(child, {
               props
             });

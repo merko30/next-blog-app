@@ -7,7 +7,6 @@ const Verification = ({ location: { search } }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(QueryString.parse(search));
     const { token, email } = QueryString.parse(search);
     dispatch(verifyEmail(email, token));
   }, []);
