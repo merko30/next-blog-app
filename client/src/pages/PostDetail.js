@@ -10,6 +10,7 @@ import { addComment } from "../comments/comments.actions";
 import Error from "../shared/Error";
 import Loading from "../shared/Loading";
 import Like from "../shared/Like";
+import Image from "../shared/Image";
 
 const PostDetail = ({
   match: {
@@ -37,14 +38,7 @@ const PostDetail = ({
       {post && (
         <div className="p-2 px-4 md:px-32 lg:px-64 mx-auto relative">
           {error && <Error error={error} />}
-          <img
-            src={`${process.env.REACT_APP_BASE_URL}/uploads/${post.image}`}
-            alt={post.title}
-            onError={e =>
-              (e.target.src = `${process.env.PUBLIC_URL}/img/defaultImage.svg`)
-            }
-            style={{ width: "100%", objectFit: "cover" }}
-          />
+          <Image src={post.image} height="100%" alt={post.title} />
           <h1 className="text-2xl font-bold my-2">{post.title}</h1>
           <p className="mt-3">{post.body}</p>
           {loggedIn && user && post && user._id === post.author._id && (

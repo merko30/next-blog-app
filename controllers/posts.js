@@ -1,22 +1,35 @@
 const Post = require("../models/post");
-const mongoose = require("mongoose");
+const paginate = require("../utils/paginate");
 
 const getAll = async (req, res, next) => {
   const perPage = 9;
   const page = req.query.page || 1;
   try {
-    const posts = await Post.find({})
-      .populate("author", "-password")
-      .skip(perPage * page - perPage)
-      .limit(perPage)
-      .sort({ createdAt: "desc" });
-    const countAll = await Post.countDocuments({});
-    res.json({
-      posts,
-      numberOfPages: Math.ceil(countAll / perPage),
-      perPage,
-      currentPage: page
-    });
+    const response = await paginate(
+      Post,
+      null,
+      { perPage, page },
+      { createdAt: "desc" },
+      [{ path: "author", select: "-password" }]
+    );
+    res.json(response);
+  } catch (error) {
+    next(error);
+  }
+};
+
+getUsersPosts = async (req, res, next) => {
+  const page = req.query.page;
+  const perPage = req.query.perPage || 3;
+  try {
+    const response = await paginate(
+      Post,
+      { author: req.user._id },
+      { page, perPage },
+      { createdAt: "desc" },
+      []
+    );
+    res.json(response);
   } catch (error) {
     next(error);
   }
@@ -107,5 +120,6 @@ module.exports = {
   create,
   update,
   remove,
-  likePost
+  likePost,
+  getUsersPosts
 };

@@ -33,7 +33,7 @@ const EditField = ({
           resetForm();
         }}
       >
-        <Form className="my-2">
+        <Form className="my-2 mx-4">
           {error && <Error error={error} />}
           {message && <Message color="green" message={message} />}
           <Field component={Input} name={field} label={`Your new ${field}`} />
@@ -59,10 +59,12 @@ const EditField = ({
   } else {
     return (
       <div
-        className="border-b-2 py-3 mt-4 cursor-pointer"
+        className="px-4 py-2 cursor-pointer update"
         onClick={() => setEditMode(true)}
       >
-        <h3>Update your {field}</h3>
+        <h3 className="border-b-2 border-orange-300 py-2">
+          Update your {field}
+        </h3>
       </div>
     );
   }

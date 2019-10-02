@@ -7,7 +7,7 @@ import AvatarCropper from "./AvatarCropper";
 import Button from "./Button";
 import { updateField } from "../auth/auth.actions";
 
-const EditAvatar = ({}) => {
+const EditAvatar = () => {
   const dispatch = useDispatch();
 
   const [editMode, setEditMode] = useState(false);
@@ -22,6 +22,7 @@ const EditAvatar = ({}) => {
     <div>
       {editMode ? (
         <form
+          className="px-4 py-2"
           onSubmit={e => {
             e.preventDefault();
             dispatch(updateField("avatar", { avatar }));
@@ -49,10 +50,12 @@ const EditAvatar = ({}) => {
         </form>
       ) : (
         <div
-          className="border-b-2 py-3 mt-4 cursor-pointer"
+          className="px-4 py-2 cursor-pointer"
           onClick={() => setEditMode(true)}
         >
-          <h3>Update your avatar</h3>
+          <h3 className="border-b-2 border-orange-300 py-2">
+            Update your avatar
+          </h3>
         </div>
       )}
     </div>

@@ -10,7 +10,8 @@ const {
   getOne,
   update,
   remove,
-  likePost
+  likePost,
+  getUsersPosts
 } = require("../controllers/posts");
 
 const middlewares = [
@@ -22,6 +23,12 @@ router
   .route("/")
   .get(getAll)
   .post(middlewares, create);
+
+router.get(
+  "/user",
+  passport.authenticate("jwt", { session: false }),
+  getUsersPosts
+);
 
 router
   .route("/:id")

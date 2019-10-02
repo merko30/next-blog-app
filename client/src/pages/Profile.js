@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Container from "../layout/Container";
@@ -9,23 +9,46 @@ import Tab from "../shared/Tabs/Tab";
 import UserInfo from "../shared/UserInfo";
 import EditField from "../shared/EditField";
 
-import { updateField } from "../auth/auth.actions";
+import { updateField, getUsersPosts } from "../auth/auth.actions";
 import EditAvatar from "../shared/EditAvatar";
+import UsersPosts from "../posts/components/UsersPosts";
 
 const Profile = () => {
-  const { loading, user, message, error } = useSelector(({ auth }) => auth);
+  const {
+    loading,
+    user,
+    message,
+    error,
+    posts: { numberOfPages, posts }
+  } = useSelector(({ auth }) => auth);
   const dispatch = useDispatch();
+  const [calledOnce, setCalledOnce] = useState(false);
 
-  useEffect(() => {}, [user]);
+  useEffect(() => {
+    if (!calledOnce) {
+      dispatch(getUsersPosts());
+    }
+    setCalledOnce(true);
+  }, [user, posts]);
 
   return (
-    <Container>
+    <Container classes="h-full">
       {loading && <Loading />}
       {user && (
-        <div className="flex flex-col md:flex-row h-full">
+        <div className="h-full">
           <UserInfo user={user} />
-          <Tabs classes="flex-1">
-            <Tab title="Posts">posts</Tab>
+          <Tabs classes="shadow pb-2">
+            <Tab title="Posts">
+              <div className="flex items-center justify-center">
+                {posts && (
+                  <UsersPosts
+                    posts={posts}
+                    numberOfPages={numberOfPages}
+                    onClick={page => dispatch(getUsersPosts(page))}
+                  />
+                )}
+              </div>
+            </Tab>
             <Tab title="Settings">
               <EditAvatar />
               <EditField
@@ -63,8 +86,7 @@ const Profile = () => {
                 confirmation={true}
                 field="email"
                 validations={{
-                  required: true,
-                  min: { length: 8 }
+                  required: true
                 }}
               />
               <EditField

@@ -13,6 +13,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  height: 100%;
 }
 
 .content {
@@ -143,6 +144,41 @@ body {
   }
 }
 
-.like {
-  transition: color 1s ease-in-out;
+.white-overlay {
+  background: rgba(255, 255, 255, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.center-absolute {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.update:last-child h3 {
+  border: none;
+}
+
+.profile-background {
+  position: relative;
+}
+
+.profile-background::after {
+  content: "";
+  background: url("/img/selfie.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
 }

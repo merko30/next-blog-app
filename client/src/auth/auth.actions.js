@@ -17,6 +17,7 @@ export const verifyEmailAction = createAction("VERIFY_EMAIL");
 export const forgotPasswordAction = createAction("FORGOT_PASSWORD");
 export const resetPasswordAction = createAction("RESET_PASSWORD");
 export const updateFieldAction = createAction("UPDATE_FIELD");
+export const getUsersPostsAction = createAction("GET_USERS_POSTS");
 
 const url = process.env.REACT_APP_API_URL;
 
@@ -108,6 +109,16 @@ export const updateField = (field, d) => async dispatch => {
     dispatch(updateFieldAction.success(data));
   } catch (error) {
     dispatch(updateFieldAction.failure(error.response.data.message));
+  }
+};
+
+export const getUsersPosts = (page = 1) => async dispatch => {
+  dispatch(getUsersPostsAction.start());
+  try {
+    const { data } = await axios.get(`${url}/posts/user?page=${page}`);
+    dispatch(getUsersPostsAction.success(data));
+  } catch (error) {
+    dispatch(getUsersPostsAction.failure(error.response.data.error));
   }
 };
 

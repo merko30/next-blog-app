@@ -9,7 +9,8 @@ import {
   resetPasswordAction,
   clearMessageAction,
   forgotPasswordAction,
-  updateFieldAction
+  updateFieldAction,
+  getUsersPostsAction
 } from "./auth.actions";
 
 const initialState = {
@@ -18,7 +19,11 @@ const initialState = {
   loading: false,
   user: null,
   message: null,
-  warning: null
+  warning: null,
+  posts: {
+    posts: [],
+    numberOfPages: null
+  }
 };
 
 const authReducer = (state = initialState, action) => {
@@ -30,6 +35,7 @@ const authReducer = (state = initialState, action) => {
     case resetPasswordAction.start().type:
     case forgotPasswordAction.start().type:
     case updateFieldAction.start().type:
+    case getUsersPostsAction.start().type:
       return {
         ...state,
         loading: true
@@ -74,6 +80,7 @@ const authReducer = (state = initialState, action) => {
     case resetPasswordAction.failure().type:
     case forgotPasswordAction.failure().type:
     case updateFieldAction.failure().type:
+    case getUsersPostsAction.failure().type:
       return {
         ...state,
         loading: false,
@@ -88,6 +95,15 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         error: null
+      };
+    case getUsersPostsAction.success().type:
+      return {
+        ...state,
+        posts: {
+          posts: action.payload.posts,
+          numberOfPages: action.payload.numberOfPages
+        },
+        loading: false
       };
     case getCurrentUserAction.success().type:
       return {
