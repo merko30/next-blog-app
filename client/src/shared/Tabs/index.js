@@ -6,7 +6,7 @@ const Tabs = ({ children, classes }) => {
 
   return (
     <>
-      {children && children.every(child => child.type.name === "Tab") && (
+      {children && children.every(child => child.type.displayName === "Tab") && (
         <div className={classes}>
           <TabsHeader tabs={children} active={active} setActive={setActive} />
           {React.Children.map(children, child => {
