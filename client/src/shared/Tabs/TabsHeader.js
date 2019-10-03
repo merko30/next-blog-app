@@ -6,14 +6,14 @@ const TabsHeader = ({ tabs, active, setActive }) => {
       {tabs.map(tab => {
         const {
           props: { title },
-          type: { name }
+          type: { displayName }
         } = tab;
         const isActive = active === tab.props.title;
         const bg = isActive ? "bg-green-300" : "";
         const text = isActive ? "text-green-700" : " text-gray-500";
         const shadow = isActive ? "shadow-inner" : "";
         return (
-          name === "Tab" && (
+          displayName === "Tab" && (
             <li
               key={title}
               style={{ letterSpacing: "0.3em" }}
