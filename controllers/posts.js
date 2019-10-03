@@ -68,7 +68,7 @@ const update = async (req, res, next) => {
     const post = await Post.findByIdAndUpdate(req.params.id, req.body, {
       new: true
     });
-    if (req.file != null) {
+    if (req.file != null && req.file.hasOwnProperty("type")) {
       post.image = req.file.filename;
     }
     await post.save();
