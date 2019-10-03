@@ -52,10 +52,11 @@ export const addPost = p => async dispatch => {
 export const updatePost = (id, p) => async dispatch => {
   dispatch(updatePostAction.start());
   try {
-    const formData = populateFormData(p);
+    const { image, ...rest } = p;
+    const d = p.image ? populateFormData(p) : rest;
     const {
       data: { post }
-    } = await Axios.put(`${url}/posts/${id}`, formData);
+    } = await Axios.put(`${url}/posts/${id}`, d);
     dispatch(updatePostAction.success(post));
     history.push(`/posts/${post._id}`);
   } catch (error) {

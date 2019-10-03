@@ -7,7 +7,6 @@ import {
   logoutAction,
   verifyEmailAction,
   resetPasswordAction,
-  clearMessageAction,
   forgotPasswordAction,
   updateFieldAction,
   getUsersPostsAction
@@ -18,7 +17,6 @@ const initialState = {
   error: null,
   loading: false,
   user: null,
-  message: null,
   warning: null,
   posts: {
     posts: [],
@@ -53,13 +51,11 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: null,
-        message: action.payload
+        error: null
       };
     case updateFieldAction.success().type:
       return {
         ...state,
-        message: action.payload.message,
         user: action.payload.user,
         loading: false
       };
@@ -120,11 +116,7 @@ const authReducer = (state = initialState, action) => {
         loggedIn: false,
         warning: null
       };
-    case clearMessageAction.start().type:
-      return {
-        ...state,
-        message: null
-      };
+
     default:
       return state;
   }

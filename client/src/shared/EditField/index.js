@@ -6,17 +6,8 @@ import Button from "../Button";
 
 import createSchema from "./createSchema";
 import capitalize from "../../utils/capitalize";
-import Message from "../Message";
-import Error from "../Error";
 
-const EditField = ({
-  field,
-  confirmation,
-  onSubmit,
-  validations,
-  error,
-  message
-}) => {
+const EditField = ({ field, confirmation, onSubmit, validations }) => {
   const [editMode, setEditMode] = useState(false);
   const confirmField = confirmation
     ? { [`confirm${capitalize(field)}`]: "" }
@@ -31,11 +22,10 @@ const EditField = ({
         onSubmit={(values, { resetForm }) => {
           onSubmit(field, values);
           resetForm();
+          setEditMode(false);
         }}
       >
         <Form className="my-2 mx-4">
-          {error && <Error error={error} />}
-          {message && <Message color="green" message={message} />}
           <Field component={Input} name={field} label={`Your new ${field}`} />
           {confirmation && (
             <Field

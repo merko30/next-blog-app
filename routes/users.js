@@ -17,9 +17,9 @@ const {
 const userExists = require("../middlewares/userExists");
 
 const middlewares = [
+  passport.authenticate("jwt", { session: false }),
   userExists,
-  upload.single("avatar"),
-  passport.authenticate("jwt", { session: false })
+  upload.single("avatar")
 ];
 
 router.post("/register", upload.single("avatar"), register);

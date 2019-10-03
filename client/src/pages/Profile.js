@@ -12,15 +12,19 @@ import EditField from "../shared/EditField";
 import { updateField, getUsersPosts } from "../auth/auth.actions";
 import EditAvatar from "../shared/EditAvatar";
 import UsersPosts from "../posts/components/UsersPosts";
+import Message from "../shared/Message";
+import Error from "../shared/Error";
 
 const Profile = () => {
   const {
-    loading,
-    user,
-    message,
-    error,
-    posts: { numberOfPages, posts }
-  } = useSelector(({ auth }) => auth);
+    auth: {
+      user,
+      loading,
+      error,
+      posts: { numberOfPages, posts }
+    },
+    messages: { message }
+  } = useSelector(({ auth, messages }) => ({ auth, messages }));
   const dispatch = useDispatch();
   const [calledOnce, setCalledOnce] = useState(false);
 
@@ -50,6 +54,10 @@ const Profile = () => {
               </div>
             </Tab>
             <Tab title="Settings">
+              {error && <Error error={error} classes="mx-2" />}
+              {message && (
+                <Message message={message} classes="mx-2" color="green" />
+              )}
               <EditAvatar />
               <EditField
                 error={error}

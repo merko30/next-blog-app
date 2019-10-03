@@ -10654,6 +10654,7 @@ body {
   -webkit-box-direction: normal;
           flex-direction: column;
   min-height: 100vh;
+  height: 100%;
 }
 
 .content {
@@ -10829,6 +10830,29 @@ body {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+}
+
+.update:last-child h3 {
+  border: none;
+}
+
+.profile-background {
+  position: relative;
+}
+
+.profile-background::after {
+  content: "";
+  background: url("/img/selfie.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
 }
 
 @media (min-width: 640px) {

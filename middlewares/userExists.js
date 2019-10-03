@@ -19,7 +19,6 @@ const userExists = async (req, res, next) => {
         next();
       }
     }
-    next();
   } catch (error) {
     next(error);
   }

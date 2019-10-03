@@ -136,25 +136,24 @@ const resetPassword = async (req, res, next) => {
 const updateField = async (req, res, next) => {
   const { field } = req.params;
   try {
-    const user = await User.findOne({ _id: req.user._id });
+    const user = await User.findById(req.user._id);
 
-    if (user) {
-      if (field === "avatar") {
-        if (req.file) {
-          user[field] = req.file.filename;
-        }
-      } else {
-        user[field] = req.body[field];
-      }
-      const updated = await user.save();
-      res.json({
-        user: updated,
-        message: `${field.substring(0, 1).toUpperCase() +
-          field.substring(1)} is successfully updated`
-      });
-    } else {
+    if (!user) {
       throw new Error("User not found");
     }
+    if (field === "avatar") {
+      if (req.file) {
+        user[field] = req.file.filename;
+      }
+    } else {
+      user[field] = req.body[field];
+    }
+    const updated = await user.save();
+    res.json({
+      user: updated,
+      message: `${field.substring(0, 1).toUpperCase() +
+        field.substring(1)} is successfully updated`
+    });
   } catch (error) {
     next(error);
   }
