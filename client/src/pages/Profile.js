@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Container from "../layout/Container";
 
 import Loading from "../shared/Loading";
-import Tabs from "../shared/Tabs/index";
+import Tabs from "../shared/Tabs";
 import Tab from "../shared/Tabs/Tab";
 import UserInfo from "../shared/UserInfo";
 import EditField from "../shared/EditField";
