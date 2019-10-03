@@ -9,7 +9,7 @@ export default () => {
   const loggedIn = useSelector(state => state.auth.loggedIn);
   const dispatch = useDispatch();
   return (
-    <div className="py-3 px-5 md:px-20 flex justify-between nav-shadow mb-5 items-center">
+    <div className="py-3 py-2 px-5 md:px-20 flex justify-between nav-shadow mb-5 items-center">
       <div>
         <NavItem to="/">logo</NavItem>
       </div>

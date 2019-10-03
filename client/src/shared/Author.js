@@ -12,7 +12,7 @@ const Author = ({ author, createdAt }) => {
           {author.name || author.username}
         </h3>
         <p className="text-sm text-gray-600">
-          {distanceInWordsToNow(createdAt)}
+          {distanceInWordsToNow(createdAt)} ago
         </p>
       </div>
     </div>
