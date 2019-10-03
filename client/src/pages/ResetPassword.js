@@ -25,7 +25,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const ResetPassword = ({ location: { search } }) => {
-  const message = useSelector(state => state.auth.message);
+  const message = useSelector(state => state.messages.message);
   const dispatch = useDispatch();
   const { token } = QueryString.parse(search);
 
@@ -38,10 +38,16 @@ const ResetPassword = ({ location: { search } }) => {
       <div>
         <FormContainer>
           {message && <Message color="green" message={message} />}
-          <Field component={Input} name="password" label="New password" />
+          <Field
+            component={Input}
+            name="password"
+            type="password"
+            label="New password"
+          />
           <Field
             component={Input}
             name="confirmPassword"
+            type="password"
             label="Confirm your new password"
           />
           <Button type="submit" color="green">

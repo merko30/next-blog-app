@@ -45,7 +45,7 @@ const PostDetail = ({
           <Image src={post.image} height="100%" alt={post.title} />
           <div className="relative">
             <h1 className="text-2xl font-bold my-2">{post.title}</h1>
-            <p className="mt-3">{post.body}</p>
+            <p className="mt-3 break-all">{post.body}</p>
             {loggedIn && user && post && user._id === post.author._id && (
               <Link
                 to={`/posts/${post._id}/edit`}

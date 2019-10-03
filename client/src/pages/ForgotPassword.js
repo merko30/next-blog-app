@@ -13,7 +13,10 @@ import Error from "../shared/Error";
 import { forgotPassword } from "../auth/auth.actions";
 
 const ForgotPassword = () => {
-  const { message, error } = useSelector(({ auth }) => auth);
+  const {
+    messages: { message },
+    auth: { error }
+  } = useSelector(({ auth, messages }) => ({ auth, messages }));
   const dispatch = useDispatch();
 
   return (
