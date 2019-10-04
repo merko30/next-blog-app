@@ -19,6 +19,8 @@ import Verification from "../pages/Verification";
 import ResetPassword from "../pages/ResetPassword";
 import ForgotPassword from "../pages/ForgotPassword";
 import Profile from "../pages/Profile";
+import NotFound from "../pages/NotFound";
+import Landing from "../pages/Landing";
 
 export default () => {
   const warning = useSelector(({ auth: { warning } }) => warning);
@@ -34,7 +36,8 @@ export default () => {
       </Container>
       <div className="content">
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/posts" component={Home} />
           <GuestRoute path="/login" component={Login} />
           <GuestRoute path="/register" component={Register} />
           <PrivateRoute path="/profile" component={Profile} />
@@ -53,6 +56,7 @@ export default () => {
           <Route path="/forgot_password" component={ForgotPassword} />
           <Route path="/verification" component={Verification} />
           <GuestRoute path="/reset_password" component={ResetPassword} />
+          <Route path="*" component={NotFound} />
         </Switch>
       </div>
       <Footer />

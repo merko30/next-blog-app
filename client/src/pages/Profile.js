@@ -39,9 +39,9 @@ const Profile = () => {
     <Container classes="h-full">
       {loading && <Loading />}
       {user && (
-        <div className="h-full">
+        <div className="flex flex-col lg:flex-row my-12">
           <UserInfo user={user} />
-          <Tabs classes="shadow pb-2">
+          <Tabs classes="shadow pb-2 flex-auto lg:ml-2">
             <Tab title="Posts">
               <div className="flex items-center justify-center">
                 {posts && (

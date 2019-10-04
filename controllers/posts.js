@@ -95,7 +95,6 @@ const likePost = async (req, res, next) => {
         path: "comments",
         populate: { path: "author", model: "User", select: "-password" }
       });
-
     if (post) {
       const likes = post.likes.map(like => like.toString());
       if (!likes.includes(req.user._id.toString())) {

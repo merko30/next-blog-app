@@ -10747,6 +10747,8 @@ body {
   display: flex;
   -webkit-box-pack: center;
           justify-content: center;
+  height: 100%;
+  width: 100%;
   -webkit-box-align: center;
           align-items: center;
   z-index: 20;

@@ -53,7 +53,7 @@ const EditAvatar = () => {
           className="px-4 py-2 cursor-pointer"
           onClick={() => setEditMode(true)}
         >
-          <h3 className="border-b-2 border-orange-300 py-2">
+          <h3 className="border-b-2 border-yellow-400 py-2">
             Update your avatar
           </h3>
         </div>

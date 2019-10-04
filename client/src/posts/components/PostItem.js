@@ -11,7 +11,7 @@ const PostItem = ({
     title,
     body,
     image,
-    author: { name, avatar }
+    author: { name, username, avatar }
   }
 }) => {
   return (
@@ -20,7 +20,7 @@ const PostItem = ({
         <div className="pb-2 border-b-t  flex items-center">
           <Avatar src={avatar} size={12} alt={title} />
           <div>
-            <h3>{name}</h3>
+            <h3>{name || username}</h3>
             <p className="text-gray-600 text-xs">
               {distanceInWordsToNow(createdAt)} ago
             </p>

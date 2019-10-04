@@ -94,12 +94,12 @@ body {
 /* LOADING SPINNER */
 
 .lds-ring-bg {
-  position: absolute;
+  position: fixed;
   background-color: rgba(255, 255, 255, 0.7);
+  height: 100%;
+  width: 100%;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -166,19 +166,34 @@ body {
 
 .profile-background {
   position: relative;
+  overflow: hidden;
 }
 
 .profile-background::after {
   content: "";
-  background: url("/img/selfie.svg");
+  background: url("/img/selfie3.svg");
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: right;
-  opacity: 0.3;
+  background-position: right center;
+  transform: rotate(8deg);
+  opacity: 0.2;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   position: absolute;
   z-index: -1;
+}
+
+.like-position {
+  position: initial;
+}
+
+@media screen and (min-width: 768px) {
+  .like-position {
+    position: fixed;
+    left: 9em;
+    top: 50%;
+    /* transform: translateY(-50%); */
+  }
 }

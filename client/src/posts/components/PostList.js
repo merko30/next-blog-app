@@ -10,21 +10,14 @@ const PostList = ({ posts }) => (
         posts.map(post => <PostItem post={post} key={post._id} />)}
     </div>
     {posts.length === 0 && (
-      <div
-        className="m-auto relative"
-        style={{
-          width: "600px",
-          height: "600px"
-        }}
-      >
-        <div className="white-overlay"></div>
-        <h1 className="text-5xl text-yellow-500 absolute center-absolute">
-          No posts
-        </h1>
+      <div className="flex items-center justify-center">
         <img
-          src={`${process.env.PUBLIC_URL}/img/noPosts.svg`}
+          src={`${process.env.PUBLIC_URL}/img/empty.svg`}
           alt="no_posts"
-          style={{ width: "100%" }}
+          style={{
+            width: "600px",
+            height: "600px"
+          }}
         />
       </div>
     )}

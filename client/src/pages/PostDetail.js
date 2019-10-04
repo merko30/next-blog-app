@@ -58,7 +58,8 @@ const PostDetail = ({
           <Like
             user={user}
             onClick={id => dispatch(likePost(id))}
-            post={post}
+            record={post}
+            recordName="post"
           />
 
           <CommentList comments={post.comments} />
