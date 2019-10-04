@@ -1,8 +1,7 @@
 import React from "react";
-import Container from "./Container";
 
 const Section = ({ alignment = "left", children, image, alt, background }) => {
-  const side = alignment == "left" ? "order-first" : "order-last";
+  const side = alignment === "left" ? "order-first" : "order-last";
   return (
     <div
       className={`bg-${background}-100 py-10 flex flex-col md:flex-row justify-between items-center px-5 md:px-12 my-10`}

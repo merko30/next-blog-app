@@ -20,17 +20,21 @@ body {
   flex: 1 0 auto;
 }
 
+/* POSTS GRID  */
+
 .posts-container {
   display: grid;
   grid-template: auto / repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 10px;
 }
 
-.nav-shadow {
-  -webkit-box-shadow: 0px 5px 3px -5px rgba(0, 0, 0, 0.27);
-  -moz-box-shadow: 0px 5px 3px -5px rgba(0, 0, 0, 0.27);
-  box-shadow: 0px 5px 3px -5px rgba(0, 0, 0, 0.27);
+/* NAV */
+
+.logo .nav-item:nth-child(1) {
+  border: none;
 }
+
+/* PAGINATION */
 
 .pagination-item {
   border-top: 1px solid #edf2f7;
@@ -48,7 +52,7 @@ body {
   border-right: 1px solid #edf2f7;
 }
 
-/* cropper */
+/* CROPPER */
 
 .App {
   position: absolute;
@@ -82,7 +86,7 @@ body {
   padding: 22px 0px;
 }
 
-/* modal */
+/* MODAL */
 
 .modal {
   position: absolute;
@@ -160,9 +164,13 @@ body {
   transform: translate(-50%, -50%);
 }
 
+/* UPDATE FIELD */
+
 .update:last-child h3 {
   border: none;
 }
+
+/* PROFILE */
 
 .profile-background {
   position: relative;
@@ -185,6 +193,8 @@ body {
   z-index: -1;
 }
 
+/* LIKE */
+
 .like-position {
   position: initial;
 }
@@ -194,6 +204,5 @@ body {
     position: fixed;
     left: 9em;
     top: 50%;
-    /* transform: translateY(-50%); */
   }
 }

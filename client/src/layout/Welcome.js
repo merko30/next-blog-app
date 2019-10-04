@@ -9,7 +9,7 @@ const Welcome = ({ title = "blog" }) => (
       className="px-2"
     />
     <h1 className="text-yellow-600 text-3xl font-bold">Welcome to {title}</h1>
-    <h3 className="text-gray-700 text-lg text-center w-full md:w-1/2">
+    <h3 className="text-gray-700 text-lg text-center px-4 w-full md:px-0 md:w-1/2">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua.
     </h3>
