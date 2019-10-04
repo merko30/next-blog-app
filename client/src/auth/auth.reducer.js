@@ -56,8 +56,8 @@ const authReducer = (state = initialState, action) => {
     case updateFieldAction.success().type:
       return {
         ...state,
-        user: action.payload.user
-        // loading: false
+        user: action.payload.user,
+        loading: false
       };
     case loginAction.success().type:
       const { message, user } = action.payload;
