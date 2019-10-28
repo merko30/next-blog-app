@@ -14,7 +14,6 @@ import Image from "../shared/Image";
 import Author from "../shared/Author";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import usePageTitle from "../hooks/usePageTitle";
 
 const PostDetail = ({
   location: {
