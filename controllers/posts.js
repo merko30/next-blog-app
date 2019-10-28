@@ -56,6 +56,10 @@ const create = async (req, res, next) => {
     if (req.file) {
       post.image = req.file.filename;
     }
+    post.slug = req.body.title
+      .toLowerCase()
+      .split(" ")
+      .join("-");
     await post.save();
     res.json({ post });
   } catch (error) {

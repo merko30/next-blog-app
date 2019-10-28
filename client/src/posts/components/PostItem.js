@@ -11,11 +11,16 @@ const PostItem = ({
     title,
     body,
     image,
+    slug,
     author: { name, username, avatar }
   }
 }) => {
   return (
-    <Link to={`/posts/${_id}`} data-testid="post-link" className="shadow">
+    <Link
+      to={{ pathname: `/posts/${slug}`, state: { id: _id } }}
+      data-testid="post-link"
+      className="shadow"
+    >
       <div className="p-2">
         <div className="pb-2 border-b-t  flex items-center">
           <Avatar src={avatar} size={12} alt={title} />

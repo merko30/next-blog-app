@@ -7,7 +7,8 @@ const schema = new mongoose.Schema(
     body: { type: String, required: true, minlength: 150 },
     image: { type: String },
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }]
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+    slug: { type: String, required: true }
   },
   { timestamps: true }
 );

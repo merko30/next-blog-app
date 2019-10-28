@@ -14,10 +14,11 @@ import Image from "../shared/Image";
 import Author from "../shared/Author";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import usePageTitle from "../hooks/usePageTitle";
 
 const PostDetail = ({
-  match: {
-    params: { id }
+  location: {
+    state: { id }
   }
 }) => {
   const dispatch = useDispatch();
@@ -33,6 +34,9 @@ const PostDetail = ({
       dispatch(getPost(id));
       setOnceCalled(true);
     }
+    if (post) {
+      document.title = `${post.title} | Merko's blog`;
+    }
   }, [user, post]);
 
   return (
@@ -44,7 +48,7 @@ const PostDetail = ({
           <Author author={post.author} createdAt={post.createdAt} />
           <Image src={post.image} height="100%" alt={post.title} />
           <div className="relative">
-            <h1 className="text-2xl font-bold my-2">{post.title}</h1>
+            <h1 className="text-2xl font-bold my-2 mr-10">{post.title}</h1>
             <p className="mt-3 break-all">{post.body}</p>
             {loggedIn && user && post && user._id === post.author._id && (
               <Link

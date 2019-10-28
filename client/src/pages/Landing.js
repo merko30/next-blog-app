@@ -9,7 +9,12 @@ const Landing = () => {
   return (
     <div>
       <Welcome />
-      <Section background="gray" image={post} alt="post section">
+      <Section
+        background="gray"
+        image={post}
+        title="Add posts"
+        alt="post section"
+      >
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -18,7 +23,12 @@ const Landing = () => {
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt
         mollit anim id est laborum."
       </Section>
-      <Section alignment="right" image={comment} alt="comment section">
+      <Section
+        alignment="right"
+        image={comment}
+        title="Make comments"
+        alt="comment section"
+      >
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -27,7 +37,12 @@ const Landing = () => {
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt
         mollit anim id est laborum."
       </Section>
-      <Section background="gray" image={like} alt="like section">
+      <Section
+        background="gray"
+        image={like}
+        title="Like posts"
+        alt="like section"
+      >
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea

@@ -47,7 +47,7 @@ export default () => {
             component={AddEditPost}
             propsForComponent={{ editMode: false }}
           />
-          <Route exact path="/posts/:id" component={PostDetail} />
+          <Route exact path="/posts/:slug" component={PostDetail} />
           <PrivateRoute
             path="/posts/:id/edit"
             component={AddEditPost}
