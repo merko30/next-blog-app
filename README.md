@@ -1,8 +1,5 @@
-# reactMediumLike
-
 Blog application created with MERN(Mongo,Express,React and Node) stack. Basic CRUD operations, using Redux as state management library.
 
-<<<<<<< HEAD
 ## Getting started
 
 - Clone this repo
@@ -11,11 +8,12 @@ Blog application created with MERN(Mongo,Express,React and Node) stack. Basic CR
 - Create `.env` file with these variables:
 
 =======
-* Clone this repo
-* `npm install/yarn install` in root directory
-* `npm install/yarn install` in client directory
-* Create `.env` file with these variables: 
->>>>>>> ad292c65f4c57f2187e26e78835a2e14367e1002
+
+- Clone this repo
+- `npm install/yarn install` in root directory
+- `npm install/yarn install` in client directory
+- Create `.env` file with these variables:
+
 ```
   JWT_SECRET = secret
   DB = mongodb
@@ -24,7 +22,6 @@ Blog application created with MERN(Mongo,Express,React and Node) stack. Basic CR
   NODEMAILER_PASSWORD = nodemailer_user_password
   APP_URL = client_app_url
 ```
-<<<<<<< HEAD
 
 - In client folder, create env with these variables:
 
@@ -33,15 +30,15 @@ REACT_APP_API_URL=url/api
 =======
 * In client folder, create env with these variables:
 ```
-REACT_APP_API_URL=url/api 
->>>>>>> ad292c65f4c57f2187e26e78835a2e14367e1002
+
+REACT_APP_API_URL=url/api
 // api url
 REACT_APP_BASE_URL=url
 // base url for loading uploaded photos like http://localhost:5000/uploads/photo.jpg
+
 ```
-<<<<<<< HEAD
 
 - `npm run development/yarn development` to start server and client
 =======
 * `npm run development/yarn development` to start server and client
->>>>>>> ad292c65f4c57f2187e26e78835a2e14367e1002
+```
