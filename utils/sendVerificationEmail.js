@@ -1,11 +1,12 @@
 const transport = require("../config/smtp");
 
 const sendPasswordResetMail = async (to, token) => {
-  return await transport.sendMail({
-    to: to.email,
-    from: "app@gmail.com",
-    subject: "Email verification",
-    html: `
+  try {
+    return await transport.sendMail({
+      to: to.email,
+      from: "app@gmail.com",
+      subject: "Email verification",
+      html: `
             <h5>Hello, ${to.username},<br />
             Here is a verification email <br />
             <br />
@@ -15,7 +16,10 @@ const sendPasswordResetMail = async (to, token) => {
             <br/>
             <h3>Regards, our team!</h3>
         `
-  });
+    });
+  } catch (error) {
+    throw new Error("Something went wrong with sending verification mail");
+  }
 };
 
 module.exports = sendPasswordResetMail;
