@@ -1,25 +1,25 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
+import Button from "./Button";
 
 const Modal = ({ children, ...props }) => {
-  useEffect(() => {
-    props.show
-      ? (document.body.style.background = "rgba(0,0,0,0.3)")
-      : (document.body.style.background = "transparent");
-  }, [props.show]);
-  return props.show
-    ? ReactDOM.createPortal(
+  return props.show ? (
+    <div className="absolute top-0 left-0 right-0 bottom-0 overlay">
+      {ReactDOM.createPortal(
         <div className="bg-white modal p-3" style={{ zIndex: 20 }}>
           {React.Children.map(children, child => {
             return React.cloneElement(child, {
               props
             });
           })}
-          <button onClick={() => props.onClose()}>close</button>
+          <Button color="red" onClick={() => props.onClose()}>
+            Close
+          </Button>
         </div>,
         document.body
-      )
-    : null;
+      )}
+    </div>
+  ) : null;
 };
 
 export default Modal;

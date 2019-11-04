@@ -36,6 +36,10 @@ const PostDetail = ({
     if (post) {
       document.title = `${post.title} | Merko's blog`;
     }
+
+    return () => {
+      document.title = "Merko's blog";
+    };
   }, [user, post]);
 
   return (

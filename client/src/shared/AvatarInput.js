@@ -12,6 +12,7 @@ const AvatarInput = ({ image, openModal, setImageSource }) => {
           style={{ width: "200px", height: "200px" }}
         />
       )}
+      <label className="block mb-1">Avatar</label>
       <input
         type="file"
         onChange={e => {

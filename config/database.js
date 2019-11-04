@@ -8,6 +8,6 @@ module.exports = () => {
       useUnifiedTopology: true
     });
   } catch (error) {
-    console.log(error);
+    throw new Error("Failed to connect database");
   }
 };

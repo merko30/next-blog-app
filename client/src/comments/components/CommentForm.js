@@ -49,7 +49,7 @@ const CommentForm = ({
                 type="submit"
                 disabled={isSubmitting}
               >
-                Add comment
+                {editMode ? "Edit comment" : "Add comment"}
               </Button>
               {editMode && (
                 <Button

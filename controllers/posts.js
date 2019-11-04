@@ -57,6 +57,7 @@ const create = async (req, res, next) => {
       post.image = req.file.filename;
     }
     post.slug = req.body.title
+      .trim()
       .toLowerCase()
       .split(" ")
       .join("-");

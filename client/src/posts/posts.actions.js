@@ -43,7 +43,8 @@ export const addPost = p => async dispatch => {
       data: { post }
     } = await Axios.post(`${url}/posts`, formData);
     dispatch(addPostAction.success(post));
-    history.push(`/posts/${post._id}`);
+    console.log(post);
+    history.push(`/posts/${post.slug}`, { id: post._id });
   } catch (error) {
     dispatch(addPostAction.failure(error.response.data.message));
   }

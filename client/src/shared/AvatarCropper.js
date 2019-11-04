@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "../utils/getCroppedImg";
 import blobURLToFile from "../utils/blobToFile";
+import Button from "./Button";
 
 const AvatarCropper = ({ src, ...props }) => {
   // photo size
@@ -64,7 +65,9 @@ const AvatarCropper = ({ src, ...props }) => {
           </div>
         </div>
       </div>
-      <button onClick={showCroppedImage}>Crop image</button>
+      <Button color="orange" classes="mb-2" onClick={showCroppedImage}>
+        Crop image
+      </Button>
     </div>
   );
 };
