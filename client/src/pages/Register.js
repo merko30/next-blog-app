@@ -5,7 +5,7 @@ import RegisterForm from "../auth/components/RegisterForm";
 import { register, clearError } from "../auth/auth.actions";
 
 const Register = () => {
-  const error = useSelector(state => state.auth.error);
+  const { error, loading } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -14,7 +14,11 @@ const Register = () => {
 
   return (
     <div className="pt-5 flex items-center justify-center">
-      <RegisterForm onSubmit={data => dispatch(register(data))} error={error} />
+      <RegisterForm
+        onSubmit={data => dispatch(register(data))}
+        error={error}
+        loading={loading}
+      />
     </div>
   );
 };

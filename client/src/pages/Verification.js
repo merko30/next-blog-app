@@ -12,7 +12,7 @@ const Verification = ({ location: { search } }) => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center h-full">
       <h1>Verification in process</h1>
       <h3 className="text-gray-700">You will be redirected soon</h3>
     </div>

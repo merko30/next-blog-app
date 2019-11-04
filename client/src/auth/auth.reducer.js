@@ -17,6 +17,7 @@ const initialState = {
   error: null,
   loading: false,
   user: null,
+  message: null,
   warning: null,
   posts: {
     posts: [],

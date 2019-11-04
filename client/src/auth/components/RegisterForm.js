@@ -10,6 +10,7 @@ import AvatarInput from "../../shared/AvatarInput";
 
 import Modal from "../../shared/Modal";
 import FormContainer from "../../layout/FormContainer";
+import Loading from "../../shared/Loading";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string(),
@@ -24,7 +25,7 @@ const validationSchema = Yup.object().shape({
     .min(8, "Password should be longer than 8 characters")
 });
 
-const RegisterForm = ({ onSubmit, error }) => {
+const RegisterForm = ({ onSubmit, error, loading }) => {
   const [show, setShow] = useState(false);
   const [image, setImage] = useState("");
   const [src, setSrc] = useState("");
@@ -47,6 +48,7 @@ const RegisterForm = ({ onSubmit, error }) => {
       >
         {({ isSubmitting, setFieldValue }) => (
           <FormContainer>
+            {loading && <Loading />}
             {error && <Error error={error} />}
             <AvatarInput
               image={image}

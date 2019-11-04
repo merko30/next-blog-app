@@ -7,13 +7,14 @@ import Input from "../../shared/Input";
 import Button from "../../shared/Button";
 import Error from "../../shared/Error";
 import FormContainer from "../../layout/FormContainer";
+import Loading from "../../shared/Loading";
 
 const validationSchema = Yup.object().shape({
   usernameOrEmail: Yup.string().required("This field is required"),
   password: Yup.string().required("Password is required field")
 });
 
-const Login = ({ onSubmit, error, onForgot }) => {
+const Login = ({ onSubmit, error, loading }) => {
   return (
     <>
       <Formik
@@ -26,6 +27,7 @@ const Login = ({ onSubmit, error, onForgot }) => {
       >
         {({ isSubmitting }) => (
           <FormContainer>
+            {loading && <Loading />}
             {error && <Error error={error} />}
             <Field
               name="usernameOrEmail"

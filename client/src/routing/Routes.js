@@ -23,7 +23,7 @@ import NotFound from "../pages/NotFound";
 import Landing from "../pages/Landing";
 
 export default () => {
-  const warning = useSelector(({ auth: { warning } }) => warning);
+  const { warning, loggedIn } = useSelector(({ auth }) => auth);
 
   // call rerender if warning arrives
   useEffect(() => {}, [warning]);
@@ -32,7 +32,7 @@ export default () => {
     <>
       <Header />
       <Container>
-        {warning && <Message color="orange" message={warning} />}
+        {warning && loggedIn && <Message color="orange" message={warning} />}
       </Container>
       <div className="content">
         <Switch>
@@ -53,7 +53,7 @@ export default () => {
             component={AddEditPost}
             propsForComponent={{ editMode: true }}
           />
-          <Route path="/forgot_password" component={ForgotPassword} />
+          <GuestRoute path="/forgot_password" component={ForgotPassword} />
           <Route path="/verification" component={Verification} />
           <GuestRoute path="/reset_password" component={ResetPassword} />
           <Route path="*" component={NotFound} />

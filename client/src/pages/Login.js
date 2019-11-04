@@ -6,7 +6,7 @@ import { login, clearError } from "../auth/auth.actions";
 import LoginForm from "../auth/components/LoginForm";
 
 const Login = () => {
-  const auth = useSelector(state => state.auth);
+  const { loading, error } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,7 +15,11 @@ const Login = () => {
 
   return (
     <div className="pt-10 md:pt-20 flex items-center justify-center">
-      <LoginForm onSubmit={data => dispatch(login(data))} error={auth.error} />
+      <LoginForm
+        onSubmit={data => dispatch(login(data))}
+        error={error}
+        loading={loading}
+      />
     </div>
   );
 };
