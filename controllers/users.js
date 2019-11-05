@@ -25,7 +25,10 @@ const register = async (req, res, next) => {
 
     await sendVerificationEmail(newUser, verificationToken);
 
-    res.json({ ok: true, message: "Please verify your account!" });
+    res.json({
+      ok: true,
+      message: "Successfully registered, you can sign in now"
+    });
   } catch (error) {
     next(error);
   }

@@ -18,6 +18,7 @@ const initialState = {
   loading: false,
   user: null,
   warning: null,
+  message: null,
   posts: {
     posts: [],
     numberOfPages: null
@@ -43,7 +44,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: null,
-        warning: action.payload
+        message: action.payload
       };
     case forgotPasswordAction.success().type:
     case verifyEmailAction.success().type:
@@ -67,7 +68,8 @@ const authReducer = (state = initialState, action) => {
         error: null,
         loggedIn: true,
         user,
-        warning: message ? message : null
+        warning: message ? message : null,
+        message: null
       };
     case registerAction.failure().type:
     case loginAction.failure().type:

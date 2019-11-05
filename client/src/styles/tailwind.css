@@ -10693,6 +10693,10 @@ body {
 
 /* CROPPER */
 
+.overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
 .App {
   position: absolute;
   top: 0;

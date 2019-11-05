@@ -25,7 +25,9 @@ const EditAvatar = () => {
           className="px-4 py-2"
           onSubmit={e => {
             e.preventDefault();
-            dispatch(updateField("avatar", { avatar }));
+            if (avatar) {
+              dispatch(updateField("avatar", { avatar }));
+            }
             setEditMode(false);
           }}
         >
