@@ -47,12 +47,18 @@ const authReducer = (state = initialState, action) => {
         message: action.payload
       };
     case forgotPasswordAction.success().type:
-    case verifyEmailAction.success().type:
     case resetPasswordAction.success().type:
       return {
         ...state,
         loading: false,
         error: null
+      };
+    case verifyEmailAction.success().type:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        warning: null
       };
     case updateFieldAction.success().type:
       return {
