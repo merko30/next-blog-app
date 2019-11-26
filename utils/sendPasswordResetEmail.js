@@ -16,7 +16,9 @@ const sendPasswordResetMail = async (to, token) => {
       `
     });
   } catch (error) {
-    throw new Error("Something went wrong with sending reset password mail");
+    throw new Error(
+      "Something went wrong with sending reset password mail. Try later"
+    );
   }
 };
 
