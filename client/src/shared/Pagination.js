@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Pagination = ({ numberOfPages, onClick }) => {
+const Pagination = ({ numberOfPages = 0, onClick }) => {
   const [numbers, setNumbers] = useState([]);
   const [active, setActive] = useState(1);
 
@@ -25,8 +25,8 @@ const Pagination = ({ numberOfPages, onClick }) => {
             key={n}
             onClick={() => click(n)}
             className={`${
-              active === n ? "bg-gray-200 " : "bg-white "
-            }cursor-pointer hover:bg-gray-200 pagination-item py-2 px-4`}
+              active === n ? "bg-gray-200 " : "bg-white"
+            } cursor-pointer hover:bg-gray-200 pagination-item py-2 px-4`}
           >
             {n}
           </span>

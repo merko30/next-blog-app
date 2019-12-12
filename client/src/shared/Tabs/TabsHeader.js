@@ -15,7 +15,7 @@ const TabsHeader = ({ tabs, active, setActive }) => {
         return (
           displayName === "Tab" && (
             <li
-              key={title}
+              key={`${Math.random()}-${title}`}
               style={{ letterSpacing: "0.3em" }}
               className={`${bg} ${text} ${shadow} list-none uppercase flex-1 text-center h-full flex justify-center items-center cursor-pointer`}
               onClick={() => setActive(title)}

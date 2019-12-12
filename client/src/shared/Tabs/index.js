@@ -7,11 +7,14 @@ const Tabs = ({ children, classes }) => {
   return (
     <>
       {children && children.every(child => child.type.displayName === "Tab") && (
-        <div className={classes}>
+        <div className={classes} data-testid="tabs">
           <TabsHeader tabs={children} active={active} setActive={setActive} />
           {React.Children.map(children, child => {
             const isActive = child.props.title === active;
-            return isActive && child;
+            return (
+              isActive &&
+              React.cloneElement(child, { key: `${Math.random()}-title` })
+            );
           })}
         </div>
       )}

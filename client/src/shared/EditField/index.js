@@ -7,7 +7,12 @@ import Button from "../Button";
 import createSchema from "./createSchema";
 import capitalize from "../../utils/capitalize";
 
-const EditField = ({ field, confirmation, onSubmit, validations }) => {
+const EditField = ({
+  field,
+  confirmation = false,
+  onSubmit,
+  validations = {}
+}) => {
   const [editMode, setEditMode] = useState(false);
   const confirmField = confirmation
     ? { [`confirm${capitalize(field)}`]: "" }
@@ -34,7 +39,7 @@ const EditField = ({ field, confirmation, onSubmit, validations }) => {
               label={`Confirm your ${field}`}
             />
           )}
-          <Button block={false}>Edit</Button>
+          <Button block={false}>Save</Button>
           <Button
             block={false}
             onClick={() => setEditMode(false)}
