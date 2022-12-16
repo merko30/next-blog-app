@@ -12,18 +12,10 @@ export const likePostAction = createAction("LIKE_POST");
 
 const url = process.env.REACT_APP_API_URL;
 
-export const getPosts =
-  (page = 1) =>
-  async (dispatch) => {
-    const URL = page ? `${url}/posts?page=${page}` : `${url}/posts`;
-    dispatch(getPostsAction.start());
-    try {
-      const { data } = await Axios.get(URL);
-      dispatch(getPostsAction.success(data));
-    } catch (error) {
-      dispatch(getPostsAction.failure("Something went wrong"));
-    }
-  };
+export const getPosts = async (page = 1) => {
+  const URL = `${url}/posts`;
+  return await Axios.get(URL);
+};
 
 export const getPost = (id) => async (dispatch) => {
   dispatch(getPostAction.start());

@@ -18,7 +18,7 @@ import Footer from "../layout/Footer";
 const Layout = () => (
   <>
     <Header />
-    <main className="container py-10">
+    <main className="container py-10 flex-1">
       <Outlet />
     </main>
     <Footer />

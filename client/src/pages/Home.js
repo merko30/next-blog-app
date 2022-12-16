@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useQuery } from "react-query";
 
 import { getPosts } from "../posts/posts.actions";
 
@@ -10,25 +10,29 @@ import Loading from "../shared/Loading";
 import Pagination from "../shared/Pagination";
 
 const Home = () => {
-  const { posts, loading, error, meta } = useSelector(({ posts }) => posts);
+  const { error, isLoading, data: queryData } = useQuery("posts", getPosts);
 
-  const dispatch = useDispatch();
+  if (error) {
+    return <Error error="Failed to fetch your posts. Try again" />;
+  }
 
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
+  if (isLoading) {
+    return <Loading />;
+  }
 
-  return (
-    <>
-      {error && <Error error={error} />}
-      {loading && <Loading />}
-      <PostList posts={posts} />
-      <Pagination
-        numberOfPages={meta.numberOfPages}
-        onClick={(n) => dispatch(getPosts(n))}
-      />
-    </>
-  );
+  if (queryData) {
+    const { data } = queryData;
+    return (
+      <>
+        <PostList posts={data.posts} />
+        <Pagination
+          numberOfPages={data.numberOfPages}
+          onClick={(n) => getPosts(n)}
+        />
+      </>
+    );
+  }
+  return null;
 };
 
 export default Home;
