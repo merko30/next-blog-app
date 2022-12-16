@@ -3,8 +3,6 @@ import axios from "axios";
 import history from "../config/history";
 import createAction from "../utils/createAction";
 import populateFormData from "../utils/populateFormData";
-import storeToken from "../utils/storeToken";
-import setHeader from "../utils/setHeader";
 import { showMessage, clearMessage } from "../messages/messages.actions";
 
 export const loginAction = createAction("LOGIN");
@@ -24,29 +22,11 @@ const url = process.env.REACT_APP_API_URL;
 export const register = async (data) =>
   await axios.post(`${url}/auth/register`, data);
 
-export const login = (values) => async (dispatch) => {
-  dispatch(loginAction.start());
-  try {
-    const { data } = await axios.post(`${url}/auth/login`, values);
-    dispatch(loginAction.success(data));
-    storeToken(data.token);
-    setHeader();
-    history.push("/");
-  } catch (error) {
-    dispatch(loginAction.failure(error.response.data.message));
-  }
-};
+export const login = async (values) =>
+  await axios.post(`${url}/auth/login`, values, { withCredentials: true });
 
-export const getCurrentUser = () => async (dispatch) => {
-  dispatch(getCurrentUserAction.start());
-
-  try {
-    const { data } = await axios.get(`${url}/auth/user`);
-    dispatch(getCurrentUserAction.success(data));
-  } catch (error) {
-    dispatch(getCurrentUserAction.failure(error.response.data.message));
-  }
-};
+export const getCurrentUser = async () =>
+  await axios.get(`${url}/auth/user`, { withCredentials: true });
 
 export const verifyEmail = (email, token) => async (dispatch) => {
   dispatch(verifyEmailAction.start());

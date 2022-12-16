@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const passport = require("passport");
 
 const upload = require("../config/multer");
 
@@ -11,22 +10,20 @@ const {
   forgotPassword,
   resetPassword,
   verifyEmail,
-  updateField
+  updateField,
 } = require("../controllers/users");
+
+const authMiddleware = require("../config/authMiddleware");
 
 const userExists = require("../middlewares/userExists");
 
-const middlewares = [
-  passport.authenticate("jwt", { session: false }),
-  userExists,
-  upload.single("avatar")
-];
+const middlewares = [authMiddleware, userExists, upload.single("avatar")];
 
-router.post("/register", upload.single("avatar"), register);
+router.post("/register", register);
 
 router.post("/login", login);
 
-router.get("/user", passport.authenticate("jwt", { session: false }), getUser);
+router.get("/user", authMiddleware, getUser);
 
 router.put("/update/:field", middlewares, updateField);
 

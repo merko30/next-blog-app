@@ -1,16 +1,34 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const morgan = require("morgan");
 
 const router = require("./routes");
-const middlewares = require("./config/middlewares");
 const setDatabase = require("./config/database");
 const errorHandler = require("./config/errorHandler");
 
 const app = express();
 
-middlewares(app);
 setDatabase();
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+app.use(express.urlencoded({ extended: true, limit: 5000000 }));
+app.use(express.json({ limit: 5000000 }));
+app.use(morgan("dev"));
+app.use(cookieParser());
+
+// static
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "..", "static", "uploads"))
+);
 
 app.use("/api", router);
 

@@ -1,9 +1,10 @@
 const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 
 const sendPasswordResetEmail = require("../utils/sendPasswordResetEmail");
-const sendVerificationEmail = require("../utils/sendVerificationEmail");
+// const sendVerificationEmail = require("../utils/sendVerificationEmail");
 
 const register = async (req, res, next) => {
   try {
@@ -41,9 +42,17 @@ const login = async (req, res, next) => {
     });
     if (user) {
       if (await user.validPassword(req.body.password)) {
-        const token = user.generateToken();
-        let message = !user.verified ? "Please verify your account!" : null;
-        res.json({ token, user, message });
+        // let message = !user.verified ? "Please verify your account!" : null;
+
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+
+        res.cookie("token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          maxAge: 1000 * 60 * 60 * 24,
+        });
+
+        res.json({ message: "Logged in" });
       } else {
         throw new Error("Wrong password");
       }
@@ -57,9 +66,9 @@ const login = async (req, res, next) => {
 
 const getUser = async (req, res, next) => {
   try {
-    const user = await User.findById(req.user._id).select("-password");
-    let message = !user.verified ? "Please, verify your account!" : null;
-    res.json({ user, message });
+    const user = await User.findById(req.userId).select("-password");
+    // let message = !user.verified ? "Please, verify your account!" : null;
+    res.json({ user });
   } catch (error) {
     next(error);
   }

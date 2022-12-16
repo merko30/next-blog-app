@@ -1,27 +1,34 @@
-const passportJWT = require("passport-jwt");
+const passport = require("passport");
+const CookieStrategy = require("passport-cookie/strategy");
 
-const ExtractJwt = passportJWT.ExtractJwt;
-const JwtStrategy = passportJWT.Strategy;
+const user = require("../models/user");
 
-const User = require("../models/user");
-
-module.exports = function(passport) {
-  var opts = {};
-  opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-  opts.secretOrKey = process.env.JWT_SECRET;
+module.exports = () =>
   passport.use(
-    new JwtStrategy(opts, function(jwt_payload, done) {
-      User.findOne({ _id: jwt_payload.id }, function(err, user) {
+    new CookieStrategy(function (token, done) {
+      console.log(token);
+      user.findById(token, function (err, user) {
         if (err) {
-          return done(err, false);
+          return done(err);
         }
-        if (user) {
-          return done(null, user);
-        } else {
+        if (!user) {
           return done(null, false);
-          // or you could create a new account
         }
+        return done(null, user);
       });
     })
   );
-};
+
+passport.serializeUser(function (user, cb) {
+  console.log("serialize", user);
+  process.nextTick(function () {
+    return cb(null, user.id);
+  });
+});
+
+passport.deserializeUser(function (user, cb) {
+  console.log("deserialize", user);
+  process.nextTick(function () {
+    return cb(null, user);
+  });
+});
