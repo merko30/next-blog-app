@@ -1,20 +1,20 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import "./styles/tailwind.css";
-import { Router } from "react-router-dom";
-import "./styles/index.css";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
+
+import "./styles/tailwind.css";
+import "./styles/index.css";
+
+import store from "./config/store";
 
 import App from "./App";
 
-import history from "./config/history";
-import store from "./config/store";
+const container = document.getElementById("root");
 
-ReactDOM.render(
+const root = createRoot(container);
+
+root.render(
   <Provider store={store}>
-    <Router history={history}>
-      <App />
-    </Router>
-  </Provider>,
-  document.getElementById("root")
+    <App />
+  </Provider>
 );

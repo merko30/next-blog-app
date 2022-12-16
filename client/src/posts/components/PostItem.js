@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
+import distanceInWordsToNow from "date-fns/formatDistanceToNow";
 import Avatar from "../../shared/Avatar";
 import Image from "../../shared/Image";
 
@@ -12,8 +12,8 @@ const PostItem = ({
     body,
     image,
     slug,
-    author: { name, username, avatar }
-  }
+    author: { name, username, avatar },
+  },
 }) => {
   return (
     <Link

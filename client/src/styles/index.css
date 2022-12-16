@@ -183,7 +183,7 @@ body {
 
 .profile-background::after {
   content: "";
-  background: url("/img/selfie3.svg");
+  /* background: url("/img/selfie3.svg"); */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: right center;
