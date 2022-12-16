@@ -1,7 +1,10 @@
 import React from "react";
+import { useQuery } from "react-query";
 
 import { getCurrentUser } from "../auth/auth.actions";
-import { useQuery } from "react-query";
+
+import Loading from "../shared/Loading";
+import Error from "../shared/Error";
 
 const Profile = () => {
   const {
@@ -10,11 +13,27 @@ const Profile = () => {
     error,
   } = useQuery("user", getCurrentUser);
 
-  console.log({ loading, error });
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return (
+      <Error error={error.response?.data.message || "Something went wrong"} />
+    );
+  }
 
   if (queryData) {
-    const { data } = queryData;
-    return <h1>{JSON.stringify(data)}</h1>;
+    const {
+      data: {
+        user: { username, email },
+      },
+    } = queryData;
+    return (
+      <h1 className="text-3xl">
+        {username} - {email}
+      </h1>
+    );
   }
   return null;
 };

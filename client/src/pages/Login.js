@@ -1,15 +1,18 @@
 import React from "react";
 import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 import { login } from "../auth/auth.actions";
 
-import LoginForm from "../auth/components/LoginForm";
 import Error from "../shared/Error";
 import Loading from "../shared/Loading";
 
+import LoginForm from "../auth/components/LoginForm";
+
 const Login = () => {
+  const navigate = useNavigate();
   const { isLoading, error, mutate } = useMutation((data) => login(data), {
-    onSuccess: console.log,
+    onSuccess: () => navigate("/"),
   });
 
   return (

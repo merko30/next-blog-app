@@ -42,8 +42,6 @@ const login = async (req, res, next) => {
     });
     if (user) {
       if (await user.validPassword(req.body.password)) {
-        // let message = !user.verified ? "Please verify your account!" : null;
-
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
 
         res.cookie("token", token, {
@@ -52,7 +50,7 @@ const login = async (req, res, next) => {
           maxAge: 1000 * 60 * 60 * 24,
         });
 
-        res.json({ message: "Logged in" });
+        res.json({ message: "Successfully logged in" });
       } else {
         throw new Error("Wrong password");
       }
