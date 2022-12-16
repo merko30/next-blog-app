@@ -12,22 +12,24 @@ export const likePostAction = createAction("LIKE_POST");
 
 const url = process.env.REACT_APP_API_URL;
 
-export const getPosts = (page = 1) => async dispatch => {
-  const URL = page ? `${url}/posts?page=${page}` : `${url}/posts`;
-  dispatch(getPostsAction.start());
-  try {
-    const { data } = await Axios.get(URL);
-    dispatch(getPostsAction.success(data));
-  } catch (error) {
-    dispatch(getPostsAction.failure(error.response.data.message));
-  }
-};
+export const getPosts =
+  (page = 1) =>
+  async (dispatch) => {
+    const URL = page ? `${url}/posts?page=${page}` : `${url}/posts`;
+    dispatch(getPostsAction.start());
+    try {
+      const { data } = await Axios.get(URL);
+      dispatch(getPostsAction.success(data));
+    } catch (error) {
+      dispatch(getPostsAction.failure("Something went wrong"));
+    }
+  };
 
-export const getPost = id => async dispatch => {
+export const getPost = (id) => async (dispatch) => {
   dispatch(getPostAction.start());
   try {
     const {
-      data: { post }
+      data: { post },
     } = await Axios.get(`${url}/posts/${id}`);
     dispatch(getPostAction.success(post));
   } catch (error) {
@@ -35,12 +37,12 @@ export const getPost = id => async dispatch => {
   }
 };
 
-export const addPost = p => async dispatch => {
+export const addPost = (p) => async (dispatch) => {
   dispatch(addPostAction.start());
   try {
     const formData = populateFormData(p);
     const {
-      data: { post }
+      data: { post },
     } = await Axios.post(`${url}/posts`, formData);
     dispatch(addPostAction.success(post));
     console.log(post);
@@ -50,13 +52,13 @@ export const addPost = p => async dispatch => {
   }
 };
 
-export const updatePost = (id, p) => async dispatch => {
+export const updatePost = (id, p) => async (dispatch) => {
   dispatch(updatePostAction.start());
   try {
     const { image, ...rest } = p;
     const d = p.image ? populateFormData(p) : rest;
     const {
-      data: { post }
+      data: { post },
     } = await Axios.put(`${url}/posts/${id}`, d);
     dispatch(updatePostAction.success(post));
     history.push(`/posts/${post._id}`);
@@ -65,11 +67,11 @@ export const updatePost = (id, p) => async dispatch => {
   }
 };
 
-export const likePost = id => async dispatch => {
+export const likePost = (id) => async (dispatch) => {
   dispatch(likePostAction.start());
   try {
     const {
-      data: { post }
+      data: { post },
     } = await Axios.put(`${url}/posts/${id}/like`);
     dispatch(likePostAction.success(post));
   } catch (error) {

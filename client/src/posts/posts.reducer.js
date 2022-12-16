@@ -3,11 +3,11 @@ import {
   getPostAction,
   addPostAction,
   updatePostAction,
-  likePostAction
+  likePostAction,
 } from "./posts.actions";
 import {
   addCommentAction,
-  updateCommentAction
+  updateCommentAction,
 } from "../comments/comments.actions";
 
 const initialState = {
@@ -17,11 +17,11 @@ const initialState = {
   error: null,
   meta: {
     numberOfPages: 1,
-    currentPage: 1
-  }
+    currentPage: 1,
+  },
 };
 
-export default (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case getPostsAction.start().type:
     case getPostAction.start().type:
@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
     case likePostAction.start().type:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case getPostsAction.success().type:
       const { posts, numberOfPages, currentPage } = action.payload;
@@ -40,20 +40,20 @@ export default (state = initialState, action) => {
         posts,
         meta: {
           numberOfPages,
-          currentPage
-        }
+          currentPage,
+        },
       };
     case getPostAction.success().type:
       return {
         ...state,
         loading: false,
-        post: action.payload
+        post: action.payload,
       };
     case addPostAction.success().type:
     case updatePostAction.success().type:
       return {
         ...state,
-        loading: false
+        loading: false,
       };
     case getPostsAction.failure().type:
     case getPostAction.failure().type:
@@ -63,36 +63,38 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: action.payload
+        error: action.payload,
       };
     case addCommentAction.success().type:
       return {
         ...state,
         post: {
           ...state.post,
-          comments: [...state.post.comments, action.payload]
-        }
+          comments: [...state.post.comments, action.payload],
+        },
       };
     case updateCommentAction.success().type:
       const updatedComments = state.post.comments.slice();
       const index = updatedComments.findIndex(
-        c => c._id === action.payload._id
+        (c) => c._id === action.payload._id
       );
       updatedComments[index] = action.payload;
       return {
         ...state,
         post: {
           ...state.post,
-          comments: updatedComments
-        }
+          comments: updatedComments,
+        },
       };
     case likePostAction.success().type:
       return {
         ...state,
         post: action.payload,
-        loading: false
+        loading: false,
       };
     default:
       return state;
   }
 };
+
+export default reducer;
