@@ -4,8 +4,12 @@ module.exports = (req, res, next) => {
   if (req.cookies.token) {
     const payload = jwt.decode(req.cookies.token);
 
-    req.userId = payload.id;
+    if (payload.id) {
+      req.userId = payload.id;
+    } else {
+      res.status(401).json({ message: "Unauthorized" });
+    }
+  } else {
+    res.status(401).json({ message: "Unauthorized" });
   }
-
-  next();
 };
