@@ -21,21 +21,10 @@ export const getUsersPostsAction = createAction("GET_USERS_POSTS");
 
 const url = process.env.REACT_APP_API_URL;
 
-export const register = data => async dispatch => {
-  dispatch(registerAction.start());
-  try {
-    const formData = populateFormData(data);
-    const {
-      data: { message }
-    } = await axios.post(`${url}/auth/register`, formData);
-    dispatch(registerAction.success(message));
-    history.push("/login");
-  } catch (error) {
-    dispatch(registerAction.failure(error.response.data.message));
-  }
-};
+export const register = async (data) =>
+  await axios.post(`${url}/auth/register`, data);
 
-export const login = values => async dispatch => {
+export const login = (values) => async (dispatch) => {
   dispatch(loginAction.start());
   try {
     const { data } = await axios.post(`${url}/auth/login`, values);
@@ -48,7 +37,7 @@ export const login = values => async dispatch => {
   }
 };
 
-export const getCurrentUser = () => async dispatch => {
+export const getCurrentUser = () => async (dispatch) => {
   dispatch(getCurrentUserAction.start());
 
   try {
@@ -59,11 +48,11 @@ export const getCurrentUser = () => async dispatch => {
   }
 };
 
-export const verifyEmail = (email, token) => async dispatch => {
+export const verifyEmail = (email, token) => async (dispatch) => {
   dispatch(verifyEmailAction.start());
   try {
     const {
-      data: { message }
+      data: { message },
     } = await axios.post(
       `${url}/auth/verify_email?token=${token}&email=${email}`
     );
@@ -75,12 +64,12 @@ export const verifyEmail = (email, token) => async dispatch => {
   }
 };
 
-export const forgotPassword = email => async dispatch => {
+export const forgotPassword = (email) => async (dispatch) => {
   dispatch(forgotPasswordAction.start());
 
   try {
     const {
-      data: { message }
+      data: { message },
     } = await axios.post(`${url}/auth/forgot_password`, email);
     dispatch(forgotPasswordAction.success());
     dispatch(showMessage(message));
@@ -89,13 +78,13 @@ export const forgotPassword = email => async dispatch => {
   }
 };
 
-export const resetPassword = (password, token) => async dispatch => {
+export const resetPassword = (password, token) => async (dispatch) => {
   dispatch(resetPasswordAction.start());
   try {
     const {
-      data: { message }
+      data: { message },
     } = await axios.post(`${url}/auth/reset_password?token=${token}`, {
-      password
+      password,
     });
     dispatch(resetPasswordAction.success());
     dispatch(showMessage(message));
@@ -104,7 +93,7 @@ export const resetPassword = (password, token) => async dispatch => {
   }
 };
 
-export const updateField = (field, d) => async dispatch => {
+export const updateField = (field, d) => async (dispatch) => {
   dispatch(updateFieldAction.start());
   try {
     const body = field === "avatar" ? populateFormData(d) : d;
@@ -116,21 +105,23 @@ export const updateField = (field, d) => async dispatch => {
   }
 };
 
-export const getUsersPosts = (page = 1) => async dispatch => {
-  dispatch(getUsersPostsAction.start());
-  try {
-    const { data } = await axios.get(`${url}/posts/user?page=${page}`);
-    dispatch(getUsersPostsAction.success(data));
-  } catch (error) {
-    dispatch(getUsersPostsAction.failure(error.response.data.error));
-  }
-};
+export const getUsersPosts =
+  (page = 1) =>
+  async (dispatch) => {
+    dispatch(getUsersPostsAction.start());
+    try {
+      const { data } = await axios.get(`${url}/posts/user?page=${page}`);
+      dispatch(getUsersPostsAction.success(data));
+    } catch (error) {
+      dispatch(getUsersPostsAction.failure(error.response.data.error));
+    }
+  };
 
 export const clearError = () => clearErrorAction.start();
 
-export const setStatus = status => setStatusAction.start(status);
+export const setStatus = (status) => setStatusAction.start(status);
 
-export const logout = () => dispatch => {
+export const logout = () => (dispatch) => {
   dispatch(clearMessage());
   dispatch(logoutAction.start());
   localStorage.removeItem("token");

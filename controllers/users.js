@@ -8,26 +8,23 @@ const sendVerificationEmail = require("../utils/sendVerificationEmail");
 const register = async (req, res, next) => {
   try {
     const user = await User.findOne({
-      $or: [{ username: req.body.username }, { email: req.body.email }]
+      $or: [{ username: req.body.username }, { email: req.body.email }],
     });
     if (user) {
       throw new Error("User already exists, check your email or username");
     }
     const newUser = new User(req.body);
 
-    if (req.file) {
-      newUser.avatar = req.file.filename;
-    }
-    const verificationToken = crypto.randomBytes(20).toString("hex");
-    newUser.verificationToken = verificationToken;
+    // const verificationToken = crypto.randomBytes(20).toString("hex");
+    // newUser.verificationToken = verificationToken;
 
     await newUser.save();
 
-    await sendVerificationEmail(newUser, verificationToken);
+    // await sendVerificationEmail(newUser, verificationToken);
 
     res.json({
       ok: true,
-      message: "Successfully registered, you can sign in now"
+      message: "Successfully registered, you can sign in now",
     });
   } catch (error) {
     next(error);
@@ -39,8 +36,8 @@ const login = async (req, res, next) => {
     const user = await User.findOne({
       $or: [
         { username: req.body.usernameOrEmail },
-        { email: req.body.usernameOrEmail }
-      ]
+        { email: req.body.usernameOrEmail },
+      ],
     });
     if (user) {
       if (await user.validPassword(req.body.password)) {
@@ -154,8 +151,9 @@ const updateField = async (req, res, next) => {
     const updated = await user.save();
     res.json({
       user: updated,
-      message: `${field.substring(0, 1).toUpperCase() +
-        field.substring(1)} is successfully updated`
+      message: `${
+        field.substring(0, 1).toUpperCase() + field.substring(1)
+      } is successfully updated`,
     });
   } catch (error) {
     next(error);
@@ -169,5 +167,5 @@ module.exports = {
   forgotPassword,
   resetPassword,
   verifyEmail,
-  updateField
+  updateField,
 };

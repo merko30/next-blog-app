@@ -1,24 +1,29 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
+
+import { register } from "../auth/auth.actions";
+
+import Error from "../shared/Error";
+import Loading from "../shared/Loading";
 
 import RegisterForm from "../auth/components/RegisterForm";
-import { register, clearError } from "../auth/auth.actions";
 
 const Register = () => {
-  const { error, loading } = useSelector(state => state.auth);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(clearError());
-  }, []);
+  const navigate = useNavigate();
+  const { isLoading, error, mutate } = useMutation((input) => register(input), {
+    onSuccess: () => navigate("/login"),
+  });
 
   return (
-    <div className="pt-5 flex items-center justify-center">
-      <RegisterForm
-        onSubmit={data => dispatch(register(data))}
-        error={error}
-        loading={loading}
-      />
+    <div className="w-full md:w-1/2 mx-auto">
+      <h1 className="text-3xl text-center mb-12">Join today</h1>
+
+      {isLoading && <Loading />}
+      {error && (
+        <Error error={error.response?.data.message || "Something went wrong"} />
+      )}
+      <RegisterForm onSubmit={mutate} />
     </div>
   );
 };

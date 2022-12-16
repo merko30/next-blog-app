@@ -8,17 +8,21 @@ const Button = ({
   block = true,
   classes,
   ...props
-}) => (
-  <button
-    className={`${
-      block ? "block w-full" : "inline px-3"
-    } bg-${color}-500 hover:bg-${color}-600 text-${textColor} p-2 rounded ${classes}`}
-    type={type}
-    onClick={onClick}
-    {...props}
-  >
-    {props.children}
-  </button>
-);
+}) => {
+  const bg = `bg-${color}-500 hover:bg-${color}-600`;
+
+  return (
+    <button
+      className={`${
+        block ? "block w-full" : "inline px-3"
+      } ${bg} text-${textColor} p-2 rounded ${classes}`}
+      type={type}
+      onClick={onClick}
+      {...props}
+    >
+      {props.children}
+    </button>
+  );
+};
 
 export default Button;
