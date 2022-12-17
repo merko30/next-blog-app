@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 import createAction from "../utils/createAction";
-import populateFormData from "../utils/populateFormData";
+import populateFormData from "../utils/transformObjectToFormData";
 
 export const getPostsAction = createAction("GET_POSTS");
 export const getPostAction = createAction("GET_POST");
@@ -19,7 +19,7 @@ export const getPosts = async (page = 1) => {
 export const getPost = async (id) => await Axios.get(`${url}/posts/${id}`);
 
 export const addPost = async (values) =>
-  await Axios.post(`${url}/posts`, values);
+  await Axios.post(`${url}/posts`, values, { withCredentials: true });
 
 export const updatePost = (id, p) => async (dispatch) => {
   dispatch(updatePostAction.start());

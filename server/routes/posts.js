@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const passport = require("passport");
 
+const authMiddleware = require("../config/authMiddleware");
 const upload = require("../config/multer");
 
 const {
@@ -11,24 +11,14 @@ const {
   update,
   remove,
   likePost,
-  getUsersPosts
+  getUsersPosts,
 } = require("../controllers/posts");
 
-const middlewares = [
-  passport.authenticate("jwt", { session: false }),
-  upload.single("image")
-];
+const middlewares = [authMiddleware, upload.single("image")];
 
-router
-  .route("/")
-  .get(getAll)
-  .post(middlewares, create);
+router.route("/").get(getAll).post(middlewares, create);
 
-router.get(
-  "/user",
-  passport.authenticate("jwt", { session: false }),
-  getUsersPosts
-);
+router.get("/user", authMiddleware, getUsersPosts);
 
 router
   .route("/:id")
@@ -36,8 +26,6 @@ router
   .put(middlewares, update)
   .delete(middlewares, remove);
 
-router
-  .route("/:id/like")
-  .put(passport.authenticate("jwt", { session: false }), likePost);
+router.route("/:id/like").put(authMiddleware, likePost);
 
 module.exports = router;

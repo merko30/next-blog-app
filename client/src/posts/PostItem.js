@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import distanceInWordsToNow from "date-fns/formatDistanceToNow";
+
 import Avatar from "../shared/Avatar";
 import Image from "../shared/Image";
 
@@ -14,12 +15,13 @@ const PostItem = ({
     slug,
     author: { name, username, avatar },
   },
+  className = "",
 }) => {
   return (
     <Link
       to={{ pathname: `/posts/${slug}`, state: { id: _id } }}
       data-testid="post-link"
-      className="shadow"
+      className={["shadow", className].join(" ")}
     >
       <div className="p-2">
         <div className="pb-2 border-b-t  flex items-center">
@@ -27,7 +29,7 @@ const PostItem = ({
           <div>
             <h3>{name || username}</h3>
             <p className="text-gray-600 text-xs">
-              {distanceInWordsToNow(createdAt)} ago
+              {distanceInWordsToNow(new Date(createdAt))} ago
             </p>
           </div>
         </div>

@@ -10,17 +10,30 @@ import FileInput from "../shared/FileInput";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
-    .required("Title is required field")
+    .required("Title is required")
     .min(10, "Title should have at least 10 characters"),
   body: Yup.string()
-    .required("Content is required field")
+    .required("Content is required")
     .min(150, "Content should have at least 150 characters"),
 });
 
-const PostForm = ({ onSubmit, error, editMode, post, ...props }) => {
+const PostForm = ({ onSubmit, post, error }) => {
   const formik = useFormik({
-    initialValues: {},
+    initialValues: {
+      title: "",
+      body: "",
+      image: null,
+    },
     validationSchema,
+    validate: (values) => {
+      const errors = {};
+      if (!values.image) {
+        errors["image"] = "Please select an image";
+      }
+
+      return errors;
+    },
+    onSubmit,
   });
 
   const { setFieldValue, isSubmitting, handleSubmit } = formik;
@@ -31,19 +44,10 @@ const PostForm = ({ onSubmit, error, editMode, post, ...props }) => {
         {error && <Error error={error} />}
         <Field name="title" component={Input} label="Title" />
         <Field name="body" component={Textarea} label="Content" rows={8} />
-        <Button
-          color="yellow"
-          classes="my-2"
-          block={false}
-          onClick={() => console.log("change")}
-        >
-          Change image
-        </Button>
         <FileInput
-          setFieldValue={setFieldValue}
           name="image"
-          allowedTypes={["image/jpg", "image/jpeg", "image/png"]}
-          allowedSize={5 * 1024 * 1024}
+          onChange={(value) => setFieldValue("image", value)}
+          error={formik.errors.image}
         />
         <Button color="green" type="submit" disabled={isSubmitting}>
           Submit

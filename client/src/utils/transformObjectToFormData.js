@@ -1,4 +1,4 @@
-export default data => {
+const transformObjectToFormData = (data) => {
   const formData = new FormData();
 
   for (let key in data) {
@@ -7,3 +7,5 @@ export default data => {
 
   return formData;
 };
+
+export default transformObjectToFormData;

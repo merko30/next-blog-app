@@ -42,7 +42,7 @@ const getOne = async (req, res, next) => {
       .populate("author", "-password")
       .populate({
         path: "comments",
-        populate: { path: "author", model: "User", select: "-password" }
+        populate: { path: "author", model: "User", select: "-password" },
       });
     res.json({ post });
   } catch (error) {
@@ -52,15 +52,11 @@ const getOne = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const post = new Post({ ...req.body, author: req.user._id });
+    const post = new Post({ ...req.body, author: req.userId });
     if (req.file) {
       post.image = req.file.filename;
     }
-    post.slug = req.body.title
-      .trim()
-      .toLowerCase()
-      .split(" ")
-      .join("-");
+    post.slug = req.body.title.trim().toLowerCase().split(" ").join("-");
     await post.save();
     res.json({ post });
   } catch (error) {
@@ -71,7 +67,7 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
   try {
     const post = await Post.findByIdAndUpdate(req.params.id, req.body, {
-      new: true
+      new: true,
     });
     if (req.file) {
       post.image = req.file.filename;
@@ -98,14 +94,16 @@ const likePost = async (req, res, next) => {
       .populate("author", "-password")
       .populate({
         path: "comments",
-        populate: { path: "author", model: "User", select: "-password" }
+        populate: { path: "author", model: "User", select: "-password" },
       });
     if (post) {
-      const likes = post.likes.map(like => like.toString());
+      const likes = post.likes.map((like) => like.toString());
       if (!likes.includes(req.user._id.toString())) {
         post.likes = [...post.likes, req.user._id];
       } else {
-        const newLikes = likes.filter(like => like !== req.user._id.toString());
+        const newLikes = likes.filter(
+          (like) => like !== req.user._id.toString()
+        );
         post.likes = newLikes;
       }
       await post.save();
@@ -125,5 +123,5 @@ module.exports = {
   update,
   remove,
   likePost,
-  getUsersPosts
+  getUsersPosts,
 };
