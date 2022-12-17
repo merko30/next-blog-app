@@ -6,6 +6,8 @@ module.exports = (req, res, next) => {
 
     if (payload.id) {
       req.userId = payload.id;
+
+      next();
     } else {
       res.status(401).json({ message: "Unauthorized" });
     }
