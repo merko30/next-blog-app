@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -21,6 +21,8 @@ import Author from "../shared/Author";
 const PostDetail = () => {
   const { id } = useParams();
 
+  const queryClient = useQueryClient();
+
   const {
     data: queryData,
     isLoading,
@@ -29,7 +31,22 @@ const PostDetail = () => {
 
   const { mutate } = useMutation(
     (data) => addComment({ ...data, postId: id }),
-    { onError: console.log }
+    {
+      onSuccess: (data) => {
+        queryClient.setQueryData("post", (oldData) => {
+          return {
+            ...oldData,
+            data: {
+              ...oldData.data,
+              post: {
+                ...oldData.data.post,
+                comments: [...oldData.data.post.comments, data.data.comment],
+              },
+            },
+          };
+        });
+      },
+    }
   );
 
   const { session } = useSession();
