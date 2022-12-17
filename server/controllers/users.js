@@ -65,7 +65,6 @@ const login = async (req, res, next) => {
 const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.userId).select("-password");
-    // let message = !user.verified ? "Please, verify your account!" : null;
     res.json({ user });
   } catch (error) {
     next(error);

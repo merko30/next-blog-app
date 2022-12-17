@@ -12,3 +12,25 @@ body,
   display: flex;
   flex-direction: column;
 }
+
+@layer components {
+  .btn-blue {
+    @apply bg-blue-500 hover:bg-blue-700 text-white;
+  }
+
+  .btn-green {
+    @apply bg-green-500 hover:bg-green-700 text-white;
+  }
+
+  .btn-yellow {
+    @apply bg-yellow-500 hover:bg-yellow-700 text-white;
+  }
+
+  .btn-teal {
+    @apply bg-teal-500 hover:bg-teal-700 text-white;
+  }
+
+  .btn-orange {
+    @apply bg-orange-500 hover:bg-orange-700 text-white;
+  }
+}

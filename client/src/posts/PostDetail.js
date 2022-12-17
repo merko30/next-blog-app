@@ -29,7 +29,7 @@ const PostDetail = () => {
     error,
   } = useQuery("post", () => getPost(id));
 
-  const session = useSession();
+  const { session } = useSession();
 
   if (isLoading) {
     return <Loading />;
@@ -44,24 +44,24 @@ const PostDetail = () => {
       data: { post },
     } = queryData;
 
+    const isCurrentUserPostAuthor =
+      session && session?.user && post && session.user._id === post.author._id;
+
     return (
       <div className="p-2 px-4 md:px-32 lg:px-64 mx-auto relative">
         <Author author={post.author} createdAt={post.createdAt} />
         <Image src={post.image} height="100%" alt={post.title} />
-        <div className="relative">
-          <h1 className="text-2xl font-bold my-2 mr-10">{post.title}</h1>
-          <p className="mt-3 break-all">{post.body}</p>
-          {session &&
-            session?.user &&
-            post &&
-            session.user._id === post.author._id && (
-              <Link
-                to={`/posts/${post._id}/edit`}
-                className="block absolute top-0 right-0 m-2"
-              >
-                <FontAwesomeIcon icon={faPencilAlt} />
-              </Link>
-            )}
+        <div className="relative mb-4">
+          <h1 className="text-2xl font-bold mt-6 mb-4 mr-10">{post.title}</h1>
+          <p className="mt-4 break-all">{post.body}</p>
+          {isCurrentUserPostAuthor && (
+            <Link
+              to={`/posts/${post._id}/edit`}
+              className="block absolute top-0 right-0 m-2"
+            >
+              <FontAwesomeIcon icon={faPencilAlt} />
+            </Link>
+          )}
         </div>
         <Like
           user={session?.user}

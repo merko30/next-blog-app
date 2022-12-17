@@ -1,23 +1,29 @@
 import React from "react";
 
+// tailwind doesn't allow generating classes dynamically
+const CLASSES = {
+  blue: "btn-blue",
+  green: "btn-green",
+  yellow: "btn-yellow",
+  teal: "btn-teal",
+  orange: "btn-orange",
+};
+
 const Button = ({
   onClick,
-  type,
+  type = "button",
   color = "blue",
-  textColor = "white",
-  block = true,
   classes,
   ...props
 }) => {
-  const bg = `bg-${color}-500 hover:bg-${color}-600`;
-
+  const background = CLASSES[color] ?? CLASSES.blue;
   return (
     <button
-      className={`${
-        block ? "block w-full" : "inline px-3"
-      } ${bg} text-${textColor} p-2 rounded ${classes}`}
-      type={type}
       onClick={onClick}
+      type={type}
+      className={[background, "text-white px-4 py-2 rounded", classes].join(
+        " "
+      )}
       {...props}
     >
       {props.children}
