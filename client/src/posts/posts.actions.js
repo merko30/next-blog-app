@@ -2,7 +2,6 @@ import Axios from "axios";
 
 import createAction from "../utils/createAction";
 import populateFormData from "../utils/populateFormData";
-import history from "../config/history";
 
 export const getPostsAction = createAction("GET_POSTS");
 export const getPostAction = createAction("GET_POST");
@@ -38,7 +37,6 @@ export const addPost = (p) => async (dispatch) => {
     } = await Axios.post(`${url}/posts`, formData);
     dispatch(addPostAction.success(post));
     console.log(post);
-    history.push(`/posts/${post.slug}`, { id: post._id });
   } catch (error) {
     dispatch(addPostAction.failure(error.response.data.message));
   }
@@ -53,7 +51,6 @@ export const updatePost = (id, p) => async (dispatch) => {
       data: { post },
     } = await Axios.put(`${url}/posts/${id}`, d);
     dispatch(updatePostAction.success(post));
-    history.push(`/posts/${post._id}`);
   } catch (error) {
     dispatch(updatePostAction.failure(error.response.data.message));
   }

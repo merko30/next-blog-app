@@ -1,6 +1,5 @@
 import axios from "axios";
 
-import history from "../config/history";
 import createAction from "../utils/createAction";
 import populateFormData from "../utils/populateFormData";
 import { showMessage, clearMessage } from "../messages/messages.actions";
@@ -38,7 +37,6 @@ export const verifyEmail = (email, token) => async (dispatch) => {
     );
     dispatch(verifyEmailAction.success());
     dispatch(showMessage(message));
-    history.push("/login");
   } catch (error) {
     dispatch(verifyEmailAction.failure(error.response.data.message));
   }
@@ -105,5 +103,4 @@ export const logout = () => (dispatch) => {
   dispatch(clearMessage());
   dispatch(logoutAction.start());
   localStorage.removeItem("token");
-  history.push("/login");
 };
