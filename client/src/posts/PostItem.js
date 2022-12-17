@@ -19,13 +19,13 @@ const PostItem = ({
 }) => {
   return (
     <Link
-      to={{ pathname: `/posts/${slug}`, state: { id: _id } }}
+      to={{ pathname: `/posts/${slug}/${_id}` }}
       data-testid="post-link"
       className={["shadow", className].join(" ")}
     >
       <div className="p-2">
         <div className="pb-2 border-b-t  flex items-center">
-          <Avatar src={avatar} size={12} alt={title} />
+          <Avatar src={avatar} size="sm" alt={title} />
           <div>
             <h3>{name || username}</h3>
             <p className="text-gray-600 text-xs">

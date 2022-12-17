@@ -14,12 +14,10 @@ const AuthProvider = ({ children }) => {
     getCurrentUser()
       .then((response) => {
         setLoading(false);
-        console.log(response);
         setSession(response.data);
       })
       .catch((error) => {
         setLoading(false);
-        console.log(error);
         setError(error.response?.data.message);
       });
   }, []);
@@ -28,8 +26,6 @@ const AuthProvider = ({ children }) => {
     () => ({ session, error, loading }),
     [error, loading, session]
   );
-
-  console.log(value);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

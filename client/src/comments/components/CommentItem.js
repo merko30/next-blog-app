@@ -14,7 +14,7 @@ const CommentItem = ({ comment, postID, onEdit }) => {
     ({ auth: { user, loggedIn }, posts: { post } }) => ({
       post,
       user,
-      loggedIn
+      loggedIn,
     })
   );
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const CommentItem = ({ comment, postID, onEdit }) => {
       ) : (
         <div className="p-3 rounded-lg border border-grey-300 my-3 relative">
           <div className="flex items-center mb-2 border-grey-400 border-b pb-3">
-            <Avatar src={comment.author.avatar} alt="author avatar" size={16} />
+            <Avatar src={comment.author.avatar} alt="author avatar" />
             <h3 className="font-bold uppercase">
               {comment.author.name || comment.author.username}
             </h3>

@@ -5,7 +5,7 @@ import Home from "../pages/Home";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import AddPostPage from "../posts/AddPostPage";
-import PostDetail from "../pages/PostDetail";
+import PostDetail from "../posts/PostDetail";
 import Verification from "../pages/Verification";
 import ResetPassword from "../pages/ResetPassword";
 import ForgotPassword from "../pages/ForgotPassword";
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
       { path: "posts/create", element: <AddPostPage /> },
       { path: "posts/:id/edit", element: <AddPostPage /> },
       { path: "forgot_password", element: <ForgotPassword /> },
-      { path: "posts/:slug", element: <PostDetail /> },
+      { path: "posts/:slug/:id", element: <PostDetail /> },
       { path: "verification", element: <Verification /> },
       { path: "reset_password", element: <ResetPassword /> },
       { path: "*", element: <NotFound /> },
