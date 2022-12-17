@@ -31,7 +31,7 @@ const Header = () => {
         >
           {!loggedIn && <NavItem to="/register">Register</NavItem>}
           {!loggedIn && <NavItem to="/login">Login</NavItem>}
-          {loggedIn && <NavItem to="/posts/add">Add post</NavItem>}
+          {loggedIn && <NavItem to="/posts/create">Add post</NavItem>}
           {loggedIn && <NavItem to="/profile">Profile</NavItem>}
           {loggedIn && (
             <Button

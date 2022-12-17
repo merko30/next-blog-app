@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import distanceInWordsToNow from "date-fns/formatDistanceToNow";
-import Avatar from "../../shared/Avatar";
-import Image from "../../shared/Image";
+import Avatar from "../shared/Avatar";
+import Image from "../shared/Image";
 
 const PostItem = ({
   post: {
@@ -41,4 +41,4 @@ const PostItem = ({
   );
 };
 
-export default PostItem;
+export default memo(PostItem);

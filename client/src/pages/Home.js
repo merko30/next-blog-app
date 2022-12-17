@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 
 import { getPosts } from "../posts/posts.actions";
 
-import PostList from "../posts/components/PostList";
+import PostList from "../posts/PostList";
 
 import Error from "../shared/Error";
 import Loading from "../shared/Loading";

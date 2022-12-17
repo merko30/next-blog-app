@@ -4,7 +4,7 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import Home from "../pages/Home";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
-import AddEditPost from "../pages/AddEditPost";
+import AddPostPage from "../posts/AddPostPage";
 import PostDetail from "../pages/PostDetail";
 import Verification from "../pages/Verification";
 import ResetPassword from "../pages/ResetPassword";
@@ -36,8 +36,8 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
       { path: "profile", element: <Profile /> },
-      { path: "posts/add", element: <AddEditPost /> },
-      { path: "posts/:id/edit", element: <AddEditPost /> },
+      { path: "posts/create", element: <AddPostPage /> },
+      { path: "posts/:id/edit", element: <AddPostPage /> },
       { path: "forgot_password", element: <ForgotPassword /> },
       { path: "posts/:slug", element: <PostDetail /> },
       { path: "verification", element: <Verification /> },
