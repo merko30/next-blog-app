@@ -23,7 +23,7 @@ const EditAvatar = () => {
       {editMode ? (
         <form
           className="px-4 py-2"
-          onSubmit={e => {
+          onSubmit={(e) => {
             e.preventDefault();
             if (avatar) {
               dispatch(updateField("avatar", { avatar }));
@@ -33,20 +33,20 @@ const EditAvatar = () => {
         >
           <AvatarInput
             image={image}
-            setImageSource={s => setSrc(s)}
+            setImageSource={(s) => setSrc(s)}
             openModal={setShow}
           />
           <Modal show={show} onClose={() => setShow(false)}>
             <AvatarCropper
               src={src}
-              getImage={img => setImage(img)}
+              getImage={(img) => setImage(img)}
               setFieldValue={setFieldValue}
             />
           </Modal>
-          <Button block={false} type="submit" classes="mr-2">
+          <Button type="submit" classes="mr-2">
             Save
           </Button>
-          <Button color="red" block={false} onClick={() => setEditMode(false)}>
+          <Button color="red" onClick={() => setEditMode(false)}>
             Cancel
           </Button>
         </form>

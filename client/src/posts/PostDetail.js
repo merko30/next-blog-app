@@ -1,15 +1,16 @@
 import React from "react";
-import { Link, useSearchParams, useParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import { Link, useParams } from "react-router-dom";
+import { useMutation, useQuery } from "react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 import useSession from "../hooks/useSession";
 
-import CommentList from "../comments/components/CommentList";
-import CommentForm from "../comments/components/CommentForm";
-
 import { getPost } from "./posts.actions";
+import { addComment } from "../comments/comments.actions";
+
+import CommentList from "../comments/CommentList";
+import CommentForm from "../comments/CommentForm";
 
 import Error from "../shared/Error";
 import Loading from "../shared/Loading";
@@ -19,15 +20,17 @@ import Author from "../shared/Author";
 
 const PostDetail = () => {
   const { id } = useParams();
-  const sP = useSearchParams();
-
-  console.log(id, sP);
 
   const {
     data: queryData,
     isLoading,
     error,
   } = useQuery("post", () => getPost(id));
+
+  const { mutate } = useMutation(
+    (data) => addComment({ ...data, postId: id }),
+    { onError: console.log }
+  );
 
   const { session } = useSession();
 
@@ -71,11 +74,8 @@ const PostDetail = () => {
         />
 
         <CommentList comments={post.comments} />
-        <CommentForm
-          editMode={false}
-          postID={post._id}
-          onSubmit={(id, comment) => console.log("add comment")}
-        />
+
+        <CommentForm onSubmit={mutate} />
       </div>
     );
   }

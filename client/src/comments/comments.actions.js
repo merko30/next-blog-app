@@ -8,19 +8,10 @@ export const deleteCommentAction = createAction("DELETE_COMMENT");
 
 const url = process.env.REACT_APP_API_URL;
 
-export const addComment = (postID, c) => async dispatch => {
-  dispatch(addCommentAction.start());
+export const addComment = async (data) =>
+  await axios.post(`${url}/comments`, data, { withCredentials: true });
 
-  try {
-    const response = await axios.post(`${url}/comments/${postID}`, c);
-    const { comment } = response.data;
-    dispatch(addCommentAction.success(comment));
-  } catch (error) {
-    dispatch(addCommentAction.failure(error.response.data.error));
-  }
-};
-
-export const updateComment = (postID, commentID, c) => async dispatch => {
+export const updateComment = (postID, commentID, c) => async (dispatch) => {
   dispatch(updateCommentAction.start());
 
   try {

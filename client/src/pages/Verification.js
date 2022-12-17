@@ -21,7 +21,7 @@ const Verification = ({ location: { search } }) => {
       {error && (
         <>
           <Error error={error} />
-          <Button color="yellow" block={false}>
+          <Button color="yellow">
             <Link to="/">Go home</Link>
           </Button>
         </>

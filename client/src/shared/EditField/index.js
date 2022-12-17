@@ -11,7 +11,7 @@ const EditField = ({
   field,
   confirmation = false,
   onSubmit,
-  validations = {}
+  validations = {},
 }) => {
   const [editMode, setEditMode] = useState(false);
   const confirmField = confirmation
@@ -39,13 +39,8 @@ const EditField = ({
               label={`Confirm your ${field}`}
             />
           )}
-          <Button block={false}>Save</Button>
-          <Button
-            block={false}
-            onClick={() => setEditMode(false)}
-            color="red"
-            classes="mx-2"
-          >
+          <Button>Save</Button>
+          <Button onClick={() => setEditMode(false)} color="red" classes="mx-2">
             Cancel edit
           </Button>
         </Form>

@@ -37,7 +37,6 @@ const Header = () => {
             <Button
               color="yellow"
               classes="my-4 border-b md:my-0 md:border-0 md:mx-2"
-              block={false}
               onClick={() => console.log("logout")}
             >
               Logout

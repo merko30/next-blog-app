@@ -1,15 +1,14 @@
 const router = require("express").Router();
-const passport = require("passport");
+
+const authMiddleware = require("../config/authMiddleware");
 
 const { create, update, remove } = require("../controllers/comments");
 
-const middleware = passport.authenticate("jwt", { session: false });
-
-router.route("/:postID").post(middleware, create);
+router.route("/").post(authMiddleware, create);
 
 router
-  .route("/:postID/:commentID")
-  .put(middleware, update)
-  .delete(middleware, remove);
+  .route("/:commentId")
+  .put(authMiddleware, update)
+  .delete(authMiddleware, remove);
 
 module.exports = router;
