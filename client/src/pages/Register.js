@@ -7,7 +7,7 @@ import { register } from "../auth/auth.actions";
 import Error from "../shared/Error";
 import Loading from "../shared/Loading";
 
-import RegisterForm from "../auth/components/RegisterForm";
+import RegisterForm from "../auth/RegisterForm";
 
 const Register = () => {
   const navigate = useNavigate();

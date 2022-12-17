@@ -7,7 +7,7 @@ import { login } from "../auth/auth.actions";
 import Error from "../shared/Error";
 import Loading from "../shared/Loading";
 
-import LoginForm from "../auth/components/LoginForm";
+import LoginForm from "../auth/LoginForm";
 
 const Login = () => {
   const navigate = useNavigate();
