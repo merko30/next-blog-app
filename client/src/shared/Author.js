@@ -1,5 +1,3 @@
-import React from "react";
-
 import Avatar from "./Avatar";
 import distanceInWordsToNow from "date-fns/formatDistanceToNow";
 

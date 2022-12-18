@@ -1,13 +1,12 @@
-import React from "react";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 
-import transformObjectToFormData from "../utils/transformObjectToFormData";
+import transformObjectToFormData from "utils/transformObjectToFormData";
 
 import { getPost, updatePost } from "./posts.actions";
 
-import Error from "../shared/Error";
-import Loading from "../shared/Loading";
+import Error from "shared/Error";
+import Loading from "shared/Loading";
 
 import PostForm from "./PostForm";
 

@@ -1,11 +1,10 @@
-import React from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 
 import { register } from "./auth.actions";
 
-import Error from "../shared/Error";
-import Loading from "../shared/Loading";
+import Error from "shared/Error";
+import Loading from "shared/Loading";
 
 import RegisterForm from "./RegisterForm";
 

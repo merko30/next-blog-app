@@ -3,8 +3,8 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 
-const sendPasswordResetEmail = require("../utils/sendPasswordResetEmail");
-// const sendVerificationEmail = require("../utils/sendVerificationEmail");
+const sendPasswordResetEmail = require("utils/sendPasswordResetEmail");
+// const sendVerificationEmail = require("utils/sendVerificationEmail");
 
 const register = async (req, res, next) => {
   try {

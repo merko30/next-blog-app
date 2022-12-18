@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
-import getCroppedImg from "../utils/getCroppedImg";
-import blobURLToFile from "../utils/blobToFile";
+import getCroppedImg from "utils/getCroppedImg";
+import blobURLToFile from "utils/blobToFile";
 import Button from "./Button";
 
 const AvatarCropper = ({ src, ...props }) => {
@@ -36,7 +36,7 @@ const AvatarCropper = ({ src, ...props }) => {
         style={{
           width: "400px",
           height: "400px",
-          position: "relative"
+          position: "relative",
         }}
       >
         <div className="crop-container">
@@ -60,7 +60,7 @@ const AvatarCropper = ({ src, ...props }) => {
               min={1}
               max={3}
               step={0.1}
-              onChange={e => setZoom(e.target.value)}
+              onChange={(e) => setZoom(e.target.value)}
             />
           </div>
         </div>

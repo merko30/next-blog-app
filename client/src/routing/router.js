@@ -1,17 +1,16 @@
-import React from "react";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 
 import Home from "../pages/Home";
 
-import Register from "../auth/RegisterPage";
-import Login from "../auth/LoginPage";
-import Verification from "../auth/VerificationPage";
-import ResetPassword from "../auth/ResetPasswordPage";
-import ForgotPassword from "../auth/ForgotPasswordPage";
-import Profile from "../auth/ProfilePage";
+import Register from "auth/RegisterPage";
+import Login from "auth/LoginPage";
+import Verification from "auth/VerificationPage";
+import ResetPassword from "auth/ResetPasswordPage";
+import ForgotPassword from "auth/ForgotPasswordPage";
+import Profile from "auth/ProfilePage";
 
-import AddPostPage from "../posts/AddPostPage";
-import PostDetail from "../posts/PostDetail";
+import AddPostPage from "posts/AddPostPage";
+import PostDetail from "posts/PostDetail";
 
 import NotFound from "../pages/NotFound";
 

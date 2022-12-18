@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import Button from "./Button";
 
@@ -7,9 +6,9 @@ const Modal = ({ children, ...props }) => {
     <div className="fixed top-0 left-0 right-0 bottom-0 overlay">
       {ReactDOM.createPortal(
         <div className="bg-white modal p-3" style={{ zIndex: 20 }}>
-          {React.Children.map(children, child => {
+          {React.Children.map(children, (child) => {
             return React.cloneElement(child, {
-              props
+              props,
             });
           })}
           <Button color="red" onClick={() => props.onClose()}>

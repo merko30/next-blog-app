@@ -5,7 +5,7 @@ import Input from "../Input";
 import Button from "../Button";
 
 import createSchema from "./createSchema";
-import capitalize from "../../utils/capitalize";
+import capitalize from "../utils/capitalize";
 
 const EditField = ({
   field,

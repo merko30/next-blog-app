@@ -1,10 +1,9 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Field, useFormik, FormikProvider } from "formik";
 import * as Yup from "yup";
 
-import Input from "../shared/Input";
-import Button from "../shared/Button";
+import Input from "shared/Input";
+import Button from "shared/Button";
 
 const validationSchema = Yup.object().shape({
   usernameOrEmail: Yup.string().required("This field is required"),

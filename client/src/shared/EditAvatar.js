@@ -5,7 +5,7 @@ import AvatarInput from "./AvatarInput";
 import Modal from "./Modal";
 import AvatarCropper from "./AvatarCropper";
 import Button from "./Button";
-import { updateField } from "../auth/auth.actions";
+import { updateField } from "auth/auth.actions";
 
 const EditAvatar = () => {
   const dispatch = useDispatch();

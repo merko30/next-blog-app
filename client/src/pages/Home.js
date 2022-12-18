@@ -1,13 +1,12 @@
-import React from "react";
 import { useQuery } from "react-query";
 
-import { getPosts } from "../posts/posts.actions";
+import { getPosts } from "posts/posts.actions";
 
-import PostList from "../posts/PostList";
+import PostList from "posts/PostList";
 
-import Error from "../shared/Error";
-import Loading from "../shared/Loading";
-import Pagination from "../shared/Pagination";
+import Error from "shared/Error";
+import Loading from "shared/Loading";
+import Pagination from "shared/Pagination";
 
 const Home = () => {
   const { error, isLoading, data: queryData } = useQuery("posts", getPosts);

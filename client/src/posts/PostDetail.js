@@ -1,22 +1,21 @@
-import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
-import useSession from "../hooks/useSession";
+import useSession from "hooks/useSession";
 
 import { getPost } from "./posts.actions";
-import { addComment } from "../comments/comments.actions";
+import { addComment } from "comments/comments.actions";
 
-import CommentList from "../comments/CommentList";
-import CommentForm from "../comments/CommentForm";
+import CommentList from "comments/CommentList";
+import CommentForm from "comments/CommentForm";
 
-import Error from "../shared/Error";
-import Loading from "../shared/Loading";
-import Like from "../shared/Like";
-import Image from "../shared/Image";
-import Author from "../shared/Author";
+import Error from "shared/Error";
+import Loading from "shared/Loading";
+import Like from "shared/Like";
+import Image from "shared/Image";
+import Author from "shared/Author";
 
 const PostDetail = () => {
   const { id } = useParams();

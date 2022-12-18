@@ -1,14 +1,8 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { clearMessage } from "../messages/messages.actions";
-
-const Message = ({ message, color, classes }) => {
-  const dispatch = useDispatch();
-
+const Message = ({ message, color, classes = "" }) => {
   return (
     <div
       className={`border rounded border-${color}-600 p-2 my-2 ${classes}`}
-      onClick={() => dispatch(clearMessage())}
+      onClick={() => console.log("clear")}
     >
       <p className={`text-${color}-700 uppercase`}>{message}</p>
     </div>

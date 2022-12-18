@@ -1,5 +1,3 @@
-import React from "react";
-
 const Tab = ({ title, children, classes }) => {
   return (
     <div className={classes} data-testid="tab-content">

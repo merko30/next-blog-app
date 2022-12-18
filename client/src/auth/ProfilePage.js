@@ -1,10 +1,9 @@
-import React from "react";
 import { useQuery } from "react-query";
 
 import { getCurrentUser } from "./auth.actions";
 
-import Loading from "../shared/Loading";
-import Error from "../shared/Error";
+import Loading from "shared/Loading";
+import Error from "shared/Error";
 
 const Profile = () => {
   const {

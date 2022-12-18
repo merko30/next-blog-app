@@ -1,6 +1,5 @@
-import React from "react";
 import { render, fireEvent, wait } from "@testing-library/react";
-import EditField from "../shared/EditField";
+import EditField from "shared/EditField";
 import { act } from "react-dom/test-utils";
 
 describe("EditField component", () => {

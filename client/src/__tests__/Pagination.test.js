@@ -1,6 +1,5 @@
-import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import Pagination from "../shared/Pagination";
+import Pagination from "shared/Pagination";
 
 describe("Pagination component", () => {
   const onClick = jest.fn();

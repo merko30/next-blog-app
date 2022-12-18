@@ -1,7 +1,6 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-import Image from "../../shared/Image";
+import Image from "../shared/Image";
 
 const ProfilePostItem = ({ post }) => {
   return (
@@ -16,7 +15,7 @@ const ProfilePostItem = ({ post }) => {
             height: "3.6em",
             lineHeight: "1.2em",
             textOverflow: "ellipsis",
-            overflow: "hidden"
+            overflow: "hidden",
           }}
         >
           {post.body}

@@ -8,7 +8,7 @@ import {
 import {
   addCommentAction,
   updateCommentAction,
-} from "../comments/comments.actions";
+} from "comments/comments.actions";
 
 const initialState = {
   posts: [],

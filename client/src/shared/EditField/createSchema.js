@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import capitalize from "../../utils/capitalize";
+import capitalize from "../utils/capitalize";
 
 const createSchema = (field, validations, confirmation) => {
   const initialSchema = Yup.string();
@@ -34,10 +34,10 @@ const createSchema = (field, validations, confirmation) => {
       [`confirm${capitalize(field)}`]: Yup.string().test(
         "fields-match",
         "Fields must match",
-        function(value) {
+        function (value) {
           return this.parent[field] === value;
         }
-      )
+      ),
     });
     allSchemas.push(newSch);
   }

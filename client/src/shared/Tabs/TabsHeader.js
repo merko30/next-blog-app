@@ -1,12 +1,10 @@
-import React from "react";
-
 const TabsHeader = ({ tabs, active, setActive }) => {
   return (
     <ul className="flex items-center bg-gray-100 h-12">
-      {tabs.map(tab => {
+      {tabs.map((tab) => {
         const {
           props: { title },
-          type: { displayName }
+          type: { displayName },
         } = tab;
         const isActive = active === tab.props.title;
         const bg = isActive ? "bg-green-300" : "";

@@ -1,5 +1,3 @@
-import React from "react";
-
 const Error = ({ error, classes = "" }) => {
   return (
     <div className={`my-2 border rounded border-red-600 p-2 my-2 ${classes}`}>

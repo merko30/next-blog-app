@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import createAction from "../utils/createAction";
-import populateFormData from "../utils/transformObjectToFormData";
+import createAction from "utils/createAction";
+import populateFormData from "utils/transformObjectToFormData";
 import { showMessage, clearMessage } from "../messages/messages.actions";
 
 export const loginAction = createAction("LOGIN");

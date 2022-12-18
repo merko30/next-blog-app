@@ -1,9 +1,8 @@
-import React from "react";
 import { Field, useFormik, FormikProvider } from "formik";
 import * as Yup from "yup";
 
-import Textarea from "../shared/Textarea";
-import Button from "../shared/Button";
+import Textarea from "shared/Textarea";
+import Button from "shared/Button";
 
 const validationSchema = Yup.object().shape({
   comment: Yup.string()

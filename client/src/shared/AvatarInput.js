@@ -1,5 +1,4 @@
-import React from "react";
-import getBase64 from "../utils/getBase64";
+import getBase64 from "utils/getBase64";
 
 const AvatarInput = ({ image, openModal, setImageSource }) => {
   return (
@@ -15,7 +14,7 @@ const AvatarInput = ({ image, openModal, setImageSource }) => {
       <label className="block mb-1">Avatar</label>
       <input
         type="file"
-        onChange={e => {
+        onChange={(e) => {
           if (e.target.files.length > 0) {
             openModal(true);
             getBase64(e.target.files[0], setImageSource);

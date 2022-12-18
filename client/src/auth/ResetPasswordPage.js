@@ -1,15 +1,12 @@
-import React from "react";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
-import QueryString from "query-string";
+// import QueryString from "query-string";
 
-import FormContainer from "../layout/FormContainer";
+import Input from "shared/Input";
+import Button from "shared/Button";
+import Message from "shared/Message";
 
-import Input from "../shared/Input";
-import Button from "../shared/Button";
-import Message from "../shared/Message";
-
-import { resetPassword } from "./auth.actions";
+// import { resetPassword } from "./auth.actions";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -24,7 +21,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const ResetPassword = ({ location: { search } }) => {
-  const { token } = QueryString.parse(search);
+  // const { token } = QueryString.parse(search);
 
   let message;
 
@@ -33,28 +30,26 @@ const ResetPassword = ({ location: { search } }) => {
   return (
     <Formik
       initialValues={{ password: "", confirmPassword: "" }}
-      onSubmit={(values) => resetPassword(values.password, token)}
+      onSubmit={(values) => console.log("rest")}
       validationSchema={validationSchema}
     >
       <div>
-        <FormContainer>
-          {message && <Message color="green" message={message} />}
-          <Field
-            component={Input}
-            name="password"
-            type="password"
-            label="New password"
-          />
-          <Field
-            component={Input}
-            name="confirmPassword"
-            type="password"
-            label="Confirm your new password"
-          />
-          <Button type="submit" color="green">
-            Reset password
-          </Button>
-        </FormContainer>
+        {message && <Message color="green" message={message} />}
+        <Field
+          component={Input}
+          name="password"
+          type="password"
+          label="New password"
+        />
+        <Field
+          component={Input}
+          name="confirmPassword"
+          type="password"
+          label="Confirm your new password"
+        />
+        <Button type="submit" color="green">
+          Reset password
+        </Button>
       </div>
     </Formik>
   );

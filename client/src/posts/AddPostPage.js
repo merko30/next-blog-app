@@ -1,8 +1,7 @@
-import React from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 
-import transformObjectToFormData from "../utils/transformObjectToFormData";
+import transformObjectToFormData from "utils/transformObjectToFormData";
 
 import { addPost } from "./posts.actions";
 

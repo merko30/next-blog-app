@@ -3,11 +3,11 @@ import { useMutation, useQueryClient } from "react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-import useSession from "../hooks/useSession";
+import useSession from "hooks/useSession";
 
 import { deleteComment } from "./comments.actions";
 
-import Avatar from "../shared/Avatar";
+import Avatar from "shared/Avatar";
 
 const EditComment = lazy(() => import("./EditComment"));
 

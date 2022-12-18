@@ -1,9 +1,8 @@
-import React from "react";
 // import QueryString from "query-string";
 import { Link } from "react-router-dom";
 
-import Error from "../shared/Error";
-import Button from "../shared/Button";
+import Error from "shared/Error";
+import Button from "shared/Button";
 
 const Verification = ({ location: { search } }) => {
   let error, loading;

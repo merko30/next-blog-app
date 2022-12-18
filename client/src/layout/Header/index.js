@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import NavItem from "./NavItem";
-import Button from "../../shared/Button";
+import useSession from "hooks/useSession";
+
+import Button from "shared/Button";
 
 import MenuButton from "./MenuButton";
-
-import useSession from "../../hooks/useSession";
+import NavItem from "./NavItem";
 
 const Header = () => {
   const [active, setActive] = useState(false);

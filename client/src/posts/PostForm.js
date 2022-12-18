@@ -1,12 +1,11 @@
-import React from "react";
 import { Field, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 
-import Input from "../shared/Input";
-import Button from "../shared/Button";
-import Error from "../shared/Error";
-import Textarea from "../shared/Textarea";
-import FileInput from "../shared/FileInput";
+import Input from "shared/Input";
+import Button from "shared/Button";
+import Error from "shared/Error";
+import Textarea from "shared/Textarea";
+import FileInput from "shared/FileInput";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()

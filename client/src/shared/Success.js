@@ -1,5 +1,3 @@
-import React from "react";
-
 const Success = ({ message }) => {
   return (
     <div className="p-4 bg-green-500 rounded">

@@ -1,5 +1,3 @@
-import React from "react";
-
 const SIZES = {
   sm: "w-12 h-12",
   md: "w-16 h-16",

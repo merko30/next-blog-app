@@ -1,8 +1,7 @@
-import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 
-import Tabs from "../shared/Tabs";
-import Tab from "../shared/Tabs/Tab";
+import Tabs from "shared/Tabs";
+import Tab from "shared/Tabs/Tab";
 
 describe("Tabs component", () => {
   const FIRST_TAB_CONTENT = "first tab content";
