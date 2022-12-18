@@ -1,10 +1,13 @@
 import React, { lazy, useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
-
-import Avatar from "../shared/Avatar";
+import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import useSession from "../hooks/useSession";
+
+import { deleteComment } from "./comments.actions";
+
+import Avatar from "../shared/Avatar";
 
 const EditComment = lazy(() => import("./EditComment"));
 
@@ -12,6 +15,27 @@ const CommentItem = ({ comment }) => {
   const [isEditModeActive, setIsEditModeActive] = useState(false);
 
   const { session } = useSession();
+
+  const client = useQueryClient();
+
+  const { mutate } = useMutation(() => deleteComment(comment._id), {
+    onSuccess: () => {
+      client.setQueryData("post", (oldData) => {
+        return {
+          ...oldData,
+          data: {
+            ...oldData.data,
+            post: {
+              ...oldData.data.post,
+              comments: oldData.data.post.comments.filter(
+                (postComment) => postComment._id !== comment._id
+              ),
+            },
+          },
+        };
+      });
+    },
+  });
 
   if (isEditModeActive) {
     return (
@@ -38,12 +62,21 @@ const CommentItem = ({ comment }) => {
       </div>
       {isAuthorCurrentUser && (
         <button
-          className="absolute bottom-0 right-0 py-4 px-4"
+          className="absolute bottom-0 right-8 py-3 pr-4"
           onClick={() => setIsEditModeActive(true)}
         >
           <FontAwesomeIcon icon={faPen} />
         </button>
       )}
+      {isAuthorCurrentUser && (
+        <button
+          onClick={mutate}
+          className="absolute bottom-0 right-0 py-3 pr-4"
+        >
+          <FontAwesomeIcon icon={faTrash} />
+        </button>
+      )}
+
       <h2>{comment.comment}</h2>
     </div>
   );

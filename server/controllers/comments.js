@@ -34,11 +34,11 @@ const update = async (req, res, next) => {
 const remove = async (req, res, next) => {
   try {
     const comment = await Comment.findByIdAndDelete(req.params.commentId);
-    const post = await Post.findById(req.params.postId);
-    post.comments = post.comments.filter(
-      (comment) => comment._id !== req.params.commentId
-    );
-    await post.save();
+    // const post = await Post.findById(comment);
+    // post.comments = post.comments.filter(
+    //   (comment) => comment._id !== req.params.commentId
+    // );
+    // await post.save();
     res.json({ comment });
   } catch (error) {
     next(error);
