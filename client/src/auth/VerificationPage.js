@@ -1,20 +1,14 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import QueryString from "query-string";
+import React from "react";
+// import QueryString from "query-string";
 import { Link } from "react-router-dom";
 
-import { verifyEmail } from "../auth/auth.actions";
 import Error from "../shared/Error";
 import Button from "../shared/Button";
 
 const Verification = ({ location: { search } }) => {
-  const dispatch = useDispatch();
-  const { loading, error } = useSelector(({ auth }) => auth);
+  let error, loading;
 
-  useEffect(() => {
-    const { token, email } = QueryString.parse(search);
-    dispatch(verifyEmail(email, token));
-  }, []);
+  // TODO: handle verification
 
   return (
     <div className="flex justify-center items-center h-full">

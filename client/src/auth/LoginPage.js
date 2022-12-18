@@ -2,12 +2,12 @@ import React from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 
-import { login } from "../auth/auth.actions";
+import { login } from "./auth.actions";
 
 import Error from "../shared/Error";
 import Loading from "../shared/Loading";
 
-import LoginForm from "../auth/LoginForm";
+import LoginForm from "./LoginForm";
 
 const Login = () => {
   const navigate = useNavigate();

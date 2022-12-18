@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
 
@@ -10,14 +9,12 @@ import Button from "../shared/Button";
 import Message from "../shared/Message";
 import Error from "../shared/Error";
 
-import { forgotPassword } from "../auth/auth.actions";
+import { forgotPassword } from "./auth.actions";
 
 const ForgotPassword = () => {
-  const {
-    messages: { message },
-    auth: { error }
-  } = useSelector(({ auth, messages }) => ({ auth, messages }));
-  const dispatch = useDispatch();
+  let error, message;
+
+  // TODO: handle forgot password
 
   return (
     <Formik
@@ -25,9 +22,9 @@ const ForgotPassword = () => {
       validationSchema={Yup.object().shape({
         email: Yup.string()
           .required("It is required to proceed")
-          .email("Wrong email format")
+          .email("Wrong email format"),
       })}
-      onSubmit={values => dispatch(forgotPassword(values))}
+      onSubmit={(values) => forgotPassword(values)}
     >
       <FormContainer>
         {message && <Message color="green" message={message} />}

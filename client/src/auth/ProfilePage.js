@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "react-query";
 
-import { getCurrentUser } from "../auth/auth.actions";
+import { getCurrentUser } from "./auth.actions";
 
 import Loading from "../shared/Loading";
 import Error from "../shared/Error";

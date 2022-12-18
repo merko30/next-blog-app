@@ -2,12 +2,12 @@ import React from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 
-import { register } from "../auth/auth.actions";
+import { register } from "./auth.actions";
 
 import Error from "../shared/Error";
 import Loading from "../shared/Loading";
 
-import RegisterForm from "../auth/RegisterForm";
+import RegisterForm from "./RegisterForm";
 
 const Register = () => {
   const navigate = useNavigate();

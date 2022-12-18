@@ -1,7 +1,6 @@
 import React from "react";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
 import QueryString from "query-string";
 
 import FormContainer from "../layout/FormContainer";
@@ -10,7 +9,7 @@ import Input from "../shared/Input";
 import Button from "../shared/Button";
 import Message from "../shared/Message";
 
-import { resetPassword } from "../auth/auth.actions";
+import { resetPassword } from "./auth.actions";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -21,18 +20,20 @@ const validationSchema = Yup.object().shape({
       [Yup.ref("password"), null],
       "Confirm password should match password"
     )
-    .required("Password confirm is required")
+    .required("Password confirm is required"),
 });
 
 const ResetPassword = ({ location: { search } }) => {
-  const message = useSelector(state => state.messages.message);
-  const dispatch = useDispatch();
   const { token } = QueryString.parse(search);
+
+  let message;
+
+  // TODO: handle reset password
 
   return (
     <Formik
       initialValues={{ password: "", confirmPassword: "" }}
-      onSubmit={values => dispatch(resetPassword(values.password, token))}
+      onSubmit={(values) => resetPassword(values.password, token)}
       validationSchema={validationSchema}
     >
       <div>
