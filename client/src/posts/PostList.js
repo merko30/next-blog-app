@@ -24,8 +24,11 @@ const PostList = ({ posts }) => {
     <div className="grid grid-cols-1 md:grid-cols-3">
       {posts.length > 0 &&
         posts.map((post) => (
-          <ErrorBoundary fallbackRender={() => <h1>Something went wrong</h1>}>
-            <PostItem post={post} key={post._id} />
+          <ErrorBoundary
+            key={post._id}
+            fallbackRender={() => <h1>Something went wrong</h1>}
+          >
+            <PostItem post={post} />
           </ErrorBoundary>
         ))}
     </div>

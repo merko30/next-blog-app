@@ -14,11 +14,13 @@ const validationSchema = Yup.object().shape({
 const CommentForm = ({ onSubmit, comment, onCancel }) => {
   const formik = useFormik({
     initialValues: {
-      comment: "",
+      comment: comment ? comment?.comment : "",
     },
+    enableReinitialize: false,
     validationSchema,
-    onSubmit: (values, { setSubmitting }) => {
+    onSubmit: (values, { setSubmitting, resetForm }) => {
       onSubmit(values);
+      resetForm();
       setSubmitting(false);
     },
   });

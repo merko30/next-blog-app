@@ -1,4 +1,4 @@
-import React, { lazy, useState } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -39,10 +39,12 @@ const CommentItem = ({ comment }) => {
 
   if (isEditModeActive) {
     return (
-      <EditComment
-        comment={comment}
-        onCancel={() => setIsEditModeActive(false)}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <EditComment
+          comment={comment}
+          onCancel={() => setIsEditModeActive(false)}
+        />
+      </Suspense>
     );
   }
 
