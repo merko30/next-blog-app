@@ -1,15 +1,11 @@
 import React from "react";
 
-import { Message, Container } from "semantic-ui-react";
-
 const Success = ({ message }) => {
-    return (
-        <Container>
-            <Message success>
-                <Message.Header>{message}</Message.Header>
-            </Message>
-        </Container>
-    );
+  return (
+    <div className="p-4 bg-green-500 rounded">
+      <p className="text-white text-medium">{message}</p>
+    </div>
+  );
 };
 
 export default Success;
