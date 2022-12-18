@@ -1,5 +1,5 @@
 const Post = require("../models/post");
-const paginate = require("utils/paginate");
+const paginate = require("../utils/paginate");
 
 const getAll = async (req, res, next) => {
   const perPage = 9;
