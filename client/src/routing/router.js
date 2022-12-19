@@ -1,21 +1,22 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
-
-import Home from "../pages/Home";
-
-import Register from "auth/RegisterPage";
-import Login from "auth/LoginPage";
-import Verification from "auth/VerificationPage";
-import ResetPassword from "auth/ResetPasswordPage";
-import ForgotPassword from "auth/ForgotPasswordPage";
-import Profile from "auth/ProfilePage";
-
-import AddPostPage from "posts/AddPostPage";
-import PostDetail from "posts/PostDetail";
-
-import NotFound from "../pages/NotFound";
+import { lazy } from "react";
 
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
+
+const Home = lazy(() => import("../pages/Home"));
+
+const Register = lazy(() => import("auth/RegisterPage"));
+const Login = lazy(() => import("auth/LoginPage"));
+const Verification = lazy(() => import("auth/VerificationPage"));
+const ResetPassword = lazy(() => import("auth/ResetPasswordPage"));
+const ForgotPassword = lazy(() => import("auth/ForgotPasswordPage"));
+const Profile = lazy(() => import("auth/ProfilePage"));
+
+const AddPostPage = lazy(() => import("posts/AddPostPage"));
+const PostDetail = lazy(() => import("posts/PostDetail"));
+
+const NotFound = lazy(() => import("pages/NotFound"));
 
 const Layout = () => (
   <>

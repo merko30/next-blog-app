@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Error from "shared/Error";
 import Button from "shared/Button";
 
-const Verification = ({ location: { search } }) => {
+const Verification = () => {
   let error, loading;
 
   // TODO: handle verification

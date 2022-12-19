@@ -20,7 +20,7 @@ const validationSchema = Yup.object().shape({
     .required("Password confirm is required"),
 });
 
-const ResetPassword = ({ location: { search } }) => {
+const ResetPassword = () => {
   // const { token } = QueryString.parse(search);
 
   let message;
