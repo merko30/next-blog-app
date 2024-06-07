@@ -4,11 +4,14 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { Post } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { Editor, EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import { useSession } from "next-auth/react";
 
 import Input from "../Input";
 import Textarea from "../Textarea";
-import { useSession } from "next-auth/react";
 import Button from "../Button";
+import TextEditor from "../TextEditor";
 
 interface PostFormProps {
   post?: Post;
@@ -23,6 +26,11 @@ const PostForm = ({ type = "create", post }: PostFormProps) => {
   const router = useRouter();
 
   const { data: session } = useSession();
+
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: "<p>Hello World! 🌎️</p>",
+  });
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -74,11 +82,9 @@ const PostForm = ({ type = "create", post }: PostFormProps) => {
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
       <Input name="title" value={data.title} onChange={onChange} />
-      <Textarea
-        name="content"
+      <TextEditor
         value={data.content}
-        onChange={onChange}
-        rows={6}
+        onChange={(content) => setData((old) => ({ ...old, content }))}
       />
       <Input
         type="file"

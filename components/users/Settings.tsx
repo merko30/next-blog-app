@@ -1,9 +1,10 @@
 "use client";
-import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { User } from "@prisma/client";
 
 import Input from "../Input";
 import Textarea from "../Textarea";
+import Button from "../Button";
 
 interface SettingsProps {
   user: Partial<User>;
@@ -45,9 +46,7 @@ const Settings = ({ user }: SettingsProps) => {
         }
       );
 
-      const json = await response.json();
-
-      console.log(json);
+      await response.json();
     } catch (error) {
       setError("Something went wrong");
     }
@@ -87,7 +86,7 @@ const Settings = ({ user }: SettingsProps) => {
         label="Description"
         className="px-4 py-3 mb-4"
       />
-      <button type="submit">Save</button>
+      <Button type="submit">Save</Button>
     </form>
   );
 };

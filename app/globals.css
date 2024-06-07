@@ -35,3 +35,13 @@ body {
     text-wrap: balance;
   }
 }
+
+.ProseMirror {
+  height: 100%;
+  padding: 8px;
+  overflow: scroll;
+}
+
+.ProseMirror:focus {
+  outline: none;
+}
