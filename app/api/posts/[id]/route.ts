@@ -33,7 +33,12 @@ export const PUT = async (
     return NextResponse.json({ message: "Post not found" }, { status: 404 });
   }
 
-  const data = await req.json();
+  const formData = await req.formData();
+  let data = {} as any;
+
+  for (const [key, value] of formData) {
+    data[key] = value;
+  }
 
   const updatedPost = await prisma.post.update({
     where: {

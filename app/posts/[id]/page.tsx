@@ -38,7 +38,7 @@ const PostDetails = async ({ params }: { params: { id: string } }) => {
         <AuthorActions author={post.author} postId={post.id} />
       </div>
       <hr />
-      <p>{post.content}</p>
+      <div dangerouslySetInnerHTML={{ __html: post.content }} />
       {!!post.comments?.length && (
         <>
           <h2 className="text-xl font-medium">Comments</h2>

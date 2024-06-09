@@ -67,6 +67,7 @@ export default ({
       <div className="border border-gray-200 rounded-md">
         <div className="flex flex-wrap gap-0.5">
           <button
+            type="button"
             onClick={() => editor.chain().focus().toggleBold().run()}
             disabled={!editor.can().chain().focus().toggleBold().run()}
             className={twMerge(
@@ -77,6 +78,7 @@ export default ({
             <TextBolder />
           </button>
           <button
+            type="button"
             onClick={() => editor.chain().focus().toggleItalic().run()}
             disabled={!editor.can().chain().focus().toggleItalic().run()}
             className={twMerge(
@@ -87,6 +89,7 @@ export default ({
             <TextItalic />
           </button>
           <button
+            type="button"
             onClick={() => editor.chain().focus().toggleStrike().run()}
             disabled={!editor.can().chain().focus().toggleStrike().run()}
             className={twMerge(
@@ -97,6 +100,7 @@ export default ({
             <TextStrikethrough />
           </button>
           <button
+            type="button"
             onClick={() => editor.chain().focus().toggleCode().run()}
             disabled={!editor.can().chain().focus().toggleCode().run()}
             className={twMerge(
@@ -107,6 +111,7 @@ export default ({
             <Code />
           </button>
           <button
+            type="button"
             onClick={() => editor.chain().focus().setParagraph().run()}
             className={twMerge(
               ICON_CLASS,
@@ -116,6 +121,7 @@ export default ({
             <Paragraph />
           </button>
           <button
+            type="button"
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 1 }).run()
             }
@@ -127,6 +133,7 @@ export default ({
             <TextHOne />
           </button>
           <button
+            type="button"
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 2 }).run()
             }
@@ -138,6 +145,7 @@ export default ({
             <TextHTwo />
           </button>
           <button
+            type="button"
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 3 }).run()
             }
@@ -149,6 +157,7 @@ export default ({
             <TextHThree />
           </button>
           <button
+            type="button"
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 4 }).run()
             }
@@ -160,6 +169,7 @@ export default ({
             <TextHFour />
           </button>
           <button
+            type="button"
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 5 }).run()
             }
@@ -171,6 +181,7 @@ export default ({
             <TextHFive />
           </button>
           <button
+            type="button"
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 6 }).run()
             }
@@ -182,6 +193,7 @@ export default ({
             <TextHSix />
           </button>
           <button
+            type="button"
             onClick={() => editor.chain().focus().toggleBulletList().run()}
             className={twMerge(
               ICON_CLASS,
@@ -191,6 +203,7 @@ export default ({
             <ListBullets />
           </button>
           <button
+            type="button"
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
             className={twMerge(
               ICON_CLASS,
@@ -200,6 +213,7 @@ export default ({
             <ListNumbers />
           </button>
           <button
+            type="button"
             onClick={() => editor.chain().focus().toggleCodeBlock().run()}
             className={twMerge(
               ICON_CLASS,
@@ -209,6 +223,7 @@ export default ({
             <CodeBlock />
           </button>
           <button
+            type="button"
             onClick={() => editor.chain().focus().toggleBlockquote().run()}
             className={twMerge(
               ICON_CLASS,
@@ -218,12 +233,14 @@ export default ({
             <Quotes />
           </button>
           <button
+            type="button"
             onClick={() => editor.chain().focus().undo().run()}
             disabled={!editor.can().chain().focus().undo().run()}
           >
             <ArrowBendDoubleUpLeft />
           </button>
           <button
+            type="button"
             onClick={() => editor.chain().focus().redo().run()}
             disabled={!editor.can().chain().focus().redo().run()}
           >
