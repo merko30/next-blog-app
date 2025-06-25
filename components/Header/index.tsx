@@ -9,8 +9,9 @@ const Header = async () => (
         href="/"
         className="flex items-center uppercase font-md font-medium tracking-widest text-primary-darkest"
       >
-        <span className="inline-block size-4 mr-1"></span>
-        <span className="inline-block size-4 mr-1"></span> Blog
+        <span className="inline-block size-4 mr-1 bg-primary-main"></span>
+        <span className="inline-block size-4 mr-1 bg-secondary-main"></span>{" "}
+        Blog
       </Link>
       <Navigation />
     </div>
