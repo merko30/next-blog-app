@@ -4,13 +4,20 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 
+import {
+  S3_ENDPOINT,
+  S3_ACCESS_KEY,
+  S3_SECRET_ACCESS_KEY,
+  S3_BUCKET,
+} from "./env";
+
 export const createS3Client = () => {
   const s3Client = new S3Client({
     region: "central",
-    endpoint: process.env.S3_ENDPOINT!,
+    endpoint: S3_ENDPOINT,
     credentials: {
-      accessKeyId: process.env.S3_ACCESS_KEY!,
-      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
+      accessKeyId: S3_ACCESS_KEY,
+      secretAccessKey: S3_SECRET_ACCESS_KEY,
     },
   });
 
@@ -29,7 +36,7 @@ export const uploadImage = async (
   }`;
 
   const params = {
-    Bucket: process.env.S3_BUCKET,
+    Bucket: S3_BUCKET,
     Key: fileName,
     Body: Buffer.from(await file.arrayBuffer()),
     ContentType: file.type,
