@@ -11,30 +11,27 @@ const Navigation = () => {
       <ul className="flex items-center gap-4">
         {isLoading && (
           <>
-            <li className="w-24 h-5 bg-gray-200" />
-            <li className="w-20 h-5 bg-gray-200" />
+            <li className="w-24 h-8 bg-gray-200" />
           </>
         )}
         {!isLoading ? (
           !session ? (
-            <>
-              <li>
-                <Link href="/login" className="text-sm font-md uppercase">
-                  Sign in
-                </Link>
-              </li>
-
-              <li>
-                <Link href="/register" className="text-sm font-md uppercase">
-                  Sign up
-                </Link>
-              </li>
-            </>
+            <li>
+              <Link
+                href="/login"
+                className="px-4 py-2 bg-primary-main rounded-full text-white text-sm uppercase tracking-wider"
+              >
+                Get Started
+              </Link>
+            </li>
           ) : (
             <>
               <li>
-                <Link href="/profile" className="text-sm font-md uppercase">
-                  Profile
+                <Link
+                  href="/profile"
+                  className="text-sm font-medium uppercase tracking-widest"
+                >
+                  Your Profile
                 </Link>
               </li>
               <li onClick={() => signOut()}>Logout</li>
