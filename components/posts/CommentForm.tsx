@@ -10,6 +10,8 @@ import { Comment } from "@/types/posts";
 
 import Button from "../Button";
 
+import { API_URL } from "@/lib/env";
+
 const CommentForm = ({
   comment: _comment,
   className,
@@ -30,8 +32,8 @@ const CommentForm = ({
 
   const createComment = async (comment: string) => {
     const url = _comment
-      ? `http://localhost:3000/api/comments/${_comment!.id}`
-      : `http://localhost:3000/api/comments`;
+      ? `${API_URL}/comments/${_comment!.id}`
+      : `${API_URL}/comments`;
 
     console.log({ url });
 

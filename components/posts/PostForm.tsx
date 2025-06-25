@@ -12,6 +12,7 @@ import Input from "../Input";
 import Textarea from "../Textarea";
 import Button from "../Button";
 import TextEditor from "../TextEditor";
+import { API_URL } from "@/lib/env";
 
 interface PostFormProps {
   post?: Post;
@@ -46,7 +47,7 @@ const PostForm = ({ type = "create", post }: PostFormProps) => {
     const isEditMode = type === "edit" && post;
     try {
       const response = await fetch(
-        `http://localhost:3000/api/posts${isEditMode ? `/${post!.id}` : ""}`,
+        `${API_URL}/posts${isEditMode ? `/${post!.id}` : ""}`,
         {
           method: isEditMode ? "PUT" : "POST",
           body: formData,

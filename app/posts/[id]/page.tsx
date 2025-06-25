@@ -6,8 +6,10 @@ import Comments from "@/components/posts/Comments";
 import CommentForm from "@/components/posts/CommentForm";
 import Author from "@/components/posts/Author";
 
+import { API_URL } from "@/lib/env";
+
 async function getData(id: string): Promise<{ post: Post }> {
-  const response = await fetch(`http://localhost:3000/api/posts/${id}`, {
+  const response = await fetch(`${API_URL}/posts/${id}`, {
     headers: { "Content-Type": "application/json" },
     next: { revalidate: 5 },
   });

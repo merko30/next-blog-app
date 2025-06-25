@@ -1,8 +1,9 @@
 import PostList from "@/components/posts/PostList";
+import { API_URL } from "@/lib/env";
 import { SealWarning } from "@phosphor-icons/react/dist/ssr";
 
 async function getData() {
-  const res = await fetch("http://localhost:3000/api/posts", {
+  const res = await fetch(`${API_URL}/posts`, {
     next: { revalidate: 100 },
   });
 

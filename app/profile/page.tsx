@@ -4,17 +4,15 @@ import authOptions from "@/lib/authOptions";
 
 import { Post } from "@/types/posts";
 import PostList from "@/components/posts/PostList";
+import { API_URL } from "@/lib/env";
 
 async function getData(): Promise<{ posts: Post[] }> {
   const session = await getServerSession(authOptions);
 
   // filter by user
-  const response = await fetch(
-    `http://localhost:3000/api/posts?userId=${session?.user!.id}`,
-    {
-      headers: { "Content-Type": "application/json" },
-    }
-  );
+  const response = await fetch(`${API_URL}/posts?userId=${session?.user!.id}`, {
+    headers: { "Content-Type": "application/json" },
+  });
 
   const json = await response.json();
 

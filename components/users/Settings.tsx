@@ -5,6 +5,7 @@ import { User } from "@prisma/client";
 import Input from "../Input";
 import Textarea from "../Textarea";
 import Button from "../Button";
+import { API_URL } from "@/lib/env";
 
 interface SettingsProps {
   user: Partial<User>;
@@ -35,16 +36,13 @@ const Settings = ({ user }: SettingsProps) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/users/${user.id}`,
-        {
-          method: "PUT",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${API_URL}/users/${user.id}`, {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       await response.json();
     } catch (error) {
