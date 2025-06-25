@@ -1,9 +1,10 @@
-import { SealWarning } from "@phosphor-icons/react/dist/ssr";
+import { SealWarning, NotePencil } from "@phosphor-icons/react/dist/ssr";
 
 import { API_URL } from "@/lib/env";
 
 import Hero from "@/components/Hero";
 import PostList from "@/components/posts/PostList";
+import Placeholder from "@/components/Placeholder";
 
 async function getData() {
   const res = await fetch(`${API_URL}/posts`, {
@@ -26,19 +27,30 @@ export default async function Home() {
 
   if (data.error) {
     return (
-      <div className="flex flex-col items-center justify-center sm:py-12 md:py-24 text-red-600">
-        <SealWarning size={120} />
-        <h1 className="text-2xl mt-4 text-black">{data.error}</h1>
-        <p className="text-gray-700 text-sm">Please try to reload the page.</p>
-      </div>
+      <Placeholder
+        icon={SealWarning}
+        title={data.error}
+        text="Please try to reload the page"
+        className="text-red-600"
+      />
     );
   }
+
+  const { posts = [] } = data || {};
 
   return (
     <>
       <Hero />
       <div className="container">
-        <PostList posts={data.posts} />
+        {!!posts?.length && <PostList posts={posts} />}
+        {!posts.length && (
+          <Placeholder
+            icon={NotePencil}
+            title="No posts have been created yet. Please check back later."
+            className="text-gray-300"
+            titleClassName="text-gray-300"
+          />
+        )}
       </div>
     </>
   );
