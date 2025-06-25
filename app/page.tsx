@@ -1,6 +1,9 @@
-import PostList from "@/components/posts/PostList";
-import { API_URL } from "@/lib/env";
 import { SealWarning } from "@phosphor-icons/react/dist/ssr";
+
+import { API_URL } from "@/lib/env";
+
+import Hero from "@/components/Hero";
+import PostList from "@/components/posts/PostList";
 
 async function getData() {
   const res = await fetch(`${API_URL}/posts`, {
@@ -33,7 +36,10 @@ export default async function Home() {
 
   return (
     <>
-      <PostList posts={data.posts} />
+      <Hero />
+      <div className="container">
+        <PostList posts={data.posts} />
+      </div>
     </>
   );
 }

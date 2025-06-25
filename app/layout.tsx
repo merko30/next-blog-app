@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={`${inter.className} min-h-screen flex flex-col`}>
         <Provider>
           <Header />
-          <main className="container flex-auto h-full flex flex-col py-8">
+          <main className="flex-auto h-full flex flex-col py-8">
             {children}
           </main>
           <Footer />
