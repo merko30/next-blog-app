@@ -17,6 +17,7 @@ async function getData(): Promise<{ user: User }> {
     `${getEnv("NEXT_PUBLIC_API_URL")}/users/${session?.user!.id}`,
     {
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
     }
   );
 
@@ -30,13 +31,13 @@ const ProfileLayout = async ({ children }: { children: React.ReactNode }) => {
   const { user } = data || {};
 
   return (
-    <div>
+    <div className="container py-12">
       <div className="flex items-center gap-6 mb-10 w-max">
         <Image
           src={user.image as string}
           alt="user's avatar"
-          width={0}
-          height={0}
+          width={80}
+          height={80}
           className="w-20 h-20 md:w-36 md:h-36 rounded-full flex-1"
         />
         <div>

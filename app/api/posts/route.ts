@@ -3,7 +3,7 @@ import { NextResponse, NextRequest } from "next/server";
 import prisma from "@/prisma";
 import { uploadImage } from "@/lib/s3client";
 import slugify from "@/utils/slugify";
-import { getServerSession } from "next-auth";
+import { getServerSession } from "next-auth/next";
 import authOptions from "@/lib/authOptions";
 
 const isPostField = (
@@ -36,7 +36,7 @@ export const GET = async (req: NextRequest) => {
 
   const take = parseInt(params.get("limit") ?? "10");
   const page = parseInt(params.get("page") ?? "1");
-  const skip = page === 1 ? 0 : page * take;
+  const skip = (page - 1) * take;
   const loadUserPosts = params.get("mine") === "true";
 
   const { field: orderBy, direction: orderByDirection } = parseOrderByParam(
@@ -48,12 +48,19 @@ export const GET = async (req: NextRequest) => {
   if (loadUserPosts) {
     const session = await getServerSession(authOptions);
 
-    if (!session) {
-      NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (!session || !session.user || !session.user.id) {
+      console.log(session);
+
+      console.log("DEBUG SESSION:", session);
+      console.log("DEBUG COOKIES:", req.cookies);
+      return NextResponse.json(
+        { error: "Unauthorized", debug: { session } },
+        { status: 401 }
+      );
     }
 
     where = {
-      authorId: session!.user!.id,
+      authorId: session.user.id,
     };
   }
 

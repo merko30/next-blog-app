@@ -19,18 +19,19 @@ const PostCard = ({ post }: PostCardProps) => (
       <Image src={post.image!} fill placeholder="empty" alt={post.title} />
     </div>
     <div className="py-3 px-2">
-      <h1 className="text-sm font-medium">{post.title}</h1>
+      <h1 className="text-sm font-medium truncate">{post.title}</h1>
       <p
-        className="text-gray-800 text-sm"
+        className="text-gray-800 text-sm truncate"
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
       <div className="flex items-center gap-2 mt-4">
         <Image
           src={post.author.image}
           alt={post.author.name}
-          width={0}
-          height={0}
-          className="rounded-full w-11 h-11 flex-none"
+          placeholderType="user"
+          width={40}
+          height={40}
+          className="rounded-full w-10 h-10 flex-none"
         />
         <div className="w-full">
           <h2 className="text-sm font-medium">{post.author.name}</h2>

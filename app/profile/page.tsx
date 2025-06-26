@@ -7,13 +7,12 @@ import PostList from "@/components/posts/PostList";
 import { getEnv } from "@/lib/env";
 
 async function getData(): Promise<{ posts: Post[] }> {
-  const session = await getServerSession(authOptions);
-
   // filter by user
   const response = await fetch(
-    `${getEnv("NEXT_PUBLIC_API_URL")}/posts?userId=${session?.user!.id}`,
+    `${getEnv("NEXT_PUBLIC_API_URL")}/posts?mine=true`,
     {
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
     }
   );
 
