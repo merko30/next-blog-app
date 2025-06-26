@@ -16,3 +16,5 @@
   -e MINIO_ROOT_PASSWORD=minioadmin \
   -v minio-data:/data \
   minio/minio server /data`
+- login to minio dashboard at `http://localhost:9001/`
+- create a bucket
