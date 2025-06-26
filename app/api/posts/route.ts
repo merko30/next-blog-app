@@ -6,19 +6,54 @@ import slugify from "@/utils/slugify";
 import { getServerSession } from "next-auth";
 import authOptions from "@/lib/authOptions";
 
+const isPostField = (
+  field: string
+): field is keyof typeof prisma.post.fields => {
+  return field in prisma.post.fields;
+};
+
+const parseOrderByParam = (
+  param: string | null
+): {
+  field: string;
+  direction: "asc" | "desc";
+} => {
+  const defaultField = "createdAt";
+  const defaultDirection: "asc" | "desc" = "asc";
+
+  if (!param) return { field: defaultField, direction: defaultDirection };
+
+  const [field, dir] = param.includes("_") ? param.split("_") : [param, "asc"];
+  const direction = dir?.toLowerCase() === "desc" ? "desc" : "asc";
+
+  return isPostField(field)
+    ? { field, direction }
+    : { field: defaultField, direction: defaultDirection };
+};
+
 export const GET = async (req: NextRequest) => {
   const params = req.nextUrl.searchParams;
 
   const take = parseInt(params.get("limit") ?? "10");
   const page = parseInt(params.get("page") ?? "1");
   const skip = page === 1 ? 0 : page * take;
-  const authorId = params.get("userId");
+  const loadUserPosts = params.get("mine") === "true";
+
+  const { field: orderBy, direction: orderByDirection } = parseOrderByParam(
+    params.get("orderBy")
+  );
 
   let where;
 
-  if (authorId) {
+  if (loadUserPosts) {
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     where = {
-      authorId,
+      authorId: session!.user!.id,
     };
   }
 
@@ -26,6 +61,7 @@ export const GET = async (req: NextRequest) => {
     take,
     skip,
     where,
+    orderBy: { [orderBy!]: orderByDirection },
     include: {
       author: true,
     },

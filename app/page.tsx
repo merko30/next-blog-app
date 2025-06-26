@@ -7,7 +7,7 @@ import PostList from "@/components/posts/PostList";
 import Placeholder from "@/components/Placeholder";
 
 async function getData() {
-  const res = await fetch(`${getEnv("NEXT_PUBLIC_API_URL")}/posts`, {
+  const res = await fetch(`${getEnv("NEXT_PUBLIC_API_URL")}/posts?limit=5`, {
     next: { revalidate: 100 },
   });
 
@@ -42,6 +42,7 @@ export default async function Home() {
     <>
       <Hero />
       <div className="container">
+        <h2 className="text-xl md:text-2xl mb-4">Most recent posts</h2>
         {!!posts?.length && <PostList posts={posts} />}
         {!posts.length && (
           <Placeholder

@@ -2,8 +2,11 @@ export interface Author {
   id: string;
   firstName: string;
   lastName: string;
+  name: string;
   email: string;
   image: string;
+  shortDescription?: string;
+  description?: string;
 }
 
 export interface Post {

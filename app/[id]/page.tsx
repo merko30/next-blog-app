@@ -28,7 +28,7 @@ const PostDetails = async (props: { params: Promise<{ id: string }> }) => {
   console.log(post);
 
   return (
-    <div className="w-full lg:w-2/3 mx-auto flex flex-col gap-4">
+    <div className="w-full lg:w-1/2 mx-auto flex flex-col gap-4">
       <h1 className="text-4xl">{post.title}</h1>
       <Image
         src={post.image!}
