@@ -45,14 +45,12 @@ export const GET = async (req: NextRequest) => {
 
   let where;
 
+  const session = await getServerSession(authOptions);
+
+  console.log(session);
+
   if (loadUserPosts) {
-    const session = await getServerSession(authOptions);
-
     if (!session || !session.user || !session.user.id) {
-      console.log(session);
-
-      console.log("DEBUG SESSION:", session);
-      console.log("DEBUG COOKIES:", req.cookies);
       return NextResponse.json(
         { error: "Unauthorized", debug: { session } },
         { status: 401 }

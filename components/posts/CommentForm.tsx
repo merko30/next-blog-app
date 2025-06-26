@@ -35,8 +35,6 @@ const CommentForm = ({
       ? `${getEnv("NEXT_PUBLIC_API_URL")}/comments/${_comment!.id}`
       : `${getEnv("NEXT_PUBLIC_API_URL")}/comments`;
 
-    console.log({ url });
-
     try {
       const response = await fetch(url, {
         method: _comment ? "PUT" : "POST",

@@ -48,10 +48,7 @@ const PostForm = ({ type = "create", post }: PostFormProps) => {
         }
       );
 
-      console.log(response);
-
       const json = await response.json();
-      console.log(json);
 
       const id = json.post.id;
 

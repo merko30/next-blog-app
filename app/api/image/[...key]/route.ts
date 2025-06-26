@@ -20,8 +20,6 @@ export async function GET(
 
     const response = await s3Client.send(command);
 
-    console.log(response);
-
     if (!response.Body) {
       return new NextResponse("Image not found", { status: 404 });
     }

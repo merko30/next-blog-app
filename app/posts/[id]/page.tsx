@@ -25,8 +25,6 @@ const PostDetails = async (props: { params: Promise<{ id: string }> }) => {
 
   const { post } = data;
 
-  console.log(post);
-
   return (
     <div className="w-full lg:w-1/2 mx-auto flex flex-col gap-4">
       <h1 className="text-4xl">{post.title}</h1>
