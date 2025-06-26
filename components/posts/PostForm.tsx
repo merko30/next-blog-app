@@ -4,15 +4,14 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { Post } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { Editor, EditorContent, useEditor } from "@tiptap/react";
+import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useSession } from "next-auth/react";
 
 import Input from "../Input";
-import Textarea from "../Textarea";
 import Button from "../Button";
 import TextEditor from "../TextEditor";
-import { API_URL } from "@/lib/env";
+import { getEnv } from "@/lib/env";
 
 interface PostFormProps {
   post?: Post;
@@ -47,7 +46,9 @@ const PostForm = ({ type = "create", post }: PostFormProps) => {
     const isEditMode = type === "edit" && post;
     try {
       const response = await fetch(
-        `${API_URL}/posts${isEditMode ? `/${post!.id}` : ""}`,
+        `${getEnv("NEXT_PUBLIC_API_URL")}/posts${
+          isEditMode ? `/${post!.id}` : ""
+        }`,
         {
           method: isEditMode ? "PUT" : "POST",
           body: formData,

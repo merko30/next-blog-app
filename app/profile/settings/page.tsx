@@ -4,14 +4,17 @@ import { User } from "@prisma/client";
 import authOptions from "@/lib/authOptions";
 
 import Settings from "@/components/users/Settings";
-import { API_URL } from "@/lib/env";
+import { getEnv } from "@/lib/env";
 
 async function getData(): Promise<{ user: User }> {
   const session = await getServerSession(authOptions);
 
-  const response = await fetch(`${API_URL}/users/${session?.user!.id}`, {
-    headers: { "Content-Type": "application/json" },
-  });
+  const response = await fetch(
+    `${getEnv("NEXT_PUBLIC_API_URL")}/users/${session?.user!.id}`,
+    {
+      headers: { "Content-Type": "application/json" },
+    }
+  );
 
   const json = await response.json();
 

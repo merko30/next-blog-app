@@ -10,7 +10,7 @@ import { Comment } from "@/types/posts";
 
 import Button from "../Button";
 
-import { API_URL } from "@/lib/env";
+import { getEnv } from "@/lib/env";
 
 const CommentForm = ({
   comment: _comment,
@@ -32,8 +32,8 @@ const CommentForm = ({
 
   const createComment = async (comment: string) => {
     const url = _comment
-      ? `${API_URL}/comments/${_comment!.id}`
-      : `${API_URL}/comments`;
+      ? `${getEnv("NEXT_PUBLIC_API_URL")}/comments/${_comment!.id}`
+      : `${getEnv("NEXT_PUBLIC_API_URL")}/comments`;
 
     console.log({ url });
 

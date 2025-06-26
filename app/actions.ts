@@ -1,6 +1,6 @@
 "use server";
 
-import { API_URL } from "@/lib/env";
+import { getEnv } from "@/lib/env";
 import transformFormData from "@/utils/transformFormData";
 import { redirect } from "next/navigation";
 
@@ -48,13 +48,16 @@ export const createUser = async (prevState: any, formData: FormData) => {
     };
   }
 
-  const response = await fetch(`${API_URL}/users/register`, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await fetch(
+    `${getEnv("NEXT_PUBLIC_API_URL")}/users/register`,
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
   const json = await response.json();
 
