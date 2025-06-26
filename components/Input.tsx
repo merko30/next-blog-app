@@ -17,7 +17,7 @@ const Input = ({
     <input
       {...props}
       className={twMerge(
-        "p-4 border border-gray-200 rounded block w-full",
+        "p-4 border border-gray-200 rounded-sm block w-full",
         className
       )}
     />

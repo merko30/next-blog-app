@@ -16,7 +16,7 @@ const Comment = ({ comment }: { comment: CommentType }) => {
   console.log(data);
 
   return (
-    <div className="p-4 border border-gray-300 rounded">
+    <div className="p-4 border border-gray-300 rounded-sm">
       <Author author={comment.author} size={48} imageClassName="size-12" />
       <hr className="my-2" />
       {!isEditMode ? (

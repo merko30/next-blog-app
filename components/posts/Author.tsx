@@ -15,10 +15,11 @@ const Author = ({
   <div className="flex items-center gap-4">
     <Image
       src={author?.image}
-      alt="author's avatar"
+      alt={author.email}
       width={size}
       height={size}
       fill={false}
+      placeholderType="user"
       className={twMerge("w-16 h-16 rounded-full", imageClassName)}
     />
     <div>

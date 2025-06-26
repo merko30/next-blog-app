@@ -13,7 +13,7 @@ const PostCard = ({ post }: PostCardProps) => (
   <Link
     href={`/posts/${post.id}`}
     key={post.id}
-    className="shadow-sm radius-sm overflow-x-hidden"
+    className="shadow-xs radius-sm overflow-x-hidden"
   >
     <div className="w-full h-[200px] relative">
       <Image src={post.image!} fill placeholder="empty" alt={post.title} />

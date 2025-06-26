@@ -55,6 +55,7 @@ export default ({
     extensions,
     content: value,
     onUpdate: ({ editor }) => onChange(editor.getHTML()),
+    immediatelyRender: false,
   });
 
   if (!editor) {

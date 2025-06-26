@@ -2,7 +2,7 @@
 
 import { SyntheticEvent, useState } from "react";
 import { useParams } from "next/navigation";
-import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
 import { useSession } from "next-auth/react";
 import { twMerge } from "tailwind-merge";
 
@@ -56,7 +56,7 @@ const CommentForm = ({
 
       const json = await response.json();
 
-      revalidatePath(`/posts/${id}`, "page");
+      // revalidatePath(`/posts/${id}`, "page");
     } catch (error) {
       return { error: "Something went wrong" };
     }
@@ -79,7 +79,7 @@ const CommentForm = ({
         name="comment"
         rows={rows}
         className={twMerge(
-          "block w-full mb-4 p-4 border border-gray-200 rounded",
+          "block w-full mb-4 p-4 border border-gray-200 rounded-sm",
           textareaClassName
         )}
       />

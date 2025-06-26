@@ -13,6 +13,7 @@ export const createS3Client = () => {
       accessKeyId: getEnv("S3_ACCESS_KEY"),
       secretAccessKey: getEnv("S3_SECRET_ACCESS_KEY"),
     },
+    forcePathStyle: true,
   });
 
   return s3Client;
@@ -25,9 +26,8 @@ export const uploadImage = async (
 ) => {
   const s3Client = createS3Client();
 
-  const fileName = `${prefix ? `/${prefix}` : ""}/${slug}.${
-    file.name.split(".").slice(-1)[0]
-  }`;
+  const fileExtension = file.name.split(".").pop();
+  const fileName = `${prefix ? `${prefix}/` : ""}${slug}.${fileExtension}`;
 
   const params = {
     Bucket: getEnv("S3_BUCKET"),
@@ -41,6 +41,6 @@ export const uploadImage = async (
     await s3Client.send(new PutObjectCommand(params));
     return fileName;
   } catch (error) {
-    console.error("Error uploading the image:", error);
+    console.error("Error uploading the image:", JSON.stringify(error, null, 2));
   }
 };

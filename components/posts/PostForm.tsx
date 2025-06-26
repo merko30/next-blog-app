@@ -1,17 +1,13 @@
 "use client";
-
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Post } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import { useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
 
 import Input from "../Input";
 import Button from "../Button";
 
 import { getEnv } from "@/lib/env";
-import dynamic from "next/dynamic";
 
 const TextEditor = dynamic(() => import("../TextEditor"), {
   loading: () => <div className="h-72 bg-gray-50 animate-pulse" />,
@@ -29,13 +25,6 @@ const PostForm = ({ type = "create", post }: PostFormProps) => {
 
   const router = useRouter();
 
-  const { data: session } = useSession();
-
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: "<p>Hello World! 🌎️</p>",
-  });
-
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { title, content, image } = data;
@@ -48,11 +37,9 @@ const PostForm = ({ type = "create", post }: PostFormProps) => {
 
     const isEditMode = type === "edit" && post;
 
-    console.log(getEnv("NEXT_PUBLIC_API_URL"));
-
     try {
       const response = await fetch(
-        `${getEnv("NEXT_PUBLIC_API_URL")}/posts${
+        `${process.env.NEXT_PUBLIC_API_URL}/posts${
           isEditMode ? `/${post!.id}` : ""
         }`,
         {
@@ -80,8 +67,6 @@ const PostForm = ({ type = "create", post }: PostFormProps) => {
   const onChange = (
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
-    console.log(event);
-
     const {
       target: { name, value },
     } = event;

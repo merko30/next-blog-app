@@ -2,17 +2,31 @@
 
 import NextImage, { ImageProps } from "next/image";
 
-const PLACEHOLDER = "/posts/800x600.svg";
+const PLACEHOLDER_MAP = {
+  post: "/placeholder.jpg",
+  user: "/avatar.png",
+};
 
-const Image = (props: ImageProps) => {
-  const src = props.src && props.src !== "" ? props.src : "/posts/800x600.svg";
+const Image = ({
+  src,
+  placeholderType = "post",
+  ...props
+}: ImageProps & {
+  placeholderType?: keyof typeof PLACEHOLDER_MAP;
+}) => {
+  const hasSrc = src && src !== "";
 
   return (
     <NextImage
       {...props}
+      src={
+        !hasSrc
+          ? PLACEHOLDER_MAP[placeholderType as keyof typeof PLACEHOLDER_MAP]
+          : `/api/image/${src}`
+      }
       style={{ objectFit: "cover" }}
-      loader={(props) => `https://s3.tebi.io/mernbucket${props.src}`}
-      src={src}
+      unoptimized={true} // important if you proxy images yourself
+      alt={props.alt}
     />
   );
 };

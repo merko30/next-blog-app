@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
-  <div className="relative w-full min-h-screen bg-gray-50">
+  <div className="relative w-full min-h-screen pb-12">
     {/* Background image container */}
     <div className="relative h-48 w-full opacity-60">
       <Image
@@ -14,7 +14,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
     </div>
 
     {/* Floating content box */}
-    <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-xl px-6 py-8 rounded-md bg-white shadow">
+    <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-2xl px-6 py-8 rounded-md bg-white shadow-sm">
       {children}
     </div>
   </div>
