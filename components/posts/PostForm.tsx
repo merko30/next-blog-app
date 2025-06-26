@@ -3,7 +3,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Post } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { revalidatePath } from "next/cache";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useSession } from "next-auth/react";
@@ -46,9 +45,11 @@ const PostForm = ({ type = "create", post }: PostFormProps) => {
     formData.append("title", title);
     formData.append("content", content);
     formData.append("image", image!);
-    formData.append("authorId", session!.user!.id);
 
     const isEditMode = type === "edit" && post;
+
+    console.log(getEnv("NEXT_PUBLIC_API_URL"));
+
     try {
       const response = await fetch(
         `${getEnv("NEXT_PUBLIC_API_URL")}/posts${
@@ -60,13 +61,18 @@ const PostForm = ({ type = "create", post }: PostFormProps) => {
         }
       );
 
+      console.log(response);
+
       const json = await response.json();
+      console.log(json);
 
       const id = json.post.id;
 
       router.push(`/posts/${id}`);
-      revalidatePath(`/posts/${id}`);
+      // revalidatePath(`/posts/${id}`);
     } catch (error) {
+      console.log(error);
+
       return { error: "Something went wrong" };
     }
   };

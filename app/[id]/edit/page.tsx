@@ -14,7 +14,8 @@ async function getData(id: string): Promise<{ post: Post }> {
   return json;
 }
 
-const EditPostPage = async ({ params }: { params: { id: string } }) => {
+const EditPostPage = async (props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params;
   const data = await getData(params.id);
 
   const { post } = data || {};

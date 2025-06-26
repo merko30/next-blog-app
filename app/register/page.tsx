@@ -1,6 +1,6 @@
+import { useActionState } from "react";
 "use client";
 
-import { useFormState } from "react-dom";
 import Link from "next/link";
 
 import { createUser } from "../actions";
@@ -10,7 +10,7 @@ import Alert from "@/components/Alert";
 import Button from "@/components/Button";
 
 const RegisterPage = () => {
-  const [state, formAction] = useFormState(createUser, {
+  const [state, formAction] = useActionState(createUser, {
     error: null,
   });
 

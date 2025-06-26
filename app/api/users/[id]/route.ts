@@ -2,10 +2,8 @@ import { NextResponse } from "next/server";
 
 import prisma from "@/prisma";
 
-export const GET = async (
-  req: Request,
-  { params }: { params: { id: string } }
-) => {
+export const GET = async (req: Request, props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params;
   const userFromDb = await prisma.user.findUnique({
     where: { id: params.id },
   });
@@ -17,10 +15,8 @@ export const GET = async (
   return NextResponse.json({ error: "Not found" }, { status: 404 });
 };
 
-export const PUT = async (
-  req: Request,
-  { params }: { params: { id: string } }
-) => {
+export const PUT = async (req: Request, props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params;
   const data = await req.json();
 
   const userFromDb = await prisma.user.update({
