@@ -1,17 +1,20 @@
 import Image from "next/image";
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
-  <div className="w-full relative">
-    <div className="w-full relative h-48 opacity-60">
+  <div className="relative w-full min-h-screen bg-gray-50">
+    {/* Background image container */}
+    <div className="relative h-48 w-full opacity-60">
       <Image
         src="/write.jpg"
         alt="writing-machine"
         fill
-        className="object-fit object-top"
+        className="object-cover object-top"
+        priority
       />
     </div>
 
-    <div className="w-full md:max-w-lg lg:max-w-xl py-8 px-6 rounded-md bg-white shadow z-10 absolute left-1/2 -translate-x-1/2 top-20">
+    {/* Floating content box */}
+    <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-xl px-6 py-8 rounded-md bg-white shadow">
       {children}
     </div>
   </div>
