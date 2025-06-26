@@ -7,8 +7,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
         src="/write.jpg"
         alt="writing-machine"
         fill
-        objectFit="cover"
-        objectPosition="center"
+        className="object-fit object-top"
       />
     </div>
 

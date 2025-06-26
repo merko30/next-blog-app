@@ -10,9 +10,14 @@ import { useSession } from "next-auth/react";
 
 import Input from "../Input";
 import Button from "../Button";
-import TextEditor from "../TextEditor";
-import { getEnv } from "@/lib/env";
 
+import { getEnv } from "@/lib/env";
+import dynamic from "next/dynamic";
+
+const TextEditor = dynamic(() => import("../TextEditor"), {
+  loading: () => <div className="h-72 bg-gray-50 animate-pulse" />,
+  ssr: false,
+});
 interface PostFormProps {
   post?: Post;
   type?: "create" | "edit";
@@ -82,7 +87,7 @@ const PostForm = ({ type = "create", post }: PostFormProps) => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-4">
+    <form onSubmit={onSubmit} className="w-full flex flex-col gap-4">
       <Input name="title" value={data.title} onChange={onChange} />
       <TextEditor
         value={data.content}
