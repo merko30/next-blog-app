@@ -10,7 +10,7 @@ const Button = ({
 >) => (
   <button
     className={twMerge(
-      "px-4 py-2 font-medium text-white rounded bg-green-500 hover:bg-green-600",
+      "px-6 py-3 font-medium text-white uppercase tracking-wider rounded-full bg-primary-main",
       className
     )}
   >

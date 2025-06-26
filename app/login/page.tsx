@@ -1,6 +1,7 @@
 "use client";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { ChangeEventHandler, FormEvent, useState } from "react";
 
 import Input from "@/components/Input";
@@ -12,8 +13,8 @@ const LoginPage = () => {
   const router = useRouter();
 
   const [data, setData] = useState({
-    email: "merim.hasanbegovic@outlook.com",
-    password: "password",
+    email: "",
+    password: "",
   });
 
   const login = async (event: FormEvent<HTMLFormElement>) => {
@@ -53,6 +54,9 @@ const LoginPage = () => {
           type="password"
         />
         <Button type="submit">Sign in</Button>
+        <Link href="/register" className="text-sm text-gray-700 text-center">
+          Don't have an account? Sign up
+        </Link>
       </form>
     </div>
   );
