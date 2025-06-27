@@ -3,7 +3,7 @@ import { NextResponse, NextRequest } from "next/server";
 import prisma from "@/prisma";
 import { uploadImage } from "@/lib/s3client";
 import slugify from "@/utils/slugify";
-import { getServerSession } from "next-auth/next";
+import { getServerSession } from "next-auth";
 import authOptions from "@/lib/authOptions";
 
 const isPostField = (

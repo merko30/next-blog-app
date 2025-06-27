@@ -4,7 +4,7 @@ import Image from "@/components/Image";
 import AuthorActions from "@/components/posts/AuthorActions";
 import Comments from "@/components/posts/Comments";
 import CommentForm from "@/components/posts/CommentForm";
-import Author from "@/components/posts/Author";
+import Author from "@/components/Author";
 
 import { getEnv } from "@/lib/env";
 

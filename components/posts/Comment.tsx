@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 
 import { Comment as CommentType } from "@/types/posts";
 
-import Author from "./Author";
+import Author from "../Author";
 import CommentForm from "./CommentForm";
 
 const Comment = ({ comment }: { comment: CommentType }) => {

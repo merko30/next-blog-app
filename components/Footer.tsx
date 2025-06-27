@@ -1,19 +1,15 @@
-import Link from "next/link";
-
 const Footer = () => (
   <footer className="pb-8">
     <div className="container">
       <hr className="my-8" />
-      <nav>
-        <ul className="flex items-center gap-4">
-          <li>
-            <Link href="/login">About us</Link>
-          </li>
-          <li>
-            <Link href="/register">Contact</Link>
-          </li>
-        </ul>
-      </nav>
+      <div className="flex flex-col items-center gap-4">
+        <p className="text-sm text-gray-500">
+          &copy; {new Date().getFullYear()} Merim. All rights reserved.
+        </p>
+        <p className="text-sm text-gray-500">
+          Built with ❤️ using Next.js and TypeScript.
+        </p>
+      </div>
     </div>
   </footer>
 );

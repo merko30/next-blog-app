@@ -1,11 +1,11 @@
 import { User } from "@prisma/client";
 import { getServerSession } from "next-auth";
 
-import Image from "@/components/Image";
-
 import authOptions from "@/lib/authOptions";
-import ActiveLink from "@/components/ActiveLink";
 import { getEnv } from "@/lib/env";
+
+import ActiveLink from "@/components/ActiveLink";
+import Author from "@/components/Author";
 
 async function getData(): Promise<{ user: User }> {
   const session = await getServerSession(authOptions);
@@ -28,23 +28,9 @@ const ProfileLayout = async ({ children }: { children: React.ReactNode }) => {
   const { user } = data || {};
 
   return (
-    <div className="container py-12">
+    <div className="container lg:max-w-3xl py-12">
       <div className="flex items-center gap-6 mb-10 w-max">
-        <Image
-          src={user.image as string}
-          alt="user's avatar"
-          width={80}
-          height={80}
-          className="w-20 h-20 md:w-36 md:h-36 rounded-full flex-1"
-        />
-        <div>
-          <h1 className="sm:text-xl">
-            {user.firstName} {user.lastName}
-          </h1>
-          {user.shortDescription && (
-            <h3 className="text-gray-500">{user.shortDescription}</h3>
-          )}
-        </div>
+        <Author user={user} imageClassName="size-16" size={64} />
       </div>
       <div className="flex items-center gap-4 mb-6">
         {[

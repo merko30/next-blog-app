@@ -1,21 +1,21 @@
-import { Author as AuthorType } from "@/types/posts";
 import { twMerge } from "tailwind-merge";
+import { User } from "@prisma/client";
 
-import Image from "../Image";
+import Image from "./Image";
 
-const Author = ({
-  author,
+const UserInfo = ({
+  user,
   size = 64,
   imageClassName,
 }: {
-  author: AuthorType;
+  user: User;
   imageClassName?: string;
   size?: number;
 }) => (
   <div className="flex items-center gap-4">
     <Image
-      src={author?.image}
-      alt={author.email}
+      src={user?.image!}
+      alt={user.email}
       width={size}
       height={size}
       fill={false}
@@ -23,12 +23,12 @@ const Author = ({
       className={twMerge("w-16 h-16 rounded-full", imageClassName)}
     />
     <div>
-      <h3 className="text-md">{author.name ?? author.email}</h3>
-      {author.shortDescription && (
-        <h3 className="text-sm text-gray-500">{author.shortDescription}</h3>
+      <h3 className="text-md">{user.name ?? user.email}</h3>
+      {user.shortDescription && (
+        <h3 className="text-sm text-gray-500">{user.shortDescription}</h3>
       )}
     </div>
   </div>
 );
 
-export default Author;
+export default UserInfo;

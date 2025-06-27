@@ -1,23 +1,28 @@
-import { getServerSession } from "next-auth";
-
-import authOptions from "@/lib/authOptions";
-
 import { Post } from "@/types/posts";
 import PostList from "@/components/posts/PostList";
 import { getEnv } from "@/lib/env";
+import { cookies } from "next/headers";
 
 async function getData(): Promise<{ posts: Post[] }> {
-  // filter by user
+  const cookieStore = await cookies();
+  const cookie = cookieStore.toString();
+
   const response = await fetch(
     `${getEnv("NEXT_PUBLIC_API_URL")}/posts?mine=true`,
     {
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: cookie,
+      },
+      cache: "no-store",
     }
   );
 
-  const json = await response.json();
+  if (!response.ok) {
+    throw new Error("Failed to fetch posts");
+  }
 
+  const json = await response.json();
   return json;
 }
 
