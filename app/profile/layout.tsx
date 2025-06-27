@@ -30,7 +30,8 @@ const ProfileLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="container lg:max-w-3xl py-12">
       <div className="flex items-center gap-6 mb-10 w-max">
-        <Author user={user} imageClassName="size-16" size={64} />
+        <Author user={user} imageClassName="size-24" size={96} />
+        <p className="text-sm">{user.description}</p>
       </div>
       <div className="flex items-center gap-4 mb-6">
         {[

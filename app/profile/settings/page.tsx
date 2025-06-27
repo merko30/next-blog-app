@@ -27,7 +27,10 @@ const SettingsPage = async () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-8">Settings</h1>
+      <h1 className="text-2xl font-semibold">Settings</h1>
+      <p className="text-gray-700 text-sm mb-6">
+        Update your profile information
+      </p>
       {user && <Settings user={user} />}
     </div>
   );

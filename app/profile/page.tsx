@@ -35,7 +35,7 @@ const ProfilePage = async () => {
     <>
       <h1 className="text-2xl font-semibold mb-8">My posts</h1>
       {!!posts.length && (
-        <PostList posts={posts} columns={3} className="gap-8" />
+        <PostList posts={posts} columns={3} className="gap-4" />
       )}
       {!posts.length && (
         <p className="text-2xl font-semibold text-gray-300">

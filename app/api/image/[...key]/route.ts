@@ -10,7 +10,8 @@ export async function GET(
   req: Request,
   { params }: { params: { key: string[] } }
 ) {
-  const key = params.key.join("/"); // support nested keys like ['folder', 'image.jpg']
+  const { key: _key } = await params;
+  const key = _key.join("/"); // support nested keys like ['folder', 'image.jpg']
 
   try {
     const command = new GetObjectCommand({

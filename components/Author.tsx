@@ -9,8 +9,8 @@ const UserInfo = ({
   imageClassName,
 }: {
   user: User;
-  imageClassName?: string;
   size?: number;
+  imageClassName?: string;
 }) => (
   <div className="flex items-center gap-4">
     <Image
@@ -18,9 +18,8 @@ const UserInfo = ({
       alt={user.email}
       width={size}
       height={size}
-      fill={false}
-      placeholderType="user"
       className={twMerge("w-16 h-16 rounded-full", imageClassName)}
+      placeholderType="user"
     />
     <div>
       <h3 className="text-md">{user.name ?? user.email}</h3>
