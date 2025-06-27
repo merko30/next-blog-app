@@ -7,6 +7,7 @@ import CommentForm from "@/components/posts/CommentForm";
 import Author from "@/components/Author";
 
 import { getEnv } from "@/lib/env";
+import { User } from "@prisma/client";
 
 async function getData(id: string): Promise<{ post: Post }> {
   const response = await fetch(`${getEnv("NEXT_PUBLIC_API_URL")}/posts/${id}`, {
@@ -23,6 +24,8 @@ const PostDetails = async (props: { params: Promise<{ id: string }> }) => {
   const params = await props.params;
   const data = await getData(params.id);
 
+  console.log(data);
+
   const { post } = data;
 
   return (
@@ -37,7 +40,7 @@ const PostDetails = async (props: { params: Promise<{ id: string }> }) => {
         priority
       />
       <div className="flex items-center justify-between w-full">
-        <Author author={post.author} />
+        <Author user={post.author as User} />
         <AuthorActions author={post.author} postId={post.id} />
       </div>
       <hr />

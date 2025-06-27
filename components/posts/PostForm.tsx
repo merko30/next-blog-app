@@ -1,13 +1,13 @@
 "use client";
-import { ChangeEvent, FormEvent, useState } from "react";
+
+import { useActionState, useState } from "react";
 import { Post } from "@prisma/client";
-import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
 import Input from "../Input";
 import Button from "../Button";
-
-import { getEnv } from "@/lib/env";
+import { createPostAction } from "@/app/create/action";
+import SaveButton from "../users/SaveButton";
 
 const TextEditor = dynamic(() => import("../TextEditor"), {
   loading: () => <div className="h-72 bg-gray-50 animate-pulse" />,
@@ -19,75 +19,38 @@ interface PostFormProps {
 }
 
 const PostForm = ({ type = "create", post }: PostFormProps) => {
-  const [data, setData] = useState(
-    post ?? { title: "", content: "", image: "" }
-  );
-
-  const router = useRouter();
-
-  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const { title, content, image } = data;
-
-    const formData = new FormData();
-
-    formData.append("title", title);
-    formData.append("content", content);
-    formData.append("image", image!);
-
-    const isEditMode = type === "edit" && post;
-
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/posts${
-          isEditMode ? `/${post!.id}` : ""
-        }`,
-        {
-          method: isEditMode ? "PUT" : "POST",
-          body: formData,
-        }
-      );
-
-      const json = await response.json();
-
-      const id = json.post.id;
-
-      router.push(`/posts/${id}`);
-      // revalidatePath(`/posts/${id}`);
-    } catch (error) {
-      console.log(error);
-
-      return { error: "Something went wrong" };
-    }
+  const initialState = {
+    data: {
+      title: post?.title ?? "",
+      content: post?.content ?? "",
+    },
+    error: undefined,
+    errors: {},
   };
 
-  const onChange = (
-    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    const {
-      target: { name, value },
-    } = event;
-    setData((old) => ({
-      ...old,
-      [name]:
-        name === "image" ? (event.target as HTMLInputElement).files![0] : value,
-    }));
-  };
+  const [state, formAction] = useActionState(createPostAction, initialState);
+  const [content, setContent] = useState(post?.content ?? "");
 
   return (
-    <form onSubmit={onSubmit} className="w-full flex flex-col gap-4">
-      <Input name="title" value={data.title} onChange={onChange} />
-      <TextEditor
-        value={data.content}
-        onChange={(content) => setData((old) => ({ ...old, content }))}
-      />
+    <form action={formAction} className="w-full flex flex-col gap-4">
       <Input
-        type="file"
-        name="image"
-        //value={data.image ?? ""}
-        onChange={onChange}
+        name="title"
+        defaultValue={String(state.data.title ?? "")}
+        error={state.errors?.title}
       />
-      <Button type="submit">Save post</Button>
+      <TextEditor
+        value={content}
+        onChange={(newContent) => setContent(newContent)}
+      />
+      {state.errors?.content && (
+        <p className="text-red-600 text-sm mt-0.5">{state.errors?.content}</p>
+      )}
+
+      {/* Hidden input to pass content */}
+      <input type="hidden" name="content" value={content} />
+
+      <Input type="file" name="image" />
+      <SaveButton>Save</SaveButton>
     </form>
   );
 };

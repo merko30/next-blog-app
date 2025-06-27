@@ -11,27 +11,29 @@ const UserInfo = ({
   user: User;
   size?: number;
   imageClassName?: string;
-}) => (
-  <div className="flex items-center gap-4">
-    <Image
-      src={user?.image!}
-      alt={user.email}
-      width={size}
-      height={size}
-      className={twMerge("w-16 h-16 rounded-full", imageClassName)}
-      placeholderType="user"
-    />
-    <div>
-      <h3 className="text-md">
-        {user.firstName && user.lastName
-          ? `${user.firstName} ${user.lastName}`
-          : user.email}
-      </h3>
-      {user.shortDescription && (
-        <h3 className="text-sm text-gray-500">{user.shortDescription}</h3>
-      )}
+}) => {
+  return (
+    <div className="flex items-center gap-4">
+      <Image
+        src={user.image!}
+        alt={user.name}
+        width={size}
+        height={size}
+        className={twMerge("w-16 h-16 rounded-full", imageClassName)}
+        placeholderType="user"
+      />
+      <div>
+        <h3 className="text-md">
+          {user.firstName && user.lastName
+            ? `${user.firstName} ${user.lastName}`
+            : user.name}
+        </h3>
+        {user.shortDescription && (
+          <h3 className="text-sm text-gray-500">{user.shortDescription}</h3>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default UserInfo;

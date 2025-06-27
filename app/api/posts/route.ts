@@ -45,11 +45,8 @@ export const GET = async (req: NextRequest) => {
 
   let where;
 
-  const session = await getServerSession(authOptions);
-
-  console.log(session);
-
   if (loadUserPosts) {
+    const session = await getServerSession(authOptions);
     if (!session || !session.user || !session.user.id) {
       return NextResponse.json(
         { error: "Unauthorized", debug: { session } },
