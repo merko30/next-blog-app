@@ -1,3 +1,3 @@
-import Layout from "@/layout/Auth";
+import Layout from "@/layout/Form";
 
 export default Layout;
