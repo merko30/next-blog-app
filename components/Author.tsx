@@ -22,7 +22,11 @@ const UserInfo = ({
       placeholderType="user"
     />
     <div>
-      <h3 className="text-md">{user.name ?? user.email}</h3>
+      <h3 className="text-md">
+        {user.firstName && user.lastName
+          ? `${user.firstName} ${user.lastName}`
+          : user.email}
+      </h3>
       {user.shortDescription && (
         <h3 className="text-sm text-gray-500">{user.shortDescription}</h3>
       )}
