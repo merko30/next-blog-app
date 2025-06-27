@@ -5,8 +5,6 @@ import { Post } from "@prisma/client";
 import dynamic from "next/dynamic";
 
 import Input from "../Input";
-import Button from "../Button";
-import { createPostAction } from "@/app/create/action";
 import SaveButton from "../users/SaveButton";
 
 const TextEditor = dynamic(() => import("../TextEditor"), {
@@ -15,10 +13,10 @@ const TextEditor = dynamic(() => import("../TextEditor"), {
 });
 interface PostFormProps {
   post?: Post;
-  type?: "create" | "edit";
+  action: (prevState: any, formData: FormData) => Promise<any>;
 }
 
-const PostForm = ({ type = "create", post }: PostFormProps) => {
+const PostForm = ({ action, post }: PostFormProps) => {
   const initialState = {
     data: {
       title: post?.title ?? "",
@@ -28,11 +26,12 @@ const PostForm = ({ type = "create", post }: PostFormProps) => {
     errors: {},
   };
 
-  const [state, formAction] = useActionState(createPostAction, initialState);
+  const [state, formAction] = useActionState(action, initialState);
   const [content, setContent] = useState(post?.content ?? "");
 
   return (
     <form action={formAction} className="w-full flex flex-col gap-4">
+      {post && <input readOnly hidden value={post.id} name="id" />}
       <Input
         name="title"
         defaultValue={String(state.data.title ?? "")}

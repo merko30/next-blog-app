@@ -3,6 +3,7 @@ import { Post } from "@prisma/client";
 import PostForm from "@/components/posts/PostForm";
 
 import { getEnv } from "@/lib/env";
+import { editPostAction } from "./action";
 
 async function getData(id: string): Promise<{ post: Post }> {
   const response = await fetch(`${getEnv("NEXT_PUBLIC_API_URL")}/posts/${id}`, {
@@ -24,7 +25,7 @@ const EditPostPage = async (props: { params: Promise<{ id: string }> }) => {
     return (
       <div className="w-full lg:w-2/3 mx-auto">
         <h1 className="text-2xl mb-8">Edit your post</h1>
-        <PostForm post={post} type="edit" />
+        <PostForm post={post} action={editPostAction} />
       </div>
     );
   }
