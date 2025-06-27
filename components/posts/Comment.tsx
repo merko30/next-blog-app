@@ -2,11 +2,15 @@
 
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { User } from "@prisma/client";
+import dynamic from "next/dynamic";
 
 import { Comment as CommentType } from "@/types/posts";
 
 import Author from "../Author";
-import CommentForm from "./CommentForm";
+import { createCommentAction } from "@/actions/comments";
+
+const CommentForm = dynamic(() => import("./CommentForm"));
 
 const Comment = ({ comment }: { comment: CommentType }) => {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -15,7 +19,11 @@ const Comment = ({ comment }: { comment: CommentType }) => {
 
   return (
     <div className="p-4 border border-gray-300 rounded-sm">
-      <Author author={comment.author} size={48} imageClassName="size-12" />
+      <Author
+        user={comment.author as User}
+        size={48}
+        imageClassName="size-12"
+      />
       <hr className="my-2" />
       {!isEditMode ? (
         <div className="flex justify-between w-full">
@@ -27,7 +35,7 @@ const Comment = ({ comment }: { comment: CommentType }) => {
           )}
         </div>
       ) : (
-        <CommentForm comment={comment} />
+        <CommentForm comment={comment} action={createCommentAction} />
       )}
     </div>
   );

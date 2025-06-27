@@ -8,6 +8,8 @@ import Author from "@/components/Author";
 
 import { getEnv } from "@/lib/env";
 import { User } from "@prisma/client";
+import { createCommentAction } from "@/actions/comments";
+import Comment from "@/components/posts/Comment";
 
 async function getData(id: string): Promise<{ post: Post }> {
   const response = await fetch(`${getEnv("NEXT_PUBLIC_API_URL")}/posts/${id}`, {
@@ -48,11 +50,13 @@ const PostDetails = async (props: { params: Promise<{ id: string }> }) => {
       {!!post.comments?.length && (
         <>
           <h2 className="text-xl font-medium">Comments</h2>
-          <Comments comments={post.comments} />
+          {post.comments.map((comment) => (
+            <Comment key={comment.id} comment={comment} />
+          ))}
         </>
       )}
       <hr className="mb-6" />
-      <CommentForm />
+      <CommentForm action={createCommentAction} />
     </div>
   );
 };
