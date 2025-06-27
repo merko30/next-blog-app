@@ -13,6 +13,7 @@ import Button from "@/components/Button";
 const RegisterPage = () => {
   const [state, formAction] = useActionState(createUser, {
     error: null,
+    data: {},
   });
 
   return (
@@ -25,18 +26,25 @@ const RegisterPage = () => {
         className="mx-auto lg:max-w-2xl flex flex-col gap-4"
       >
         {state.error && <Alert type="error">{state.error}</Alert>}
-        <Input name="name" placeholder="Name" error={state.errors?.name} />
+        <Input
+          name="username"
+          placeholder="Name"
+          error={state.errors?.username}
+          defaultValue={String(state.data?.username ?? "")}
+        />
         <Input
           name="email"
           type="email"
           placeholder="Email"
           error={state.errors?.email}
+          defaultValue={String(state.data?.email ?? "")}
         />
         <Input
           name="password"
           type="password"
           placeholder="Password"
           error={state.errors?.password}
+          defaultValue={String(state.data?.password ?? "")}
         />
         <Button type="submit">Sign up</Button>
         <Link href="/login" className="text-sm text-gray-700 text-center">

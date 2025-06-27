@@ -7,46 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
 model User {
   id            String    @id @default(cuid())
   firstName     String?
   lastName      String?
-  name          String
+  username      String
   email         String   @unique
   password      String
   shortDescription String?
   description   String?
   emailVerified DateTime?
   image         String?
-  accounts      Account[]
-  sessions      Session[]
   posts         Post[]
   comments      Comment[]
 
@@ -72,8 +43,9 @@ model Post {
   published  Boolean    @default(false)
   authorId   String
   author     User       @relation(fields: [authorId], references: [id])
-  categories Category[] @relation("CategoryToPost")
+  categories Category[] @relation("PostCategory")
   comments   Comment[]  @relation("PostComments")
+  tags       Tag[] @relation("PostTags")
 
   @@map("posts")
 }
@@ -81,9 +53,18 @@ model Post {
 model Category {
   id    Int    @id @default(autoincrement())
   name  String
-  posts Post[] @relation("CategoryToPost")
+  posts Post[] @relation("PostCategory")
 
   @@map("categories")
+}
+
+model Tag {
+  id    Int    @id @default(autoincrement())
+  name  String
+  post Post @relation("PostTags", fields: [postId], references: [id])
+  postId Int
+
+  @@map("tags")
 }
 
 model Comment {

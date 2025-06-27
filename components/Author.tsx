@@ -16,7 +16,7 @@ const UserInfo = ({
     <div className="flex items-center gap-4">
       <Image
         src={user.image!}
-        alt={user.name}
+        alt={user.username}
         width={size}
         height={size}
         className={twMerge("w-16 h-16 rounded-full", imageClassName)}
@@ -26,7 +26,7 @@ const UserInfo = ({
         <h3 className="text-md">
           {user.firstName && user.lastName
             ? `${user.firstName} ${user.lastName}`
-            : user.name}
+            : user.username}
         </h3>
         {user.shortDescription && (
           <h3 className="text-sm text-gray-500">{user.shortDescription}</h3>

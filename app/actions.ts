@@ -7,11 +7,15 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const schema = z.object({
-  name: z
+  username: z
     .string()
-    .min(1, "Name is required")
-    .min(3, "Name must be at least 3 characters")
-    .max(20, "Name must be at most 20 characters"),
+    .min(1, "Username is required")
+    .min(3, "Username must be at least 3 characters")
+    .max(20, "Username must be at most 20 characters")
+    .regex(
+      /^[a-zA-Z0-9_]+$/,
+      "Username can only contain letters, numbers, and underscores"
+    ),
   email: z
     .string()
     .min(1, "Email address is required")
@@ -30,7 +34,7 @@ const schema = z.object({
 });
 
 export const createUser = async (prevState: any, formData: FormData) => {
-  const data = transformFormData(formData, ["name", "email", "password"]);
+  const data = transformFormData(formData, ["username", "email", "password"]);
 
   const validationResult = schema.safeParse(data);
 
@@ -45,6 +49,7 @@ export const createUser = async (prevState: any, formData: FormData) => {
   if (Object.keys(errors).length) {
     return {
       errors,
+      data,
     };
   }
 
@@ -61,9 +66,11 @@ export const createUser = async (prevState: any, formData: FormData) => {
 
   const json = await response.json();
 
+  console.log(json);
+
   if (!json.error) {
     redirect("/login");
   }
 
-  return { error: json.error };
+  return { error: json.error, data };
 };

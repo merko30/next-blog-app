@@ -27,14 +27,14 @@ const PostCard = ({ post }: PostCardProps) => (
       <div className="flex items-center gap-2 mt-4">
         <Image
           src={post.author.image}
-          alt={post.author.name}
+          alt={post.author.username}
           placeholderType="user"
           width={40}
           height={40}
           className="rounded-full w-10 h-10 flex-none"
         />
         <div className="w-full">
-          <h2 className="text-sm font-medium">{post.author.name}</h2>
+          <h2 className="text-sm font-medium">{post.author.username}</h2>
           <p className="text-xs text-gray-700">
             <TimeAgo date={post.createdAt} />
           </p>
