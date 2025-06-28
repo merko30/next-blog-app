@@ -58,6 +58,10 @@ export const updateUserAction = async (prevState: any, formData: FormData) => {
     });
 
     revalidatePath("/profile/settings");
+
+    return {
+      data,
+    };
   } catch (error) {
     return {
       error: "Failed to update user information",
