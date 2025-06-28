@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 
 import Input from "../Input";
 import SaveButton from "../users/SaveButton";
+import CategorySelect from "./CategorySelect";
 
 const TextEditor = dynamic(() => import("../TextEditor"), {
   loading: () => <div className="h-72 bg-gray-50 animate-pulse" />,
@@ -44,6 +45,8 @@ const PostForm = ({ action, post }: PostFormProps) => {
       {state.errors?.content && (
         <p className="text-red-600 text-sm mt-0.5">{state.errors?.content}</p>
       )}
+
+      <CategorySelect />
 
       {/* Hidden input to pass content */}
       <input type="hidden" name="content" value={content} />
