@@ -8,8 +8,7 @@ import { redirect } from "next/navigation";
 import authOptions from "@/lib/authOptions";
 import prisma from "@/prisma";
 import transformFormData from "@/utils/transformFormData";
-import { uploadImage } from "@/lib/s3client";
-import slugify from "@/utils/slugify";
+import { uploadPostImage } from "@/lib/uploadPostImage";
 
 const schema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters"),
@@ -47,12 +46,11 @@ export async function editPostAction(prevState: any, formData: FormData) {
     (data.image as File).size > 0;
 
   if (isImagePresent) {
-    const fileName = await uploadImage(
+    imageUrl = await uploadPostImage(
       data.image as File,
-      slugify(data.title.toString()),
+      data.title.toString(),
       "posts"
     );
-    imageUrl = fileName ?? null;
   }
 
   let error;

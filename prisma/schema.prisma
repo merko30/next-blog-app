@@ -8,19 +8,19 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  firstName     String?
-  lastName      String?
-  username      String
-  email         String   @unique
-  password      String
+  id               String    @id @default(cuid())
+  firstName        String?
+  lastName         String?
+  username         String
+  email            String    @unique
+  password         String
   shortDescription String?
-  description   String?
-  emailVerified DateTime?
-  image         String?
-  role Role     @default(USER)
-  posts         Post[]
-  comments      Comment[]
+  description      String?
+  emailVerified    DateTime?
+  image            String?
+  role             Role      @default(USER)
+  comments         Comment[]
+  posts            Post[]
 
   @@map("users")
 }
@@ -34,20 +34,20 @@ model VerificationToken {
 }
 
 model Post {
-  id         Int        @id @default(autoincrement())
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  id         Int       @id @default(autoincrement())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
   title      String
   image      String?
   slug       String?
-  content    String     @db.Text
-  published  Boolean    @default(false)
+  content    String
+  published  Boolean   @default(false)
   authorId   String
-  author     User       @relation(fields: [authorId], references: [id])
   categoryId Int
-  category   Category @relation(fields: [categoryId],references: [id])
-  comments   Comment[]  @relation("PostComments")
-  tags       Tag[] @relation("PostTags")
+  comments   Comment[] @relation("PostComments")
+  author     User      @relation(fields: [authorId], references: [id])
+  category   Category  @relation(fields: [categoryId], references: [id])
+  tags       Tag[]     @relation("PostTags")
 
   @@map("posts")
 }
@@ -61,21 +61,21 @@ model Category {
 }
 
 model Tag {
-  id    Int    @id @default(autoincrement())
-  name  String
-  post Post @relation("PostTags", fields: [postId], references: [id], onDelete: Cascade)
+  id     Int    @id @default(autoincrement())
+  name   String
   postId Int
+  post   Post   @relation("PostTags", fields: [postId], references: [id], onDelete: Cascade)
 
   @@map("tags")
 }
 
 model Comment {
-  id    Int @id @default(autoincrement())
-  text  String
-  postId Int
-  post  Post @relation("PostComments",fields: [postId],references: [id], onDelete: Cascade)
+  id       Int    @id @default(autoincrement())
+  text     String
+  postId   Int
   authorId String
-  author User @relation(fields:[authorId], references: [id])
+  author   User   @relation(fields: [authorId], references: [id])
+  post     Post   @relation("PostComments", fields: [postId], references: [id], onDelete: Cascade)
 
   @@map("comments")
 }
