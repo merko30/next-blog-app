@@ -8,7 +8,7 @@ const UserInfo = ({
   size = 64,
   imageClassName,
 }: {
-  user: User;
+  user: Partial<User>,
   size?: number;
   imageClassName?: string;
 }) => {
@@ -16,7 +16,7 @@ const UserInfo = ({
     <div className="flex items-center gap-4">
       <Image
         src={user.image!}
-        alt={user.username}
+        alt={user.username!}
         width={size}
         height={size}
         className={twMerge("w-16 h-16 rounded-full", imageClassName)}

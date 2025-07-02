@@ -2,7 +2,7 @@ export interface Author {
   id: string;
   firstName: string;
   lastName: string;
-  name: string;
+  username: string;
   email: string;
   image: string;
   shortDescription?: string;

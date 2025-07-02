@@ -42,7 +42,7 @@ const PostDetails = async (props: { params: Promise<{ id: string }> }) => {
         priority
       />
       <div className="flex items-center justify-between w-full">
-        <Author user={post.author as User} />
+        <Author user={post.author} />
         <AuthorActions author={post.author} postId={post.id} />
       </div>
       <hr />
