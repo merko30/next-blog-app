@@ -8,7 +8,7 @@ export async function GET(req: NextRequest, context: any) {
   const { params } = context;
   const key = Array.isArray(params.key) ? params.key.join("/") : params.key;
 
-  if (!isProduction) {
+  if (isProduction) {
     // Load from Supabase Storage (public bucket)
     try {
       // You may want to move this logic to a shared util if used elsewhere

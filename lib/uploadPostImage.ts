@@ -17,13 +17,13 @@ export async function uploadPostImage(
 ) {
   if (!imageFile) return null;
   const isProduction = process.env.NODE_ENV === "production";
-  //   if (isProduction) {
-  const { uploadImage } = await import("@/lib/supabase");
-  const fileName = await uploadImage(imageFile, slugify(title), folder);
-  return fileName ?? null;
-  //   } else {
-  //     const { uploadImage } = await import("@/lib/s3client");
-  //     const fileName = await uploadImage(imageFile, slugify(title), folder);
-  //     return fileName ?? null;
-  //   }
+  if (isProduction) {
+    const { uploadImage } = await import("@/lib/supabase");
+    const fileName = await uploadImage(imageFile, slugify(title), folder);
+    return fileName ?? null;
+  } else {
+    const { uploadImage } = await import("@/lib/s3client");
+    const fileName = await uploadImage(imageFile, slugify(title), folder);
+    return fileName ?? null;
+  }
 }
