@@ -77,13 +77,14 @@ export const POST = async (req: Request) => {
 
   const title = formData.get("title")?.toString()!;
   const content = formData.get("content")?.toString()!;
+  const categoryId = formData.get("categoryId");
   const imageFile = formData.get("image");
 
   const session = await getServerSession(authOptions);
 
   const authorId = session?.user?.id;
 
-  if (!title || !content || !authorId) {
+  if (!title || !content || !authorId || !categoryId) {
     return NextResponse.json(
       { error: "Missing required fields" },
       { status: 400 }
@@ -92,7 +93,12 @@ export const POST = async (req: Request) => {
 
   let image = null;
 
-  const data = { title, content, authorId };
+  const data = {
+    title,
+    content,
+    authorId,
+    categoryId: parseInt(categoryId.toString()),
+  };
 
   if (!data || !Object.keys(data).length) {
     return NextResponse.json(
