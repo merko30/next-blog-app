@@ -17,8 +17,15 @@ const useDebounce = (value: any, delay = 1000) => {
   return debouncedValue;
 };
 
-const CategorySelect = () => {
-  const [term, setTerm] = useState<string>("");
+const CategorySelect = ({
+  category,
+  onChange,
+}: {
+  onChange: (category: Category) => void;
+  category: Category | null;
+}) => {
+  const [term, setTerm] = useState<string>(category ? category.name : "");
+  const [active, setActive] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<Category[]>([]);
@@ -27,14 +34,13 @@ const CategorySelect = () => {
 
   useEffect(() => {
     const loadCategories = async (term: string) => {
+      setLoading(true);
+      setActive(true);
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/categories?term=${term}`
         );
-        console.log(response);
         const json = await response.json();
-        console.log(json);
-
         setResults(json.categories);
       } catch (error) {
         setError("Failed to load categories");
@@ -42,7 +48,7 @@ const CategorySelect = () => {
         setLoading(false);
       }
     };
-    if (debouncedTerm.length > 2) {
+    if (debouncedTerm !== category?.name) {
       loadCategories(debouncedTerm);
     } else {
       setResults([]);
@@ -54,7 +60,7 @@ const CategorySelect = () => {
   return (
     <div className="relative">
       <Input value={term} onChange={(e) => setTerm(e.target.value)} />
-      {debouncedTerm.length > 3 && (
+      {active && debouncedTerm.length > 3 && (
         <div
           role="dialog"
           className="w-full absolute z-10 top-16 left-0 max-h-20 bg-white rounded-md shadow"
@@ -65,6 +71,9 @@ const CategorySelect = () => {
                 <li
                   key={category.id}
                   className="py-3 px-2 hover:bg-gray-50 cursor-pointer"
+                  onClick={() => {
+                    onChange(category);
+                  }}
                 >
                   {category.name}
                 </li>
@@ -72,6 +81,7 @@ const CategorySelect = () => {
             </ul>
           )}
           {loading && <p>Loading...</p>}
+          {!results.length && <p>No results found</p>}
         </div>
       )}
       {}

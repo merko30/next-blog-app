@@ -11,6 +11,7 @@ export const GET = async (
     where: { id: Number(params.id) },
     include: {
       author: true,
+      category: true,
       comments: {
         include: {
           author: true,

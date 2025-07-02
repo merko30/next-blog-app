@@ -1,11 +1,15 @@
-import { Post } from "@prisma/client";
+import { Category, Post } from "@prisma/client";
 
 import PostForm from "@/components/posts/PostForm";
 
 import { getEnv } from "@/lib/env";
 import { editPostAction } from "./action";
 
-async function getData(id: string): Promise<{ post: Post }> {
+async function getData(id: string): Promise<{
+  post: Post & {
+    category: Category;
+  };
+}> {
   const response = await fetch(`${getEnv("NEXT_PUBLIC_API_URL")}/posts/${id}`, {
     headers: { "Content-Type": "application/json" },
   });

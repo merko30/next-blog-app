@@ -14,11 +14,17 @@ import slugify from "@/utils/slugify";
 const schema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters"),
   content: z.string().min(100, "Content must be at least 100 characters"),
+  categoryId: z.string().min(1, "Please select a category"),
   image: z.any().optional(), // Adjust based on whether image is required
 });
 
 export async function createPostAction(prevState: any, formData: FormData) {
-  const data = transformFormData(formData, ["title", "content", "image"]);
+  const data = transformFormData(formData, [
+    "title",
+    "content",
+    "categoryId",
+    "image",
+  ]);
 
   let imageUrl;
 
@@ -63,6 +69,7 @@ export async function createPostAction(prevState: any, formData: FormData) {
       data: {
         title: result.data.title,
         content: result.data.content,
+        categoryId: parseInt(result.data.categoryId),
         image: imageUrl,
         authorId: session.user.id,
       },

@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { Post } from "@prisma/client";
+import { Category, Post } from "@prisma/client";
 import dynamic from "next/dynamic";
 
 import Input from "../Input";
@@ -13,7 +13,9 @@ const TextEditor = dynamic(() => import("../TextEditor"), {
   ssr: false,
 });
 interface PostFormProps {
-  post?: Post;
+  post?: Post & {
+    category: Category;
+  };
   action: (prevState: any, formData: FormData) => Promise<any>;
 }
 
@@ -21,14 +23,20 @@ const PostForm = ({ action, post }: PostFormProps) => {
   const initialState = {
     data: {
       title: post?.title ?? "",
+      categoryId: post?.categoryId ?? null,
       content: post?.content ?? "",
     },
     error: undefined,
     errors: {},
   };
 
+  console.log(post);
+
   const [state, formAction] = useActionState(action, initialState);
   const [content, setContent] = useState(post?.content ?? "");
+  const [category, setCategory] = useState<Category | null>(
+    post?.category ?? null
+  );
 
   return (
     <form action={formAction} className="w-full flex flex-col gap-4">
@@ -46,7 +54,19 @@ const PostForm = ({ action, post }: PostFormProps) => {
         <p className="text-red-600 text-sm mt-0.5">{state.errors?.content}</p>
       )}
 
-      <CategorySelect />
+      <CategorySelect category={category} onChange={setCategory} />
+
+      {state.errors.categoryId && (
+        <p className="text-red-600 text-sm mt-0.5">
+          {state.errors?.categoryId}
+        </p>
+      )}
+      <input
+        type="hidden"
+        readOnly
+        name="categoryId"
+        value={category?.id ?? ""}
+      />
 
       {/* Hidden input to pass content */}
       <input type="hidden" name="content" value={content} />

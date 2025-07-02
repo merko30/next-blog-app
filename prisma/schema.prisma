@@ -18,6 +18,7 @@ model User {
   description   String?
   emailVerified DateTime?
   image         String?
+  role Role     @default(USER)
   posts         Post[]
   comments      Comment[]
 
@@ -43,7 +44,8 @@ model Post {
   published  Boolean    @default(false)
   authorId   String
   author     User       @relation(fields: [authorId], references: [id])
-  categories Category[] @relation("PostCategory")
+  categoryId Int
+  category   Category @relation(fields: [categoryId],references: [id])
   comments   Comment[]  @relation("PostComments")
   tags       Tag[] @relation("PostTags")
 
@@ -53,7 +55,7 @@ model Post {
 model Category {
   id    Int    @id @default(autoincrement())
   name  String
-  posts Post[] @relation("PostCategory")
+  posts Post[]
 
   @@map("categories")
 }
@@ -61,7 +63,7 @@ model Category {
 model Tag {
   id    Int    @id @default(autoincrement())
   name  String
-  post Post @relation("PostTags", fields: [postId], references: [id])
+  post Post @relation("PostTags", fields: [postId], references: [id], onDelete: Cascade)
   postId Int
 
   @@map("tags")
@@ -71,7 +73,7 @@ model Comment {
   id    Int @id @default(autoincrement())
   text  String
   postId Int
-  post  Post @relation("PostComments",fields: [postId],references: [id])
+  post  Post @relation("PostComments",fields: [postId],references: [id], onDelete: Cascade)
   authorId String
   author User @relation(fields:[authorId], references: [id])
 
