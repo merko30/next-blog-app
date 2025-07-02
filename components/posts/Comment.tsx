@@ -20,7 +20,7 @@ const Comment = ({ comment }: { comment: CommentType }) => {
   return (
     <div className="p-4 border border-gray-300 rounded-sm">
       <Author
-        user={comment.author as User}
+        user={comment.author}
         size={48}
         imageClassName="size-12"
       />

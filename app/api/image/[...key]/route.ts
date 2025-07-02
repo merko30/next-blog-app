@@ -1,5 +1,5 @@
 // app/api/image/[key]/route.ts
-import { NextResponse } from "next/server";
+import { NextResponse,NextRequest } from "next/server";
 import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { getEnv } from "@/lib/env"; // your server-only env helper
 import { createS3Client } from "@/lib/s3client";
@@ -7,11 +7,12 @@ import { createS3Client } from "@/lib/s3client";
 const s3Client = createS3Client();
 
 export async function GET(
-  req: Request,
-  { params }: { params: { key: string[] } }
+  req: NextRequest,
+  context:any
 ) {
-  const { key: _key } = await params;
-  const key = _key.join("/"); // support nested keys like ['folder', 'image.jpg']
+   const { params } = context;
+  const key = Array.isArray(params.key) ? params.key.join('/') : params.key;
+
 
   try {
     const command = new GetObjectCommand({
