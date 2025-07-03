@@ -78,7 +78,7 @@ export const updateUserAction = async (prevState: any, formData: FormData) => {
 
     return {
       message: "Failed to update user information",
-      error,
+      error: JSON.stringify(error, null, 2),
       data,
     };
   }
