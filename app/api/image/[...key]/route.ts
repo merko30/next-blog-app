@@ -6,7 +6,8 @@ const isProduction = process.env.NODE_ENV === "production";
 
 export async function GET(req: NextRequest, context: any) {
   const { params } = context;
-  const key = Array.isArray(params.key) ? params.key.join("/") : params.key;
+  const { key: _key } = await params;
+  const key = Array.isArray(_key) ? _key.join("/") : _key;
 
   if (isProduction) {
     // Load from Supabase Storage (public bucket)
