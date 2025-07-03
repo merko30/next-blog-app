@@ -18,7 +18,7 @@ const parseOrderByParam = (
   direction: "asc" | "desc";
 } => {
   const defaultField = "createdAt";
-  const defaultDirection: "asc" | "desc" = "asc";
+  const defaultDirection: "asc" | "desc" = "desc";
 
   if (!param) return { field: defaultField, direction: defaultDirection };
 

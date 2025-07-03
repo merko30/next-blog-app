@@ -1,10 +1,8 @@
 "use client";
 import { User } from "@prisma/client";
-import { useFormState } from "react-dom";
 
 import Input from "../Input";
 import Textarea from "../Textarea";
-import Button from "../Button";
 
 import { updateUserAction } from "@/app/profile/actions";
 import { useActionState } from "react";

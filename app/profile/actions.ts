@@ -7,18 +7,25 @@ import authOptions from "@/lib/authOptions";
 import transformFormData from "@/utils/transformFormData";
 import { revalidatePath } from "next/cache";
 
+const optionalTrimmedString = (min?: number, max?: number, label?: string) =>
+  z
+    .string()
+    .transform((val) => (val === "" ? undefined : val))
+    .refine((val) => val === undefined || typeof val === "string", {
+      message: `${label ?? "Field"} must be a string`,
+    })
+    .refine((val) => val === undefined || (min ? val.length >= min : true), {
+      message: `${label ?? "Field"} must be at least ${min} characters`,
+    })
+    .refine((val) => val === undefined || (max ? val.length <= max : true), {
+      message: `${label ?? "Field"} must be at most ${max} characters`,
+    })
+    .optional();
+
 const schema = z.object({
-  firstName: z
-    .string()
-    .min(3, "First name must be at least 3 characters")
-    .max(20, "First name must be at most 20 characters"),
-  lastName: z
-    .string()
-    .min(3, "Last name must be at least 3 characters")
-    .max(20, "Last name must be at most 20 characters"),
-  shortDescription: z
-    .string()
-    .max(100, "Short description must be at most 100 characters"),
+  firstName: optionalTrimmedString(3, 20, "First name"),
+  lastName: optionalTrimmedString(3, 20, "Last name"),
+  shortDescription: optionalTrimmedString(undefined, 100, "Short description"),
   description: z.string().optional(),
 });
 
@@ -40,6 +47,8 @@ export const updateUserAction = async (prevState: any, formData: FormData) => {
     return errors;
   }, {});
 
+  console.log("errors", errors);
+
   if (Object.keys(errors).length) {
     return {
       data,
@@ -57,12 +66,16 @@ export const updateUserAction = async (prevState: any, formData: FormData) => {
       data,
     });
 
+    console.log(user);
+
     revalidatePath("/profile/settings");
 
     return {
       data,
     };
   } catch (error) {
+    console.log(error);
+
     return {
       error: "Failed to update user information",
       data,
