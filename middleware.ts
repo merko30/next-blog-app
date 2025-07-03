@@ -1,8 +1,5 @@
 export { default } from "next-auth/middleware";
 
-// starts with profile
-export const config = { matcher: [
-    "/profile",
-    "/profile/:path*",
-    "/create/:path*"
-] };
+export const config = {
+  matcher: ["/profile", "/profile/:path*", "/create/:path*", "/posts/:id/edit"],
+};
