@@ -4,11 +4,9 @@ import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { twMerge } from "tailwind-merge";
 
-import { Comment } from "@/types/posts";
-
-import Button from "../Button";
 import { useActionState } from "react";
 import SaveButton from "../users/SaveButton";
+import { CommentWithAuthor } from "@/types/posts";
 
 const CommentForm = ({
   action,
@@ -18,7 +16,7 @@ const CommentForm = ({
   textareaClassName,
 }: {
   action: (prevState: any, formData: FormData) => Promise<any>;
-  comment?: Comment;
+  comment?: CommentWithAuthor;
   className?: string;
   rows?: number;
   textareaClassName?: string;
