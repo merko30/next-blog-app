@@ -5,16 +5,15 @@ import { cookies } from "next/headers";
 
 async function getData(): Promise<{ posts: Post[] }> {
   const cookieStore = await cookies();
-  const cookie = cookieStore.toString();
+  // const cookie = cookieStore.toString();
 
   const response = await fetch(
     `${getEnv("NEXT_PUBLIC_API_URL")}/posts?mine=true`,
     {
       headers: {
         "Content-Type": "application/json",
-        Cookie: cookie,
       },
-      cache: "no-store",
+      credentials: "include",
     }
   );
 
