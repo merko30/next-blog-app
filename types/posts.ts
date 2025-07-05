@@ -1,30 +1,9 @@
-export interface Author {
-  id: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  image: string;
-  shortDescription?: string;
-  description?: string;
-}
+import { Comment, Post, User } from "@prisma/client";
 
-export interface Post {
-  id: number;
-  title: string;
-  content: string;
-  image?: string;
-  author: Author;
-  createdAt: string;
-  comments: Comment[];
-}
+export type PostWithAuthor = Post & {
+  author: Partial<User>;
+};
 
-export interface Comment {
-  id: number;
-  text: string;
-  authorId: string;
-  author: Author;
-  postId: number;
-  post: Post;
-  createdAt: string;
-}
+export type CommentWithAuthor = Comment & { author: Partial<User> };
+
+export type FullPost = PostWithAuthor & { comments: CommentWithAuthor[] };

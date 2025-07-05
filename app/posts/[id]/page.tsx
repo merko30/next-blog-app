@@ -1,17 +1,15 @@
-import { Post } from "@/types/posts";
+import { FullPost } from "@/types/posts";
 
 import Image from "@/components/Image";
 import AuthorActions from "@/components/posts/AuthorActions";
-import Comments from "@/components/posts/Comments";
 import CommentForm from "@/components/posts/CommentForm";
 import Author from "@/components/Author";
 
 import { getEnv } from "@/lib/env";
-import { User } from "@prisma/client";
 import { createCommentAction } from "@/actions/comments";
 import Comment from "@/components/posts/Comment";
 
-async function getData(id: string): Promise<{ post: Post }> {
+async function getData(id: string): Promise<{ post: FullPost }> {
   const response = await fetch(`${getEnv("NEXT_PUBLIC_API_URL")}/posts/${id}`, {
     headers: { "Content-Type": "application/json" },
     next: { revalidate: 5 },
@@ -25,8 +23,6 @@ async function getData(id: string): Promise<{ post: Post }> {
 const PostDetails = async (props: { params: Promise<{ id: string }> }) => {
   const params = await props.params;
   const data = await getData(params.id);
-
-  console.log(data);
 
   const { post } = data;
 

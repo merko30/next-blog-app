@@ -1,5 +1,4 @@
-import { Post } from "@/types/posts";
-
+import { Post, User } from "@prisma/client";
 import PostCard from "./PostCard";
 
 const COLUMN_MAP = {
@@ -8,8 +7,12 @@ const COLUMN_MAP = {
   3: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
 };
 
+type PostWithAuthor = Post & {
+  author: Partial<User>;
+};
+
 interface PostListProps {
-  posts: Post[];
+  posts: PostWithAuthor[];
   columns?: keyof typeof COLUMN_MAP;
   className?: string;
 }

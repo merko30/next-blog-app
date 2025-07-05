@@ -1,28 +1,30 @@
-import { Post } from "@/types/posts";
+import { getServerSession } from "next-auth";
+
 import PostList from "@/components/posts/PostList";
-import { getEnv } from "@/lib/env";
-import { cookies } from "next/headers";
+import authOptions from "@/lib/authOptions";
+import { PostWithAuthor } from "@/types/posts";
 
-async function getData(): Promise<{ posts: Post[] }> {
-  const cookieStore = await cookies();
-  // const cookie = cookieStore.toString();
+async function getData(): Promise<{ posts: PostWithAuthor[] }> {
+  const session = await getServerSession(authOptions);
 
-  const response = await fetch(
-    `${getEnv("NEXT_PUBLIC_API_URL")}/posts?mine=true`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch posts");
+  if (!session || !session.user || !session.user.id) {
+    return { posts: [] };
   }
 
-  const json = await response.json();
-  return json;
+  const posts = await prisma?.post.findMany({
+    where: {
+      authorId: session.user.id,
+    },
+    take: 5,
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      author: true,
+    },
+  });
+
+  return { posts: posts || [] };
 }
 
 const ProfilePage = async () => {

@@ -1,12 +1,13 @@
 import Link from "next/link";
-
-import { Post } from "@/types/posts";
+import { Post, User } from "@prisma/client";
 
 import Image from "../Image";
 import TimeAgo from "../TimeAgo";
 
 interface PostCardProps {
-  post: Post;
+  post: Post & {
+    author: Partial<User>;
+  };
 }
 
 const PostCard = ({ post }: PostCardProps) => (
@@ -26,7 +27,7 @@ const PostCard = ({ post }: PostCardProps) => (
       /> */}
       <div className="flex items-center gap-2 mt-4">
         <Image
-          src={post.author.image}
+          src={post.author.image!}
           alt={post.author.username!}
           placeholderType="user"
           width={40}
