@@ -3,6 +3,8 @@
 import { getServerSession } from "next-auth";
 import { z } from "zod";
 
+import prisma from "@/prisma";
+
 import authOptions from "@/lib/authOptions";
 import transformFormData from "@/utils/transformFormData";
 import { revalidatePath } from "next/cache";
