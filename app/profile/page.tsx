@@ -4,6 +4,8 @@ import PostList from "@/components/posts/PostList";
 import authOptions from "@/lib/authOptions";
 import { PostWithAuthor } from "@/types/posts";
 
+import prisma from "@/prisma";
+
 async function getData(): Promise<{ posts: PostWithAuthor[] }> {
   const session = await getServerSession(authOptions);
 
