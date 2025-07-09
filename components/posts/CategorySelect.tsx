@@ -1,6 +1,6 @@
 "use client";
 
-import { Ref, RefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Input from "../Input";
 import { Category } from "@prisma/client";
@@ -38,14 +38,12 @@ const CategorySelect = ({
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<Category[]>([]);
   const dialogRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if (category && term !== category.name) {
       suppressDialog.current = true;
       setTerm(category.name);
-    } else if (!category && term !== "") {
-      suppressDialog.current = true;
-      setTerm("");
     }
   }, [category]);
   const debouncedTerm = useDebounce(term);
@@ -55,9 +53,8 @@ const CategorySelect = ({
       suppressDialog.current = false;
       return;
     }
+    setLoading(true);
     const loadCategories = async (term: string) => {
-      setLoading(true);
-      setActive(true);
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/categories` +
@@ -76,18 +73,23 @@ const CategorySelect = ({
 
   const onChangeCategory = (category: Category) => {
     onChange(category);
-    suppressDialog.current = true;
     setTerm(category.name);
     setActive(false);
+    suppressDialog.current = true;
   };
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (dialogRef.current && !dialogRef.current.contains(e.target as Node)) {
+      console.log(!dialogRef.current?.contains(e.target as Node));
+      if (
+        dialogRef.current &&
+        !dialogRef.current?.contains(e.target as Node) &&
+        !inputRef.current?.contains(e.target as Node)
+      ) {
         setActive(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -97,21 +99,27 @@ const CategorySelect = ({
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
   return (
     <div className="relative">
-      <Input value={term} onChange={(e) => setTerm(e.target.value)} />
-      {active && debouncedTerm.length > 3 && (
+      <Input
+        value={term}
+        ref={inputRef}
+        onChange={(e) => setTerm(e.target.value)}
+        placeholder="Select a category"
+        onFocus={() => setActive(true)}
+      />
+      {active && (
         <div
           ref={dialogRef}
           role="dialog"
-          className="w-full absolute z-10 top-16 left-0 max-h-20 bg-white rounded-md shadow"
+          className="w-full overflow-hidden absolute z-10 top-16 left-0 max-h-20 bg-white rounded-md shadow"
         >
-          {!!results.length && (
+          {!!results.length && !loading && (
             <ul>
               {results.map((category) => (
                 <li
@@ -125,6 +133,7 @@ const CategorySelect = ({
             </ul>
           )}
           {loading && <p className="py-3 px-2">Loading...</p>}
+          {!loading && error && <p className="py-3 px-2">{error}</p>}
           {!results.length && !loading && (
             <p className="py-3 px-2">No results found</p>
           )}

@@ -44,6 +44,7 @@ const PostForm = ({ action, post }: PostFormProps) => {
       <Input
         name="title"
         defaultValue={String(state.data.title ?? "")}
+        placeholder="Title"
         error={state.errors?.title}
       />
       <TextEditor
