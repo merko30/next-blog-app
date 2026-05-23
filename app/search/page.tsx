@@ -13,14 +13,7 @@ import useDebounce from "@/hooks/useDebounce";
 const LazyPostCard = dynamic(() => import("@/components/posts/PostCard"), {
   ssr: false,
   loading: () => (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {Array.from({ length: 3 }).map((_, index) => (
-        <div
-          key={index}
-          className="h-72 animate-pulse rounded-sm border border-gray-200 bg-gray-100"
-        />
-      ))}
-    </div>
+    <div className="h-72 animate-pulse rounded-sm border border-gray-200 bg-gray-100" />
   ),
 });
 
