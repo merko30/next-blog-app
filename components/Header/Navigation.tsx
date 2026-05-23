@@ -2,6 +2,11 @@
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { Plus, User } from "@phosphor-icons/react/dist/ssr";
+import Dropdown, {
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from "@/components/Dropdown";
 
 const ButtonLink = ({
   children,
@@ -39,14 +44,24 @@ const Navigation = () => {
                 <Plus />
                 Write
               </ButtonLink>
-              <li className="size-9 flex items-center justify-center bg-secondary-main rounded-full">
-                <Link href="/profile">
-                  <User color="white" size={20} />
-                </Link>
-              </li>
-
-              <li className="cursor-pointer" onClick={() => signOut()}>
-                Logout
+              <li>
+                <Dropdown>
+                  <DropdownTrigger>
+                    <div className="size-9 flex items-center justify-center bg-secondary-main rounded-full cursor-pointer">
+                      <User color="white" size={20} />
+                    </div>
+                  </DropdownTrigger>
+                  <DropdownMenu align="right">
+                    <DropdownItem>
+                      <Link href="/profile" className="block w-full">
+                        Profile
+                      </Link>
+                    </DropdownItem>
+                    <DropdownItem onSelect={() => signOut()}>
+                      Logout
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
               </li>
             </>
           )
