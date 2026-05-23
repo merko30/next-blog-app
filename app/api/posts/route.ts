@@ -6,13 +6,13 @@ import { getServerSession } from "next-auth";
 import authOptions from "@/lib/authOptions";
 
 const isPostField = (
-  field: string
+  field: string,
 ): field is keyof typeof prisma.post.fields => {
   return field in prisma.post.fields;
 };
 
 const parseOrderByParam = (
-  param: string | null
+  param: string | null,
 ): {
   field: string;
   direction: "asc" | "desc";
@@ -39,7 +39,7 @@ export const GET = async (req: NextRequest) => {
   const loadUserPosts = params.get("mine") === "true";
 
   const { field: orderBy, direction: orderByDirection } = parseOrderByParam(
-    params.get("orderBy")
+    params.get("orderBy"),
   );
 
   let where;
@@ -49,13 +49,25 @@ export const GET = async (req: NextRequest) => {
     if (!session || !session.user || !session.user.id) {
       return NextResponse.json(
         { error: "Unauthorized", debug: { session } },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
     where = {
       authorId: session.user.id,
     };
+  }
+
+  const search = params.get("q")?.trim();
+  if (search) {
+    const searchFilter = {
+      OR: [
+        { title: { contains: search, mode: "insensitive" as const } },
+        { content: { contains: search, mode: "insensitive" as const } },
+      ],
+    };
+
+    where = where ? { AND: [where, searchFilter] } : searchFilter;
   }
 
   const posts = await prisma.post.findMany({

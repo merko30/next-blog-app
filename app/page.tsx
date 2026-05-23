@@ -1,4 +1,5 @@
 import { SealWarning, NotePencil } from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
 
 import { getEnv } from "@/lib/env";
 
@@ -42,7 +43,15 @@ export default async function Home() {
     <>
       <Hero />
       <div className="container">
-        <h2 className="text-xl md:text-2xl mb-4">Most recent posts</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl md:text-2xl">Most recent posts</h2>
+          <Link
+            href="/search"
+            className="text-sm text-blue-600 hover:text-blue-800 hover:underline"
+          >
+            See all posts
+          </Link>
+        </div>
         {!!posts?.length && <PostList posts={posts} />}
         {!posts.length && (
           <Placeholder
