@@ -4,23 +4,23 @@ import TextStyle from "@tiptap/extension-text-style";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import {
-  TextHOne,
-  TextHTwo,
-  TextHThree,
-  TextHFour,
-  TextHFive,
-  TextHSix,
-  ListBullets,
-  ListNumbers,
-  CodeBlock,
-  Code,
-  TextBolder,
-  TextStrikethrough,
-  TextItalic,
-  ArrowBendDoubleUpLeft,
-  ArrowBendDoubleUpRight,
-  Quotes,
-  Paragraph,
+  TextHOneIcon,
+  TextHTwoIcon,
+  TextHThreeIcon,
+  TextHFourIcon,
+  TextHFiveIcon,
+  TextHSixIcon,
+  ListBulletsIcon,
+  ListNumbersIcon,
+  CodeBlockIcon,
+  CodeIcon,
+  TextBolderIcon,
+  TextStrikethroughIcon,
+  TextItalicIcon,
+  ArrowBendDoubleUpLeftIcon,
+  ArrowBendDoubleUpRightIcon,
+  QuotesIcon,
+  ParagraphIcon,
 } from "@phosphor-icons/react";
 import { twMerge } from "tailwind-merge";
 
@@ -71,10 +71,10 @@ export default ({
           disabled={!editor.can().chain().focus().toggleBold().run()}
           className={twMerge(
             ICON_CLASS,
-            editor.isActive("bold") ? ACTIVE_CLASS : ""
+            editor.isActive("bold") ? ACTIVE_CLASS : "",
           )}
         >
-          <TextBolder />
+          <TextBolderIcon />
         </button>
         <button
           type="button"
@@ -82,10 +82,10 @@ export default ({
           disabled={!editor.can().chain().focus().toggleItalic().run()}
           className={twMerge(
             ICON_CLASS,
-            editor.isActive("italic") ? ACTIVE_CLASS : ""
+            editor.isActive("italic") ? ACTIVE_CLASS : "",
           )}
         >
-          <TextItalic />
+          <TextItalicIcon />
         </button>
         <button
           type="button"
@@ -93,10 +93,10 @@ export default ({
           disabled={!editor.can().chain().focus().toggleStrike().run()}
           className={twMerge(
             ICON_CLASS,
-            editor.isActive("strike") ? ACTIVE_CLASS : ""
+            editor.isActive("strike") ? ACTIVE_CLASS : "",
           )}
         >
-          <TextStrikethrough />
+          <TextStrikethroughIcon />
         </button>
         <button
           type="button"
@@ -104,20 +104,20 @@ export default ({
           disabled={!editor.can().chain().focus().toggleCode().run()}
           className={twMerge(
             ICON_CLASS,
-            editor.isActive("code") ? ACTIVE_CLASS : ""
+            editor.isActive("code") ? ACTIVE_CLASS : "",
           )}
         >
-          <Code />
+          <CodeIcon />
         </button>
         <button
           type="button"
           onClick={() => editor.chain().focus().setParagraph().run()}
           className={twMerge(
             ICON_CLASS,
-            editor.isActive("paragraph") ? ACTIVE_CLASS : ""
+            editor.isActive("paragraph") ? ACTIVE_CLASS : "",
           )}
         >
-          <Paragraph />
+          <ParagraphIcon />
         </button>
         <button
           type="button"
@@ -126,10 +126,10 @@ export default ({
           }
           className={twMerge(
             ICON_CLASS,
-            editor.isActive("heading", { level: 1 }) ? ACTIVE_CLASS : ""
+            editor.isActive("heading", { level: 1 }) ? ACTIVE_CLASS : "",
           )}
         >
-          <TextHOne />
+          <TextHOneIcon />
         </button>
         <button
           type="button"
@@ -138,10 +138,10 @@ export default ({
           }
           className={twMerge(
             ICON_CLASS,
-            editor.isActive("heading", { level: 2 }) ? ACTIVE_CLASS : ""
+            editor.isActive("heading", { level: 2 }) ? ACTIVE_CLASS : "",
           )}
         >
-          <TextHTwo />
+          <TextHTwoIcon />
         </button>
         <button
           type="button"
@@ -150,10 +150,10 @@ export default ({
           }
           className={twMerge(
             ICON_CLASS,
-            editor.isActive("heading", { level: 3 }) ? ACTIVE_CLASS : ""
+            editor.isActive("heading", { level: 3 }) ? ACTIVE_CLASS : "",
           )}
         >
-          <TextHThree />
+          <TextHThreeIcon />
         </button>
         <button
           type="button"
@@ -162,10 +162,10 @@ export default ({
           }
           className={twMerge(
             ICON_CLASS,
-            editor.isActive("heading", { level: 4 }) ? ACTIVE_CLASS : ""
+            editor.isActive("heading", { level: 4 }) ? ACTIVE_CLASS : "",
           )}
         >
-          <TextHFour />
+          <TextHFourIcon />
         </button>
         <button
           type="button"
@@ -174,10 +174,10 @@ export default ({
           }
           className={twMerge(
             ICON_CLASS,
-            editor.isActive("heading", { level: 5 }) ? ACTIVE_CLASS : ""
+            editor.isActive("heading", { level: 5 }) ? ACTIVE_CLASS : "",
           )}
         >
-          <TextHFive />
+          <TextHFiveIcon />
         </button>
         <button
           type="button"
@@ -186,64 +186,64 @@ export default ({
           }
           className={twMerge(
             ICON_CLASS,
-            editor.isActive("heading", { level: 6 }) ? ACTIVE_CLASS : ""
+            editor.isActive("heading", { level: 6 }) ? ACTIVE_CLASS : "",
           )}
         >
-          <TextHSix />
+          <TextHSixIcon />
         </button>
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={twMerge(
             ICON_CLASS,
-            editor.isActive("bulletList") ? ACTIVE_CLASS : ""
+            editor.isActive("bulletList") ? ACTIVE_CLASS : "",
           )}
         >
-          <ListBullets />
+          <ListBulletsIcon />
         </button>
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           className={twMerge(
             ICON_CLASS,
-            editor.isActive("orderedList") ? ACTIVE_CLASS : ""
+            editor.isActive("orderedList") ? ACTIVE_CLASS : "",
           )}
         >
-          <ListNumbers />
+          <ListNumbersIcon />
         </button>
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
           className={twMerge(
             ICON_CLASS,
-            editor.isActive("codeBlock") ? ACTIVE_CLASS : ""
+            editor.isActive("codeBlock") ? ACTIVE_CLASS : "",
           )}
         >
-          <CodeBlock />
+          <CodeBlockIcon />
         </button>
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
           className={twMerge(
             ICON_CLASS,
-            editor.isActive("blockquote") ? ACTIVE_CLASS : ""
+            editor.isActive("blockquote") ? ACTIVE_CLASS : "",
           )}
         >
-          <Quotes />
+          <QuotesIcon />
         </button>
         <button
           type="button"
           onClick={() => editor.chain().focus().undo().run()}
           disabled={!editor.can().chain().focus().undo().run()}
         >
-          <ArrowBendDoubleUpLeft />
+          <ArrowBendDoubleUpLeftIcon />
         </button>
         <button
           type="button"
           onClick={() => editor.chain().focus().redo().run()}
           disabled={!editor.can().chain().focus().redo().run()}
         >
-          <ArrowBendDoubleUpRight />
+          <ArrowBendDoubleUpRightIcon />
         </button>
       </div>
 
