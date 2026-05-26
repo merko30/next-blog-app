@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
-import { Plus, User } from "@phosphor-icons/react/dist/ssr";
+import { PlusIcon, UserIcon } from "@phosphor-icons/react/dist/ssr";
 import Dropdown, {
   DropdownTrigger,
   DropdownMenu,
@@ -41,14 +41,14 @@ const Navigation = () => {
           ) : (
             <>
               <ButtonLink href="/create">
-                <Plus />
+                <PlusIcon />
                 Write
               </ButtonLink>
               <li>
                 <Dropdown>
                   <DropdownTrigger>
                     <div className="size-9 flex items-center justify-center bg-secondary-main rounded-full cursor-pointer">
-                      <User color="white" size={20} />
+                      <UserIcon color="white" size={20} />
                     </div>
                   </DropdownTrigger>
                   <DropdownMenu align="right">
